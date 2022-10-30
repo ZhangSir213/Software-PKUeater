@@ -13,12 +13,13 @@ import com.example.psycho.databinding.FragmentSettingBinding
 import android.content.Intent
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
+import com.example.psycho.data.Data
 import com.example.psycho.ui.setting.usage.CountActivity
 import com.example.psycho.ui.custom.BorderTextView
 
 
 class SettingFragment : Fragment() {
-
+    private var _data = Data
     private var _binding: FragmentSettingBinding? = null
 
     // This property is only valid between onCreateView and
@@ -47,6 +48,8 @@ class SettingFragment : Fragment() {
         mTvHeight= view.findViewById(R.id.tv_height)
 
          */
+        _data.setTrueHeight("182")
+        _data.setTrueWeight("74")
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val textView: TextView = binding.textSetting
@@ -73,7 +76,7 @@ class SettingFragment : Fragment() {
             else if(textVisToolW.text=="invisible") {
                 textVisToolW.text="visible"
                 buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textWeight.text="73.4"
+                textWeight.text=_data.getTrueWeight()
             }
         })
         val buttonVisibleH:ImageButton = root.findViewById(R.id.button_eye_height)
@@ -88,7 +91,7 @@ class SettingFragment : Fragment() {
             else if(textVisToolH.text=="invisible") {
                 textVisToolH.text="visible"
                 buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textHeight.text="73.4"
+                textHeight.text=_data.getTrueHeight()
             }
         })
         return root
