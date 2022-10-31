@@ -12,6 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.ActivityMainBinding
 
+/**
+ * added by ZhangHaoyu @ 2022/10/30
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

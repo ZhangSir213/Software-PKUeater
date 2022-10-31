@@ -9,7 +9,7 @@ import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.ui.custom.RulerView
 
-class CountActivity : AppCompatActivity() {
+class   CountActivity : AppCompatActivity() {
     private var mWeightRuler: RulerView? = null
     private var mHeightRuler: RulerView? = null
     private var mTvWeight: TextView? = null
@@ -33,6 +33,9 @@ class CountActivity : AppCompatActivity() {
             finish()
         }
         buttonConfirm.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("wei_hei", "$weight,$height")
+            setResult(RESULT_OK, intent)
             _data.setTrueWeight(weight)
             _data.setTrueHeight(height)
             finish()
@@ -41,11 +44,11 @@ class CountActivity : AppCompatActivity() {
         mWeightRuler!!.setOnValueChangeListener(object : RulerView.OnValueChangeListener {
             override fun onValueChange(value: Float) {
                 weight = value.toDouble()
-                mTvWeight!!.text = weight.toString() + "kg"
+                mTvWeight!!.text = weight.toFloat().toString() + "kg"
             }
         })
         mWeightRuler!!.setValue(55f, 20f, 200f, 0.1f)
-        mTvWeight!!.text = weight.toString() + "kg"
+        mTvWeight!!.text = weight.toFloat().toString() + "kg"
 
         //身高的view
         mHeightRuler!!.setOnValueChangeListener(object : RulerView.OnValueChangeListener {

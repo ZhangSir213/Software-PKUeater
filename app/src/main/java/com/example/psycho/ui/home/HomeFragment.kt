@@ -13,6 +13,9 @@ import com.example.psycho.databinding.FragmentHomeBinding
 import com.example.psycho.resource.Canteen
 import com.example.psycho.resource.CanteenAdapter
 
+/**
+ * added by ZhangHaoyu @ 2022/10/21
+ */
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

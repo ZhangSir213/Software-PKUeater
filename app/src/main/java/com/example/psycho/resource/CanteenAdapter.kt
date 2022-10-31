@@ -3,6 +3,7 @@ package com.example.psycho.resource
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psycho.R
@@ -10,9 +11,10 @@ import com.example.psycho.R
 
 class CanteenAdapter(val canteenList:Array<String>): RecyclerView.Adapter<CanteenAdapter.CanteenViewHolder>(){
     class CanteenViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val canteenTextView: TextView = itemView.findViewById(R.id.text_canteen)
+        private val canteenButton: Button = itemView.findViewById(R.id.button_canteen)
+
         fun bind(word:String) {
-            canteenTextView.text = word
+            canteenButton.text = word
         }
     }
 

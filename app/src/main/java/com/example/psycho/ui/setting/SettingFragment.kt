@@ -17,7 +17,9 @@ import com.example.psycho.data.Data
 import com.example.psycho.ui.setting.usage.CountActivity
 import com.example.psycho.ui.custom.BorderTextView
 
-
+/**
+ * added by ZhangHaoyu @ 2022/10/21
+ */
 class SettingFragment : Fragment() {
     private var _data = Data
     private var _binding: FragmentSettingBinding? = null
@@ -56,14 +58,16 @@ class SettingFragment : Fragment() {
         }
         val imageView:ImageView = binding.imageTopBg
         val buttonCount:ImageButton = binding.buttonSetting
+
         buttonCount.setOnClickListener(View.OnClickListener() {
-            val act : FragmentActivity? =getActivity()
+            val act : FragmentActivity? = getActivity()
             val intent:Intent = Intent(act,CountActivity::class.java)
-            act?.startActivityForResult(intent, 1)
+            act?.startActivity(intent)
             println("跳转到身高体重调整界面");
         })
         val buttonVisibleW:ImageButton = binding.buttonEyeWeight
         val textWeight: TextView = binding.textWeight
+    textWeight.text = _data.getTrueWeight().toFloat().toString()
         val textVisToolW:TextView = binding.textViewToolWeightVis
         buttonVisibleW.setOnClickListener(View.OnClickListener() {
             if(textVisToolW.text=="visible") {
@@ -79,7 +83,8 @@ class SettingFragment : Fragment() {
         })
         val buttonVisibleH:ImageButton = binding.buttonEyeHeight
         val textHeight: TextView = binding.textHeight
-        val textVisToolH:TextView = binding.textViewToolHeightVis
+        textHeight.text=_data.getTrueHeight().toString()
+        val textVisToolH: TextView = binding.textViewToolHeightVis
         buttonVisibleH.setOnClickListener(View.OnClickListener() {
             if(textVisToolH.text=="visible") {
                 textVisToolH.text="invisible"
