@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.loper7.date_time_picker.DateTimePicker
+        android:id="@+id/picker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dt_dividerColor="#E5E5E5"
+        app:dt_layout="@layout/layout_date_picker_globalization1"
+        app:dt_normalTextSize="14sp"
+        app:dt_selectTextSize="16sp"
+        app:dt_selectedTextBold="true"
+        app:dt_showLabel="true"
+        app:dt_textBold="true"
+        app:dt_textColor="#666666"
+        app:dt_themeColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.loper7.date_time_picker.DateTimePicker>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="166dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="500dp"
+        android:background="@drawable/btnnoraml"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:text="Confirm"
+        app:backgroundTint="#C1E8FF"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_back"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="166dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/btnnoraml"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:text="Back"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_confirm" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

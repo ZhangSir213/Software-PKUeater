@@ -15,12 +15,12 @@ object Data {
     private var password:CharSequence="123456"
     private var userDataFile:String = ""
     private var dataDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).path + "/PKU_Eater2")
-    private var user=User("Lemon","123456",60.0,170,false)
+    private var user=User("Lemon","123456",60.0,170,false,0,2002,4,10)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
 
-    public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong)
+    public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
     fun getLoginFlag():Boolean
     {
@@ -105,6 +105,59 @@ object Data {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.username=seq.toString()
         write2Json()
+    }
+
+    fun setDay(day:Int)
+    {
+        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.day=day
+        write2Json()
+    }
+    fun getDay():Int
+    {
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.day
+    }
+
+    fun setMonth(month:Int)
+    {
+        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.month=month
+        write2Json()
+    }
+    fun getMonth():Int
+    {
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.month
+    }
+
+    fun setYear(year:Int)
+    {
+        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.year=year
+        write2Json()
+    }
+    fun getYear():Int
+    {
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.year
+    }
+
+    fun setGender(gender:Int)
+    {
+        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.gender=gender
+        write2Json()
+    }
+
+    fun getGender():Int
+    {
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.gender
     }
 
     fun setPassword(seq:CharSequence)

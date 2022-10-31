@@ -9,7 +9,11 @@ data class User(
     var password: String,
     var weight: Double,
     var height: Int,
-    var Login: Boolean
+    var Login: Boolean,
+    var gender:Int,
+    var year:Int,
+    var month:Int,
+    var day:Int
 )
 
 
