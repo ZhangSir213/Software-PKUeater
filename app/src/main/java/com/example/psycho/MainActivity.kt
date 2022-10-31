@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity() {
     private val _data = Data
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
+        if(getLoginFlag()=="FALSE"){
+            val intentL:Intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+         */
         _data.setTrueWeight(74.5)
         _data.setTrueHeight(184)
         binding = ActivityMainBinding.inflate(layoutInflater)
