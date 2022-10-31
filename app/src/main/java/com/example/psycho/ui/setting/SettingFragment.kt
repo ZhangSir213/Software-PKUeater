@@ -64,6 +64,7 @@ class SettingFragment : Fragment() {
             val intent:Intent = Intent(act,CountActivity::class.java)
             act?.startActivity(intent)
             println("跳转到身高体重调整界面");
+            
         })
         val buttonVisibleW:ImageButton = binding.buttonEyeWeight
         val textWeight: TextView = binding.textWeight
@@ -78,7 +79,7 @@ class SettingFragment : Fragment() {
             else if(textVisToolW.text=="invisible") {
                 textVisToolW.text="visible"
                 buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textWeight.text=_data.getTrueWeight().toString()
+                textWeight.text=_data.getTrueWeight().toFloat().toString()
             }
         })
         val buttonVisibleH:ImageButton = binding.buttonEyeHeight
