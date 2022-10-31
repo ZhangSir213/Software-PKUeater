@@ -116,7 +116,7 @@ object Data {
     fun setLogin()
     {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
-        user.Login=false
+        user.Login=true
         write2Json()
     }
     /**

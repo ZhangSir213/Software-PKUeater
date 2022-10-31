@@ -1,21 +1,23 @@
 package com.example.psycho.ui.setting
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.os.*
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.psycho.R
-import com.example.psycho.databinding.FragmentSettingBinding
-import android.content.Intent
-import android.widget.ImageView
-import androidx.fragment.app.FragmentActivity
 import com.example.psycho.data.Data
+import com.example.psycho.databinding.FragmentSettingBinding
 import com.example.psycho.ui.setting.usage.CountActivity
-import com.example.psycho.ui.custom.BorderTextView
+import java.util.*
 
 
 class SettingFragment : Fragment() {
@@ -25,6 +27,7 @@ class SettingFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
 /*
     var mWeightRuler: RulerView? = null
     var mHeightRuler: RulerView? = null
@@ -56,15 +59,28 @@ class SettingFragment : Fragment() {
         }
         val imageView:ImageView = binding.imageTopBg
         val buttonCount:ImageButton = binding.buttonSetting
-        buttonCount.setOnClickListener(View.OnClickListener() {
+        val textWeight: TextView = binding.textWeight
+        val textHeight: TextView = binding.textHeight
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+        override fun run() {
+            //在这里更新数据
+            activity!!.runOnUiThread {
+                textWeight.text=_data.getTrueWeight().toString()
+                textHeight.text=_data.getTrueHeight().toString()
+            }
+            }
+        }, 0, 10) //延迟10毫秒后，执行一次task
+
+    buttonCount.setOnClickListener(View.OnClickListener() {
             val act : FragmentActivity? =getActivity()
             val intent:Intent = Intent(act,CountActivity::class.java)
             act?.startActivityForResult(intent, 1)
-            println("跳转到身高体重调整界面");
+            println("跳转到身高体重调整界面")
         })
         val buttonVisibleW:ImageButton = binding.buttonEyeWeight
-        val textWeight: TextView = binding.textWeight
         val textVisToolW:TextView = binding.textViewToolWeightVis
+
         buttonVisibleW.setOnClickListener(View.OnClickListener() {
             if(textVisToolW.text=="visible") {
                 textVisToolW.text="invisible"
@@ -78,7 +94,6 @@ class SettingFragment : Fragment() {
             }
         })
         val buttonVisibleH:ImageButton = binding.buttonEyeHeight
-        val textHeight: TextView = binding.textHeight
         val textVisToolH:TextView = binding.textViewToolHeightVis
         buttonVisibleH.setOnClickListener(View.OnClickListener() {
             if(textVisToolH.text=="visible") {
