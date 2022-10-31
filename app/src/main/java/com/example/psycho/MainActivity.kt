@@ -63,10 +63,8 @@ class MainActivity : AppCompatActivity() {
         {
             val intentL:Intent = Intent(this, LoginActivity::class.java)
             startActivity(intentL)
-        }
 
-        _data.setTrueWeight(74.5)
-        _data.setTrueHeight(184)
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         // requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)

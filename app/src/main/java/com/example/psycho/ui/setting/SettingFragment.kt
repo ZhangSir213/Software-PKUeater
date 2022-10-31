@@ -61,16 +61,23 @@ class SettingFragment : Fragment() {
         val buttonCount:ImageButton = binding.buttonSetting
         val textWeight: TextView = binding.textWeight
         val textHeight: TextView = binding.textHeight
+
         val timer = Timer()
         timer.schedule(object : TimerTask() {
         override fun run() {
             //在这里更新数据
-            activity!!.runOnUiThread {
-                textWeight.text=_data.getTrueWeight().toString()
-                textHeight.text=_data.getTrueHeight().toString()
+
+            activity?.runOnUiThread {
+                if(_data.getModifyFlag()==true)
+                {
+                    textWeight.text = _data.getTrueWeight().toString()
+                    textHeight.text = _data.getTrueHeight().toString()
+                }
             }
             }
-        }, 0, 10) //延迟10毫秒后，执行一次task
+        }, 0, 500) //延迟10毫秒后，执行一次task
+
+
 
     buttonCount.setOnClickListener(View.OnClickListener() {
             val act : FragmentActivity? =getActivity()

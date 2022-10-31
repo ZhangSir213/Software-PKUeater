@@ -19,9 +19,16 @@ object Data {
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
+    private var modify_flag=true
 
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
+    fun initUser()
+    {
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user=nowUser
+    }
     fun getLoginFlag():Boolean
     {
         userDataFile=File(dataDir, fileName).toString()
@@ -32,6 +39,7 @@ object Data {
             Log.d("Get","False")
             return false
         }
+        initUser()
         if (getLogin()==true)
         {
             Log.d("Get","True")
@@ -70,6 +78,7 @@ object Data {
         val fileExist = createNewFile(dataDir, fileName)
         user.weight = double
         write2Json()
+
     }
 
     fun setTrueHeight(int: Int){
@@ -88,17 +97,29 @@ object Data {
         return nowUser.password
     }
 
-    fun getLogin():Boolean{
+    fun getLogin():Boolean
+    {
+
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
+        Log.d("Login","Get")
         return nowUser.Login
     }
-    fun write2Json()
+    private fun write2Json()
     {
         val json=Gson().toJson(user)
         val fw=FileWriter(userDataFile,false)
         fw.write(json)
         fw.close()
+        modify_flag=true
+    }
+    fun setModifyFlag()
+    {
+        modify_flag=false
+    }
+    fun getModifyFlag():Boolean
+    {
+        return modify_flag
     }
     fun setUserName(seq:CharSequence)
     {
@@ -175,7 +196,7 @@ object Data {
     /**
      * 在指定目录下创建文件，若文件不存在，则创建并且返回-1；若已经存在，则不创建且返回0
      */
-    fun createNewFile(dirFile: File, fileName: String):Int {
+    private fun createNewFile(dirFile: File, fileName: String):Int {
         val file = File(dirFile, fileName)
 
         if (!dirFile.exists()) {
@@ -186,6 +207,7 @@ object Data {
 
         Log.d("file",file.toString())
         userDataFile =file.toString()
+
         if (!file.exists())
         {
             Log.d("file","Try to Create")
@@ -194,6 +216,7 @@ object Data {
                 Log.d("cookie","Create file Failed")
                 return -2
             }
+            write2Json()
             Log.d("file","Create Success")
             return -1
         }
