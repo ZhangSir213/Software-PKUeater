@@ -1,2 +1,2 @@
 就，
-要push别乱push，先push到test再合并到final。
+测试以下fragment的上下简单拖动效果
