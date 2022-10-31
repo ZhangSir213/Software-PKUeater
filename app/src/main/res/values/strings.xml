@@ -50,4 +50,25 @@
         et cunctis animantibus terrae omnique volucri caeli et universis quae moventur in terra et in quibus est anima vivens ut habeant ad vescendum et factum est ita\n
         viditque Deus cuncta quae fecit et erant valde bona et factum est vespere et mane dies sextus\n
     </string>
+    <string-array name="canteen_array">
+        <item>农园一层</item>
+        <item>农园二层</item>
+        <item>燕南一层</item>
+        <item>家园一层</item>
+        <item>家园二层</item>
+        <item>家园三层</item>
+        <item>家园四层</item>
+        <item>松林包子</item>
+        <item>学一食堂</item>
+        <item>学五食堂</item>
+        <item>勺园一层</item>
+        <item>勺园二层</item>
+        <item>佟园餐厅</item>
+        <item>勺园西餐厅</item>
+        <item>勺园中餐厅</item>
+        <item>点外卖</item>
+        <item>出校吃</item>
+        <item>吃餐车</item>
+    </string-array>
+
 </resources>

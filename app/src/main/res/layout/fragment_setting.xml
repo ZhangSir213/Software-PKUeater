@@ -64,12 +64,10 @@
         android:scaleType="centerCrop"
         android:src="@drawable/icon_woods"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_user_photo"
@@ -82,6 +80,7 @@
         android:background="#BFFFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/icon_camera"
+        app:circularflow_radiusInDP="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/image_top_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_top_bg"
@@ -216,10 +215,10 @@
         app:BorderStrokeWidth="1dp"
         app:layout_constraintBottom_toTopOf="@+id/text_setting"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_top_bg"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.121" />
 
     <com.example.psycho.ui.custom.BorderTextView
         android:id="@+id/borderTextViewHeight"
@@ -234,7 +233,16 @@
         app:layout_constraintStart_toEndOf="@+id/borderTextViewWeight"
         app:layout_constraintTop_toTopOf="@+id/borderTextViewWeight" />
 
-
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_top_bg"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

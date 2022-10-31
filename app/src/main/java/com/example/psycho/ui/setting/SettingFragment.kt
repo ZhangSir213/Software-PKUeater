@@ -55,16 +55,16 @@ class SettingFragment : Fragment() {
             textView.text = it
         }
         val imageView:ImageView = binding.imageTopBg
-        val buttonCount:ImageButton = root.findViewById(R.id.button_setting)
+        val buttonCount:ImageButton = binding.buttonSetting
         buttonCount.setOnClickListener(View.OnClickListener() {
             val act : FragmentActivity? =getActivity()
             val intent:Intent = Intent(act,CountActivity::class.java)
             act?.startActivityForResult(intent, 1)
             println("跳转到身高体重调整界面");
         })
-        val buttonVisibleW:ImageButton = root.findViewById(R.id.button_eye_weight)
-        val textWeight: TextView = root.findViewById(R.id.text_weight)
-        val textVisToolW:TextView = root.findViewById(R.id.text_view_tool_weight_vis)
+        val buttonVisibleW:ImageButton = binding.buttonEyeWeight
+        val textWeight: TextView = binding.textWeight
+        val textVisToolW:TextView = binding.textViewToolWeightVis
         buttonVisibleW.setOnClickListener(View.OnClickListener() {
             if(textVisToolW.text=="visible") {
                 textVisToolW.text="invisible"
@@ -77,9 +77,9 @@ class SettingFragment : Fragment() {
                 textWeight.text=_data.getTrueWeight().toString()
             }
         })
-        val buttonVisibleH:ImageButton = root.findViewById(R.id.button_eye_height)
-        val textHeight: TextView = root.findViewById(R.id.text_height)
-        val textVisToolH:TextView = root.findViewById(R.id.text_view_tool_height_vis)
+        val buttonVisibleH:ImageButton = binding.buttonEyeHeight
+        val textHeight: TextView = binding.textHeight
+        val textVisToolH:TextView = binding.textViewToolHeightVis
         buttonVisibleH.setOnClickListener(View.OnClickListener() {
             if(textVisToolH.text=="visible") {
                 textVisToolH.text="invisible"
