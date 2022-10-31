@@ -9,15 +9,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.psycho.data.Data
 import com.example.psycho.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val _data = Data
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        _data.setTrueWeight(74.5)
+        _data.setTrueHeight(184)
         binding = ActivityMainBinding.inflate(layoutInflater)
         // requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)

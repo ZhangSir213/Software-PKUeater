@@ -5,10 +5,10 @@ import java.io.File
 
 
 data class User(
-    var  username: String,
+    var username: String,
     var password: String,
-    var weight: String,
-    var height: String
+    var weight: Double,
+    var height: Int
 )
 
 

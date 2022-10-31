@@ -14,8 +14,9 @@ class CountActivity : AppCompatActivity() {
     private var mHeightRuler: RulerView? = null
     private var mTvWeight: TextView? = null
     private var mTvHeight: TextView? = null
-    private var weight: Float = 55f
-    private var height: Int = 165
+    private var _data = Data
+    private var weight: Double = _data.getTrueWeight()
+    private var height: Int = _data.getTrueHeight()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count)
@@ -24,16 +25,22 @@ class CountActivity : AppCompatActivity() {
         mTvWeight= findViewById(R.id.tv_weight)
         mTvHeight= findViewById(R.id.tv_height)
         val buttonQuit: Button = findViewById(R.id.button_count_quit)
+        val buttonConfirm: Button = findViewById(R.id.button_confirm)
         buttonQuit.setOnClickListener {
             val intent=Intent()
             intent.putExtra("wei_hei", "$weight,$height")
             setResult(RESULT_OK, intent)
             finish()
         }
+        buttonConfirm.setOnClickListener {
+            _data.setTrueWeight(weight)
+            _data.setTrueHeight(height)
+            finish()
+        }
         //体重的view
         mWeightRuler!!.setOnValueChangeListener(object : RulerView.OnValueChangeListener {
             override fun onValueChange(value: Float) {
-                weight = value
+                weight = value.toDouble()
                 mTvWeight!!.text = weight.toString() + "kg"
             }
         })
@@ -49,9 +56,6 @@ class CountActivity : AppCompatActivity() {
         })
         mHeightRuler!!.setValue(165f, 80f, 250f, 1f)
         mTvHeight!!.text = height.toString() + "cm"
-
-
-
 
     }
 }

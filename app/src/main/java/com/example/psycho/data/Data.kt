@@ -15,7 +15,7 @@ object Data {
     private var password:CharSequence="123456"
     private var userDataFile:String = ""
     private var dataDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).path + "/PKU_Eater")
-    private var user=User("Lemon","123456","60","170")
+    private var user=User("Lemon","123456",60.0,170)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
@@ -34,27 +34,27 @@ object Data {
         return postData.data.errCode
     }
     //从json中获取用户体重
-    fun getTrueWeight():CharSequence{
+    fun getTrueWeight():Double{
         val content = File(userDataFile).readText()
         val nowUser = Gson().fromJson(content, User::class.java)
         return nowUser.weight
     }
     //从json中获取用户身高
-    fun getTrueHeight():CharSequence{
+    fun getTrueHeight():Int{
         val content = File(userDataFile).readText()
         val nowUser = Gson().fromJson(content, User::class.java)
         return nowUser.height
     }
     //设置用户体重
-    fun setTrueWeight(seq:CharSequence){
+    fun setTrueWeight(double: Double){
         val fileExist = createNewFile(dataDir, fileName)
-        user.weight = seq.toString()
+        user.weight = double
         write2Json()
     }
 
-    fun setTrueHeight(seq:CharSequence){
+    fun setTrueHeight(int: Int){
         val fileExist = createNewFile(dataDir, fileName)
-        user.height = seq.toString()
+        user.height = int
         write2Json()
     }
     fun getUserName():CharSequence{

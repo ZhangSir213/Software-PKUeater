@@ -48,8 +48,6 @@ class SettingFragment : Fragment() {
         mTvHeight= view.findViewById(R.id.tv_height)
 
          */
-        _data.setTrueHeight("182")
-        _data.setTrueWeight("74")
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val textView: TextView = binding.textSetting
@@ -76,7 +74,7 @@ class SettingFragment : Fragment() {
             else if(textVisToolW.text=="invisible") {
                 textVisToolW.text="visible"
                 buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textWeight.text=_data.getTrueWeight()
+                textWeight.text=_data.getTrueWeight().toString()
             }
         })
         val buttonVisibleH:ImageButton = root.findViewById(R.id.button_eye_height)
@@ -91,7 +89,7 @@ class SettingFragment : Fragment() {
             else if(textVisToolH.text=="invisible") {
                 textVisToolH.text="visible"
                 buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textHeight.text=_data.getTrueHeight()
+                textHeight.text=_data.getTrueHeight().toString()
             }
         })
         return root
