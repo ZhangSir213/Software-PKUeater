@@ -8,7 +8,8 @@ data class User(
     var username: String,
     var password: String,
     var weight: Double,
-    var height: Int
+    var height: Int,
+    var canteenCount: IntArray
 )
 
 

@@ -15,7 +15,9 @@ object Data {
     private var password:CharSequence="123456"
     private var userDataFile:String = ""
     private var dataDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).path + "/PKU_Eater")
-    private var user=User("Lemon","123456",60.0,170)
+    //private val canteenCnt = IntArray(18)//
+    //食堂计数初始化为0，若已有数据，则用已有的
+    private var user=User("Lemon","123456",60.0,170, IntArray(18))
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
@@ -87,6 +89,23 @@ object Data {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.password=seq.toString()
         write2Json()
+    }
+
+    fun addCanteenCount(canteenId: Int){//增加对应食堂的计数
+        val fileExist = createNewFile(dataDir, fileName)
+        var content:String = ""
+        if(fileExist == 0){//若用户数据已经存在,则从文件中读取用户信息
+            content = File(com.example.psycho.data.Data.userDataFile).readText()
+            user=Gson().fromJson(content, User::class.java)
+        }
+        user.canteenCount[canteenId] += 1
+        write2Json()
+    }
+
+    fun getCanteenCount(canteenId: Int):Int{//获取第canteenId个食堂的计数
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.canteenCount[canteenId]
     }
     /**
      * 在指定目录下创建文件，若文件不存在，则创建并且返回-1；若已经存在，则不创建且返回0
