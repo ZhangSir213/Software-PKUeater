@@ -2,27 +2,24 @@ package com.example.psycho.ui.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.psycho.MainActivity
-import com.example.psycho.databinding.ActivityLogin2Binding
-
 import com.example.psycho.R
 import com.example.psycho.data.Data
-import com.example.psycho.ui.login.LoginViewModelFactory
-import com.example.psycho.ui.setting.usage.CountActivity
-import kotlin.system.exitProcess
+import com.example.psycho.databinding.ActivityLogin2Binding
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,6 +31,18 @@ class LoginActivity : AppCompatActivity() {
         android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.WRITE_CONTACTS,
         android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
     )
+
+    override fun onKeyDown(keyCode: Int, event:KeyEvent): Boolean {
+        if(keyCode==KeyEvent.KEYCODE_BACK && event.repeatCount ==0)
+        {
+            Log.d("Back","Catch")
+
+            finish()
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
             val intentL:Intent = Intent(this, MainActivity::class.java)
             startActivity(intentL)
         }
-
         binding = ActivityLogin2Binding.inflate(layoutInflater)
         if((globalFile.getLoginFlag())==false)
         {
@@ -102,12 +110,10 @@ class LoginActivity : AppCompatActivity() {
                 updateUiWithUser(loginResult.success)
                 setResult(Activity.RESULT_OK)
                 var globalFile=Data
-                if(globalFile.getFirstFlag())
-                {
-                    val intentL: Intent = Intent(this, MainActivity::class.java)
-                    Log.d("Main","Start")
-                    startActivity(intentL)
-                }
+                val intentL: Intent = Intent(this, MainActivity::class.java)
+                Log.d("Main","Start")
+                startActivity(intentL)
+
                 finish()
             }
 

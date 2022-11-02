@@ -1,23 +1,18 @@
 package com.example.psycho
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.widget.Button
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.ActivityMainBinding
-import com.example.psycho.ui.login.LoginActivity
 import com.example.psycho.ui.setting.usage.CountActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.WRITE_CONTACTS,
         android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
     )
+    var intance: MainActivity? = null
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -48,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private val _data = Data
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        intance = this;
         val i = ContextCompat.checkSelfPermission(applicationContext, permissions[0])
         val j = ContextCompat.checkSelfPermission(applicationContext, permissions[1])
         val k = ContextCompat.checkSelfPermission(applicationContext, permissions[2])
