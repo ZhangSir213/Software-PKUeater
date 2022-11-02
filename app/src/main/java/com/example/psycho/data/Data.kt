@@ -37,6 +37,8 @@ object Data {
     private val fileName = "userData.json"
     private var modify_flag=true
     private var timer=false
+    private var heightVisible=false
+    private var weightVisible=false
 
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
@@ -51,6 +53,31 @@ object Data {
         }
         timer=true
     }
+    fun setHeightVisible()
+    {
+        heightVisible=true
+    }
+    fun setHeightInvisible()
+    {
+        heightVisible=false
+    }
+    fun setWeightVisible()
+    {
+        weightVisible=true
+    }
+    fun setWeightInvisible()
+    {
+        weightVisible=false
+    }
+    fun getWeightVisible():Boolean
+    {
+        return weightVisible
+    }
+    fun getHeightVisible():Boolean
+    {
+        return heightVisible
+    }
+    
     fun getTimerFlag():Boolean
     {
         val userFile=File(dataDir, fileName)

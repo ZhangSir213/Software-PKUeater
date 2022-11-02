@@ -1,5 +1,6 @@
 package com.example.psycho.ui.setting
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.*
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -72,15 +74,42 @@ class SettingFragment : Fragment() {
         val buttonLogout:Button=binding.logout
         val imageViewGener:ImageView=binding.imageViewGender
         val timer = Timer()
+        val buttonVisibleW:ImageButton = binding.buttonEyeWeight
+        val textVisToolW:TextView = binding.textViewToolWeightVis
+        val buttonVisibleH:ImageButton = binding.buttonEyeHeight
+        val textVisToolH:TextView = binding.textViewToolHeightVis
+
         timer.schedule(object : TimerTask() {
             override fun run() {
                 //在这里更新数据
                 activity?.runOnUiThread {
                     if(_data.getTimerFlag()==true) {
                         if (_data.getModifyFlag()) {
-                            textWeight.text =
-                                _data.getTrueWeight().toFloat().toString().format("%.1f")
-                            textHeight.text = _data.getTrueHeight().toString()
+                            if (_data.getWeightVisible())
+                            {
+                                textWeight.text =
+                                    _data.getTrueWeight().toFloat().toString().format("%.1f")
+                                textVisToolW.text="visible"
+                                buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
+                            }
+                            else
+                            {
+                                textVisToolW.text="invisible"
+                                buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
+                                textWeight.text="***"
+                            }
+                            if(_data.getHeightVisible())
+                            {
+                                textVisToolH.text="visible"
+                                buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
+                                textHeight.text=_data.getTrueHeight().toString()
+                            }
+                            else
+                            {
+                                textVisToolH.text="invisible"
+                                buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
+                                textHeight.text="***"
+                            }
                             Log.d("Flush","Flush")
                             if (_data.getGender()==1) {
                                 imageViewGener.setImageResource(R.drawable.boy)
@@ -102,6 +131,10 @@ class SettingFragment : Fragment() {
             val intentL:Intent = Intent(act,LoginActivity::class.java)
             startActivity(intentL)
             activity?.finish()
+            //val manager=activity?.getSystemService(Context.ACTIVITY_SERVICE)
+            //manager as ActivityManager
+            //manager.restartPackage("com.example.psycho")
+
         }
 
         buttonCount.setOnClickListener(View.OnClickListener() {
@@ -110,33 +143,22 @@ class SettingFragment : Fragment() {
             act?.startActivityForResult(intent, 1)
             println("跳转到身高体重调整界面")
         })
-        val buttonVisibleW:ImageButton = binding.buttonEyeWeight
-        val textVisToolW:TextView = binding.textViewToolWeightVis
 
         buttonVisibleW.setOnClickListener(View.OnClickListener() {
             if(textVisToolW.text=="visible") {
-                textVisToolW.text="invisible"
-                buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
-                textWeight.text="***"
+                _data.setWeightInvisible()
             }
             else if(textVisToolW.text=="invisible") {
-                textVisToolW.text="visible"
-                buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textWeight.text=_data.getTrueWeight().toString().format("%.3f")
+                _data.setWeightVisible()
             }
         })
-        val buttonVisibleH:ImageButton = binding.buttonEyeHeight
-        val textVisToolH:TextView = binding.textViewToolHeightVis
+
         buttonVisibleH.setOnClickListener(View.OnClickListener() {
             if(textVisToolH.text=="visible") {
-                textVisToolH.text="invisible"
-                buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
-                textHeight.text="***"
+                _data.setHeightInvisible()
             }
             else if(textVisToolH.text=="invisible") {
-                textVisToolH.text="visible"
-                buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                textHeight.text=_data.getTrueHeight().toString()
+                _data.setHeightVisible()
             }
         })
         return root

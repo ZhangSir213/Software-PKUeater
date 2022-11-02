@@ -28,6 +28,7 @@ class LoginDataSource {
                     throw IOException("Error Login")
                 }
                 globalFile.setLogin()
+                globalFile.setFirstFlag()
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), username)
                 return Result.Success(fakeUser)
             }
