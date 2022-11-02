@@ -203,7 +203,7 @@
         android:text="border"
         android:textColor="#00FFFFFF"
         app:BorderCornerRadius="8dp"
-        app:BorderStrokeColor="#E91E63"
+        app:BorderStrokeColor="@color/colorAccent"
         app:BorderStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/text_setting"
         app:layout_constraintStart_toStartOf="parent" />

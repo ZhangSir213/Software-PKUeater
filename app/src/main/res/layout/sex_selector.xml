@@ -19,34 +19,24 @@
 
     <Button
         android:id="@+id/btn_date"
-        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="166dp"
         android:layout_height="70dp"
         android:layout_marginTop="436dp"
         android:background="@drawable/btnnoraml"
-        android:shadowColor="@color/black"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="2"
+        android:backgroundTint="@color/colorOrange"
         android:text="Next"
-        app:backgroundTint="#C1E8FF"
+        android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_back"
-        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="166dp"
         android:layout_height="70dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/btnnoraml"
-        android:shadowColor="@color/black"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="2"
         android:text="Back"
-        app:backgroundTint="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_date" />
