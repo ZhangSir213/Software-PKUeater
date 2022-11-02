@@ -1,12 +1,11 @@
 package com.example.psycho.ui.setting
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.os.*
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
@@ -39,6 +38,11 @@ class SettingFragment : Fragment() {
         var weighted: Float = 55f
         var height: Int = 165
      */
+    /**
+     * 重启应用
+     * @param context
+     */
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +58,7 @@ class SettingFragment : Fragment() {
         mTvHeight= view.findViewById(R.id.tv_height)
 
          */
+
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val textView: TextView = binding.textSetting
@@ -91,10 +96,12 @@ class SettingFragment : Fragment() {
 
 
         buttonLogout.setOnClickListener {
+
             _data.deleteUser()
             val act : FragmentActivity? =getActivity()
             val intentL:Intent = Intent(act,LoginActivity::class.java)
             startActivity(intentL)
+            activity?.finish()
         }
 
         buttonCount.setOnClickListener(View.OnClickListener() {
