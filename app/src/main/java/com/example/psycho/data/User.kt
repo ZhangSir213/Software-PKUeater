@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import java.io.File
 
 
+data class DietLog(var meal: Int, var foodName:String)
+
 data class User(
     var username: String,
     var password: String,
@@ -20,7 +22,8 @@ data class User(
     var todayMenu: List<String>,
     var budget: Double,
     var menuChange: Boolean,
-    var loginFirst:Boolean
+    var loginFirst:Boolean,
+    var dietlog: ArrayList<DietLog>
 )
 
 

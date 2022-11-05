@@ -26,12 +26,13 @@ object Data {
     private var avoidanceValue: BooleanArray = BooleanArray(16)
     private var menu: List<String> = listOf("你干嘛","小黑子","只因你太美","两年半")
     private var budget: Double = 15.5
+    private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true)
+        avoidanceValue, menu, budget, false,true, dietLog)
     private val root=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true)
+        avoidanceValue, menu, budget, false,true, dietLog)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
@@ -43,14 +44,19 @@ object Data {
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
     init{//构造函数,将用户信息初始化
-        print("Datahhh"+ dataDir.path)
+
         var fileExist = createNewFile(dataDir, fileName)
+
         if(fileExist == 0){//文件已经存在
             val content = File(userDataFile).readText()
             user = Gson().fromJson(content, User::class.java)
         }else{//文件还不存在
+            //user.dietlog.clear()
             write2Json()
         }
+        if(user.dietlog == null)
+            Log.d("init:","dietlog==null")
+
         timer=true
     }
     fun setHeightVisible()
@@ -448,6 +454,71 @@ object Data {
 
     }
 
+    /**
+    **增加日志记录，成功则返回true
+    * param: meal=1-早餐,2-午餐,3-晚餐,4-加餐
+     */
+    fun addDietLog(meal: Int, foodName:String):Boolean{
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user = nowUser
+        if(user.dietlog == null){
+            Log.d("data","user.dietlog == null")
+        }
+        user.dietlog.add(DietLog(meal,foodName))
+        try{
+            write2Json()
+        }catch (e: Exception){
+            return false
+        }
+        return true
+    }
+
+    /**
+     *获取对应类型的日志
+     */
+    fun getDietLog(meal: Int):List<String>{
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user = nowUser
+        val logFoodList: MutableList<String> = mutableListOf<String>()
+        for(i in user.dietlog.indices){
+            if(user.dietlog[i].meal == meal){
+                logFoodList.add(user.dietlog[i].foodName)
+            }
+        }
+        return logFoodList.toList()
+    }
+
+    /**
+    *若用户日志为空，返回false,否则返回true
+     */
+    fun checkDietLog():Boolean{
+        Log.d("checkDietLog","enter")
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user = nowUser
+        if(user.dietlog.size == 0){
+            return false
+        }
+        return true
+    }
+
+    /**
+     * 将用户日志初始化
+     */
+    fun initDietLog():Boolean{
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content,User::class.java)
+        user = nowUser
+        user.dietlog.clear()
+        try{
+            write2Json()
+        }catch (e:Exception){
+            return false
+        }
+        return true
+    }
 
 
     /**
@@ -533,4 +604,5 @@ object Data {
 
         return null
     }
+
 }

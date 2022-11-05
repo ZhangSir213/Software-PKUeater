@@ -87,5 +87,6 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="empty_logs">暂无饮食记录\n 请点击下方按钮记录三餐，完整记录三餐，分析才准确</string>
 
 </resources>
