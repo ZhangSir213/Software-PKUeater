@@ -7,10 +7,15 @@ import kotlin.random.Random
 
 object Kernel {
     class Food {
-        private var canteen: Int = 0//食堂
-        private var carolie: Int = 0//卡路里
-        private var window: Int = 0//窗口号
-        private var price: Int = 0//价格
+        private var id: Int = 0               //表示菜品编号
+        private var window: Int = 0           //窗口号
+        private var name: String = ""         //名字
+        private var canteenID: Int = 0        //食堂
+        private var carolie: Int = 0          //卡路里
+        private var avoidance: Int = 0        //忌口
+        private var price: Int = 0            //价格
+        private var imageAddr: Int = 0        //图片地址
+        private var intro: String = ""        //简单描述
     }
     //    var food = arrayOfNulls<Array<kernel.Food?> >(4)
     private var CanteenList: List<String> = listOf(
@@ -57,15 +62,24 @@ object Kernel {
         return listOf("包子","亲自指挥，亲自部署","民心所盼，众望所归","真不错")
     }
     //所有食物&在本次推荐中可以推荐的食物
-    var food = Array(3) {Array<Kernel.Food>(10, {i: Int -> Kernel.Food()})}
-    var nwfood = Array(3) {Array<Kernel.Food>(10, {i: Int -> Kernel.Food()})}
+    var food = Array(4) {Array<Kernel.Food>(100, {i: Int -> Kernel.Food()})}
+    var nwfood = Array(4) {Array<Kernel.Food>(100, {i: Int -> Kernel.Food()})}
+    var cnt = intArrayOf(4)     //记录各类食物数量
+    var ncnt = intArrayOf(4)    //记录当前可供推荐的各类食物数量
 
     fun getResult():List<String> {
-        //Step1 计算去哪个食堂
+        //Step1 读取食物数据
+        /*
+            食物数据保存在二维数据food[4][100]中，food[i]存储第i类食物（type为i）
+            读取时，可以先实例一个临时的food对象 F 存储数据，
+            得到type之后，food[type][++cnt[type]]= F
+         */
 
+
+        //Step1 计算去哪个食堂
         if(PreferCanteen == "随机食堂"){
             //默认情况
-            Canteen = Kernel.CanteenList[(0..10).random()]
+            Canteen = Kernel.CanteenList[(0..14).random()]
         }
         else if(PreferCanteen == "换个推荐"){
             Canteen = Canteen//不变
@@ -73,31 +87,23 @@ object Kernel {
         else if(PreferCanteen == "换个食堂"){
             var lastCanteen:String = Canteen
             while(Canteen == lastCanteen)
-                Canteen = Kernel.CanteenList[(0..10).random()]
+                Canteen = Kernel.CanteenList[(0..14).random()]
         }
         else
         //有指定的食堂
             Canteen = PreferCanteen
 
+
+
         //Step2 获得推荐菜品
         var recommend = Array<Kernel.Food>(10, {i: Int -> Kernel.Food()})
 
-        //假装可以切换功能
-        if(PreferCanteen == "随机食堂")
-            return listOf(Canteen,"一两米饭","辣子鸡","油麦菜")
-        else if(PreferCanteen == "农园一层")
-            return listOf(Canteen,"红豆粥","奥尔良鸡腿","土豆丝")
-        else if(PreferCanteen == "农园二层")
-            return listOf(Canteen,"枣糕","煎饼果子","真tm的好")
-        else return listOf(Canteen,"白面馒头","青椒炒肉","豆芽")
+        return listOf(Canteen,"一两米饭","辣子鸡","油麦菜")
     }
 }
 
 fun main(){
     var xzy = Kernel
-    xzy.setPrefer("随机食堂")
-    print(xzy.getResult())
-    xzy.setPrefer("换个食堂")
     print(xzy.getResult())
 }
 /*
