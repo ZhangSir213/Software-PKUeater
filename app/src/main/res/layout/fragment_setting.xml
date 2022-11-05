@@ -222,6 +222,9 @@
         app:layout_constraintTop_toTopOf="@+id/borderTextViewWeight"
         app:layout_constraintVertical_bias="0.525" />
 
+
+
+
     <TextView
         android:id="@+id/text_setting"
         android:layout_width="match_parent"
@@ -257,6 +260,15 @@
         app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider" />
+
+    <Button
+        android:id="@+id/button_log"
+        android:layout_width="411dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="28dp"
+        android:text="添加饮食日志"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_setting" />
 
     <ImageView
         android:id="@+id/imageViewGender"

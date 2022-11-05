@@ -3,6 +3,7 @@ package com.example.psycho.ui.setting
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.os.*
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -19,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.FragmentSettingBinding
+import com.example.psycho.ui.log.LogActivity
 import com.example.psycho.ui.login.LoginActivity
 import com.example.psycho.ui.setting.usage.CountActivity
 import java.util.*
@@ -72,6 +75,7 @@ class SettingFragment : Fragment() {
         val textWeight: TextView = binding.textWeight
         val textHeight: TextView = binding.textHeight
         val buttonLogout:Button=binding.logout
+        val buttonLog:Button = binding.buttonLog
         val imageViewGener:ImageView=binding.imageViewGender
         val timer = Timer()
         val buttonVisibleW:ImageButton = binding.buttonEyeWeight
@@ -161,6 +165,15 @@ class SettingFragment : Fragment() {
                 _data.setHeightVisible()
             }
         })
+
+        buttonLog.setOnClickListener {
+            val act : FragmentActivity? =getActivity()
+            Log.d("日志","点击成功")
+            val intent:Intent = Intent(act, LogActivity::class.java)
+            act?.startActivity(intent)
+
+        }
+
         return root
     }
     /*
