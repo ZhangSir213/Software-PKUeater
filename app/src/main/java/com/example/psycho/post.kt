@@ -1,12 +1,16 @@
 package com.example.psycho
 
 import android.util.Log
+import com.example.psycho.data.CanteenGet
 import com.example.psycho.data.Data
 import com.example.psycho.data.PostData
 import com.google.gson.Gson
 import okhttp3.*
-import okio.IOException
+import java.io.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import java.util.Objects
 import kotlin.concurrent.thread
+
 
 private fun simpleDealData(response: Response): String = StringBuilder().apply {
     append("\n\t")
@@ -27,7 +31,29 @@ private fun simpleDealData(response: Response): String = StringBuilder().apply {
         }"
     )
 }.toString()
+@Synchronized
+fun simpleGetUseFrom(url: String, params: Map<String,String>? = null) {
+    val t= thread{
+        val client = OkHttpClient()
+        var urlBuilder:HttpUrl.Builder = Objects.requireNonNull(url.toHttpUrlOrNull())!!.newBuilder()
+        params?.forEach { (name, value) ->
+            //参数需要 add 进入FormBody.Builder
+            urlBuilder.addQueryParameter(name, value)
+        }
 
+        val request: Request = Request.Builder()
+            .get()
+            .url(urlBuilder.build())
+            .build()
+
+        val response = client.newCall(request).execute()
+        val responseData = response.body!!.string()
+        //val getResponse=Gson().fromJson(responseData,CanteenGet::class.java)
+        //print(getResponse)
+        print(responseData)
+    }
+    t.join()
+}
 @Synchronized
 fun simplePostUseFrom(url: String, params: Map<String,String>? = null) {
     //创建 formBody
@@ -86,12 +112,35 @@ fun simplePostUseFrom(url: String, params: Map<String,String>? = null) {
 }
 
 
+fun DownloadPicture(){
+    val client = OkHttpClient()
+    val request = Request.Builder().get()
+        .url("http://47.94.139.212:3000/img/food/416.png")
+        .build()
+    val response = client.newCall(request).execute()
+    val inputStream = response.body!!.byteStream()
+    var fos : FileOutputStream
+    val file = File("D:\\1.jpg")
+    try {
+        fos = FileOutputStream(file)
+        fos.write(inputStream.readBytes())          //这里写成read错了无数次
+        fos.flush();
+        fos.close()
+    }
+    catch (e:java.lang.Exception) {e.printStackTrace()}
+
+}
+
+
 fun main()
 {
-    val url="http://localhost:8090/user/register"
-    val map = mapOf("name" to "user1","gender" to "2","age" to "25","password" to "23333")
-    simplePostUseFrom(url,map)
+    val url="http://47.94.139.212:3000/food/list"
+    //val map = mapOf("name" to "user1","gender" to "2","age" to "25","password" to "23333")
+    //simplePostUseFrom(url,map)
+    val map = mapOf("id" to "1")
+    simpleGetUseFrom(url,null)
 
+    //DownloadPicture()
     /*
     val url="localhost:8090/user/register"
     var jsonObject = JSONObject()
