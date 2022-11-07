@@ -32,7 +32,8 @@ private fun simpleDealData(response: Response): String = StringBuilder().apply {
     )
 }.toString()
 @Synchronized
-fun simpleGetUseFrom(url: String, params: Map<String,String>? = null) {
+fun simpleGetUseFrom(url: String, params: Map<String,String>? = null):String {
+    var responseData:String=""
     val t= thread{
         val client = OkHttpClient()
         var urlBuilder:HttpUrl.Builder = Objects.requireNonNull(url.toHttpUrlOrNull())!!.newBuilder()
@@ -47,12 +48,13 @@ fun simpleGetUseFrom(url: String, params: Map<String,String>? = null) {
             .build()
 
         val response = client.newCall(request).execute()
-        val responseData = response.body!!.string()
+        responseData = response.body!!.string()
         //val getResponse=Gson().fromJson(responseData,CanteenGet::class.java)
         //print(getResponse)
-        print(responseData)
+        //print(responseData)
     }
     t.join()
+    return responseData
 }
 @Synchronized
 fun simplePostUseFrom(url: String, params: Map<String,String>? = null) {

@@ -1,22 +1,15 @@
 package com.example.psycho.kernel
 
 import com.example.psycho.R
+import com.example.psycho.data.Food
+import com.example.psycho.data.FoodGet
 import com.example.psycho.resource.CanteenAdapter
+import com.example.psycho.simpleGetUseFrom
+import com.google.gson.Gson
 import java.util.function.Predicate
 import kotlin.random.Random
 
 object Kernel {
-    class Food {
-        private var id: Int = 0               //表示菜品编号
-        private var window: Int = 0           //窗口号
-        private var name: String = ""         //名字
-        private var canteenID: Int = 0        //食堂
-        private var carolie: Int = 0          //卡路里
-        private var avoidance: Int = 0        //忌口
-        private var price: Int = 0            //价格
-        private var imageAddr: Int = 0        //图片地址
-        private var intro: String = ""        //简单描述
-    }
     //    var food = arrayOfNulls<Array<kernel.Food?> >(4)
     private var CanteenList: List<String> = listOf(
         "农园一层", "农园二层", "燕南一层", "家园一层",
@@ -37,6 +30,25 @@ object Kernel {
                       = "换个推荐"
                       = “换个食堂”
      */
+    var food = Array(4) {Array<Food>(100, {i: Int -> Food()})}
+    var nwfood = Array(4) {Array<Food>(100, {i: Int -> Food()})}
+    var cnt = intArrayOf(0,0,0,0)     //记录各类食物数量
+    var ncnt = intArrayOf(0,0,0,0)    //记录当前可供推荐的各类食物数量
+
+    init
+    {
+    //构造函数
+        val responseData= simpleGetUseFrom("http://47.94.139.212:3000/food/list",null)
+        val getResponse=Gson().fromJson(responseData,FoodGet::class.java)
+        val FoodList=getResponse.data
+        val length=FoodList.size
+        for (i in 0 until  length)
+        {
+            val type=FoodList.get(i).type-1
+            food[type][cnt[type]++]=FoodList.get(i)
+        }
+    }
+
     fun setPrefer(string: String): Boolean{
         PreferCanteen = string
         return true
@@ -62,10 +74,6 @@ object Kernel {
         return listOf("包子","亲自指挥，亲自部署","民心所盼，众望所归","真不错")
     }
     //所有食物&在本次推荐中可以推荐的食物
-    var food = Array(4) {Array<Kernel.Food>(100, {i: Int -> Kernel.Food()})}
-    var nwfood = Array(4) {Array<Kernel.Food>(100, {i: Int -> Kernel.Food()})}
-    var cnt = intArrayOf(4)     //记录各类食物数量
-    var ncnt = intArrayOf(4)    //记录当前可供推荐的各类食物数量
 
     fun getResult():List<String> {
         //Step1 读取食物数据
@@ -96,7 +104,7 @@ object Kernel {
 
 
         //Step2 获得推荐菜品
-        var recommend = Array<Kernel.Food>(10, {i: Int -> Kernel.Food()})
+        var recommend = Array<Food>(10, {i: Int -> Food()})
 
         return listOf(Canteen,"一两米饭","辣子鸡","油麦菜")
     }
@@ -104,7 +112,7 @@ object Kernel {
 
 fun main(){
     var xzy = Kernel
-    print(xzy.getResult())
+    //print(xzy.getResult())
 }
 /*
 README:
