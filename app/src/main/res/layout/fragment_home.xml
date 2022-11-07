@@ -129,6 +129,7 @@
         app:layout_constraintTop_toTopOf="@+id/text_reminder_canteen"
         app:layout_constraintVertical_bias="0.466" />
 
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="111dp"
