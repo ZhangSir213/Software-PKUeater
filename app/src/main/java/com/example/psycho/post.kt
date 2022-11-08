@@ -140,7 +140,7 @@ fun main()
     //val map = mapOf("name" to "user1","gender" to "2","age" to "25","password" to "23333")
     //simplePostUseFrom(url,map)
     val map = mapOf("id" to "1")
-    simpleGetUseFrom(url,null)
+    print(simpleGetUseFrom(url,null))
 
     //DownloadPicture()
     /*
