@@ -41,6 +41,7 @@ object Kernel {
         val responseData= simpleGetUseFrom("http://47.94.139.212:3000/food/list",null)
         val getResponse=Gson().fromJson(responseData,FoodGet::class.java)
         val FoodList=getResponse.data
+        println(FoodList)
         val length=FoodList.size
         for (i in 0 until  length)
         {
