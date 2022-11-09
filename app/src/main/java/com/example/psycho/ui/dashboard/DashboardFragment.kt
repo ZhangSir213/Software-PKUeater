@@ -1,15 +1,21 @@
 package com.example.psycho.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.psycho.R
 import com.example.psycho.databinding.FragmentDashboardBinding
+import com.example.psycho.ui.log.LogActivity
+import com.example.psycho.ui.log.SelectFoodActivity
 
 class DashboardFragment : Fragment() {
 
@@ -25,15 +31,30 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        val chooseBreakfast: ImageView = binding.includeDailyShower.imageBgBreakfastBorder
+        val chooseLunch: ImageView = binding.includeDailyShower.imageBgLunchBorder
+        val chooseDinner: ImageView = binding.includeDailyShower.imageBgDinnerBorder
+        chooseBreakfast.setOnClickListener {
+            val act: FragmentActivity? = getActivity()
+            // Russian
+            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            act?.startActivity(intent)
+        }
+        chooseLunch.setOnClickListener{
+            val act: FragmentActivity? = getActivity()
+            // Russian
+            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            act?.startActivity(intent)
+        }
+        chooseDinner.setOnClickListener{
+            val act: FragmentActivity? = getActivity()
+            // Russian
+            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            act?.startActivity(intent)
+        }
+
         return binding.root
 
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home)
-        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
