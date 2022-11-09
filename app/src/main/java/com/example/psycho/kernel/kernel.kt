@@ -87,7 +87,7 @@ object Kernel {
 
         减肥一公斤，减少摄入3580kal,一个月每天少100卡，增肥同理
      */
-    fun CalcCalorie(Gender:Int, Weight: Int, Height: Int,Age: Int): Int{
+    fun CalcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int): Int{
         // Weight kg   Height cm
         var calorie: Double = 0.1
         if(Gender == 1)//Man
@@ -96,17 +96,14 @@ object Kernel {
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
         return calorie.roundToInt()
     }
-//      val Mydata = Data 定义在最上面
+    val Mydata = Data //定义在最上面
     fun getCalorie(): Int{
-/*        var Gender = Mydata.getGender()
-        var Weight = Mydata.getWeight()
-        var Height = Mydata.getHeight()
-        var Age = Mydata.getAge()
+        var Gender = Mydata.getGender()
+        var Weight = Mydata.getTrueWeight()
+        var Height = Mydata.getTrueHeight()
+        var Age = 2022-Mydata.getYear()
         var Cal = CalcCalorie(Gender,Weight, Height, Age)
         return Cal/2
-
- */
-        return 10000
     }
 
     fun Hash(): Int{
@@ -219,10 +216,9 @@ object Kernel {
 
         //Step2 获得推荐菜品
         //i. 获得忌口等信息
-//      val Mydata = Data 定义在计算卡路里那儿
-//      Avoidance = Mydata.getAvoidanceType()
-//      Buget = Mydata.getBudget()
-//        CalorieLimit = getCalorieLimit()
+        Avoidance = Mydata.AvoidanceToAlgo()
+        Budget = Mydata.getBudget()
+        CalorieLimit = getCalorie()
 
         //ii. 筛选出本次可以推荐的菜品集合
         ncnt = 0
