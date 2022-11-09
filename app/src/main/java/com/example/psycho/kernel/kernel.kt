@@ -1,5 +1,6 @@
 package com.example.psycho.kernel
 
+import android.util.Log
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.Food
@@ -58,6 +59,7 @@ object Kernel {
         {
             food[++cnt]=FoodList.get(i)
         }
+        Log.d("kernel_init",cnt.toString())
     }
 
     fun setPrefer(string: String): Boolean{
@@ -135,21 +137,21 @@ object Kernel {
             var distance = Dist(1, 2) + Dist(1,3) + Dist(2,3)
             if(rcnt > 0){//已有之前的搜索结果，需要两者进行比较
                 //i. 摄入卡路里太少了不行
-                if(CalorieTot < rec_calorie-100) return
+                if(CalorieTot < rec_calorie-10000) return
                 //ii. 走的距离太远了不行
-                if(distance > rec_distance+3) return
+                if(distance > rec_distance+100) return
             }
 
             //II. 随机因素：两个几乎等价的结果，有50%概率更新
-            var update: Int = round(random()*1000).toInt() % 2
+            var update: Int = round(random()*1000).toInt() % 3
             if(rcnt == 0) update = 1//第一组结果，直接保留
             else {//如果该组结果明显优于上组，直接保留
                 //i. 少走大量的路
-                if(distance < rec_distance-5) update = 1
+                if(distance < rec_distance-100) update = 1
                 //ii. 比上组结果更加接近calorielimit
-                if(CalorieTot > rec_calorie+100) update = 1
+                if(CalorieTot > rec_calorie+1000) update = 1
             }
-            if(update == 0) return
+            if(update != 1) return
 
             //III. 搜到和上次相同的推荐
             var recommendationHash = Hash()
@@ -194,7 +196,7 @@ object Kernel {
 
 
         //Step1 计算去哪个食堂
-        var ableCanteen = intArrayOf(2,5,16)
+        var ableCanteen = intArrayOf(2,5)
         if(PreferCanteen == "随机食堂"){
             //默认情况
             Canteen = Kernel.CanteenList[ableCanteen.random()]
@@ -245,6 +247,7 @@ object Kernel {
         var result = listOf<String>(Canteen)
         for(i in 1..rcnt)
             result = result.plusElement(recommend[i].name)
+        Log.d("kernell:",rcnt.toString())
         for(i in 1..3-rcnt)
             result = result.plusElement("菜品名称")
 

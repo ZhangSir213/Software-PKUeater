@@ -49,7 +49,8 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this)[HomeViewModel::class.java]
 
-
+        _data.setTodayMenu(Kernel.getResult())
+        _data.setMenuChange(true)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val act: FragmentActivity? = activity
@@ -122,6 +123,9 @@ class HomeFragment : Fragment() {
 
                             textTodayCanteen.text = todayMenu[0]
                             Log.d("homessss",todayMenu.size.toString())
+                            textCuisine1.text = "菜品名称"
+                            textCuisine2.text = "菜品名称"
+                            textCuisine3.text = "菜品名称"
 
                             textCuisine1.text = todayMenu[1]
                             textCuisine2.text = todayMenu[2]

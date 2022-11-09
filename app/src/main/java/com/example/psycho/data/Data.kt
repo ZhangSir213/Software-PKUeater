@@ -25,7 +25,7 @@ object Data {
         "芥末","花椒","洋葱","芹菜","牛奶","鸡蛋","非素食","非清真")
     private var avoidanceValue: BooleanArray = BooleanArray(16)
     private var menu: List<String> = listOf("你干嘛","小黑子","只因你太美","两年半")
-    private var budget: Double = 15.5
+    private var budget: Double = 5000000.5
     private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
