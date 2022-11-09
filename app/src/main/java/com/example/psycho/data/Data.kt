@@ -40,13 +40,13 @@ object Data {
     private var timer=false
     private var heightVisible=false
     private var weightVisible=false
+    private var Carolie=100
 
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
     init{//构造函数,将用户信息初始化
 
         var fileExist = createNewFile(dataDir, fileName)
-
         if(fileExist == 0){//文件已经存在
             val content = File(userDataFile).readText()
             user = Gson().fromJson(content, User::class.java)
@@ -57,6 +57,7 @@ object Data {
         if(user.dietlog == null)
             Log.d("init:","dietlog==null")
 
+
         timer=true
     }
     fun setHeightVisible()
@@ -66,6 +67,14 @@ object Data {
     fun setHeightInvisible()
     {
         heightVisible=false
+    }
+    fun setCarolie(car :Int)
+    {
+        Carolie=car
+    }
+    fun getCarolie():Int
+    {
+        return Carolie
     }
     fun setWeightVisible()
     {
