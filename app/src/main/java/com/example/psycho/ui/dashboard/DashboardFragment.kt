@@ -34,6 +34,7 @@ class DashboardFragment : Fragment() {
         val chooseBreakfast: ImageView = binding.includeDailyShower.imageBgBreakfastBorder
         val chooseLunch: ImageView = binding.includeDailyShower.imageBgLunchBorder
         val chooseDinner: ImageView = binding.includeDailyShower.imageBgDinnerBorder
+        val chooseDessert: ImageView = binding.includeDailyShower.imageBgDessertBorder
         chooseBreakfast.setOnClickListener {
             val act: FragmentActivity? = getActivity()
             // Russian
@@ -52,6 +53,17 @@ class DashboardFragment : Fragment() {
             val intent: Intent = Intent(act, SelectFoodActivity::class.java)
             act?.startActivity(intent)
         }
+        chooseDessert.setOnClickListener{
+            val act: FragmentActivity? = getActivity()
+            // Russian
+            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            act?.startActivity(intent)
+        }
+
+        val textTodayBreakfast: TextView = binding.includeDailyShower.textBreakfastToday
+        val textTodayLunch: TextView = binding.includeDailyShower.textLunchToday
+        val textTodayDinner: TextView = binding.includeDailyShower.textDinnerToday
+        val textTodayDessert: TextView = binding.includeDailyShower.textDessertToday
 
         return binding.root
 
