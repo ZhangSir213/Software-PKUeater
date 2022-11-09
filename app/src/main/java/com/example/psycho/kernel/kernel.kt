@@ -27,7 +27,8 @@ object Kernel {
     var Canteen:String = ""//推荐该食堂的菜品
     val mealMap= mapOf("辣子鸡" to R.drawable.chicken,"油麦菜" to R.drawable.vagetable,
         "一两米饭" to R.drawable.rice,"红豆粥" to R.drawable.redbean,"奥尔良鸡腿" to R.drawable.chickenleg,
-        "土豆丝" to R.drawable.potato,"枣糕" to R.drawable.cake,"煎饼果子" to R.drawable.pancake,"真tm的好" to R.drawable.pkueater)
+        "土豆丝" to R.drawable.potato,"枣糕" to R.drawable.cake,"煎饼果子" to R.drawable.pancake,"真tm的好" to R.drawable.pkueater,
+    "菜品名称" to R.drawable.pkueater)
     /*
         PreferCanteen = "农园一层"等
                       = “随机食堂”
@@ -257,6 +258,9 @@ object Kernel {
         var result = listOf<String>(Canteen)
         for(i in 1..rcnt)
             result = result.plusElement(recommend[i].name)
+        for(i in 1..3-rcnt)
+            result = result.plusElement("菜品名称")
+
         return result
     }
 }

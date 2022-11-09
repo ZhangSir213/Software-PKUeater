@@ -23,7 +23,8 @@ data class User(
     var budget: Double,
     var menuChange: Boolean,
     var loginFirst:Boolean,
-    var dietlog: ArrayList<DietLog>
+    var dietlog: ArrayList<DietLog>,
+    var avoidanceFlag: Boolean,
 )
 
 
