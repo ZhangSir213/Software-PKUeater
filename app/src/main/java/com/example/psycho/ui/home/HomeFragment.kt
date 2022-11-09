@@ -119,13 +119,25 @@ class HomeFragment : Fragment() {
                         if (_data.getMenuChange()) {
 
                             var todayMenu = _data.getTodayMenu()
+
                             textTodayCanteen.text = todayMenu[0]
                             textCuisine1.text = todayMenu[1]
-                            textCuisine2.text = todayMenu[2]
-                            textCuisine3.text = todayMenu[3]
+                            textCuisine2.text = "菜品名称"
+                            textCuisine3.text = "菜品名称"
+
                             imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
-                            imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
-                            imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
+                            imageCuisine2.setImageResource(R.drawable.pkueater)
+                            imageCuisine3.setImageResource(R.drawable.pkueater)
+                            if(todayMenu.size == 3){//有两个菜品的情况
+                                textCuisine2.text = todayMenu[2]
+                                imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
+                            }else if(todayMenu.size == 4){
+                                textCuisine3.text = todayMenu[3]
+                                imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
+                            }
+
+
+
 
                         }
                     }

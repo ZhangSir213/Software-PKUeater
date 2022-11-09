@@ -45,7 +45,7 @@ object Data {
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
     init{//构造函数,将用户信息初始化
-
+        //write2Json()
         var fileExist = createNewFile(dataDir, fileName)
         if(fileExist == 0){//文件已经存在
             val content = File(userDataFile).readText()
