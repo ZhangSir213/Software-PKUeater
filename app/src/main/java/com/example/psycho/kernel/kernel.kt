@@ -8,7 +8,9 @@ import com.example.psycho.resource.CanteenAdapter
 import com.example.psycho.simpleGetUseFrom
 import com.google.gson.Gson
 import java.lang.Math.*
+import java.util.function.DoubleUnaryOperator
 import java.util.function.Predicate
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 object Kernel {
@@ -76,6 +78,37 @@ object Kernel {
         return CanteenList
     }
 
+    /*
+        Calculate the Calorie
+        查论文目前最先进的方法：
+        Mifflin St.Jeor Formulas
+        Mifflin St.Jeor Formulas
+        Mifflin St.Jeor Formulas
+
+        减肥一公斤，减少摄入3580kal,一个月每天少100卡，增肥同理
+     */
+    fun CalcCalorie(Gender:Int, Weight: Int, Height: Int,Age: Int): Int{
+        // Weight kg   Height cm
+        var calorie: Double = 0.1
+        if(Gender == 1)//Man
+            calorie = 10*Weight + 6.25*Height - 5*Age + 5
+        else//Woman
+            calorie = 10*Weight + 6.25*Height - 5*Age - 161
+        return calorie.roundToInt()
+    }
+//      val Mydata = Data 定义在最上面
+    fun getCalorie(): Int{
+/*        var Gender = Mydata.getGender()
+        var Weight = Mydata.getWeight()
+        var Height = Mydata.getHeight()
+        var Age = Mydata.getAge()
+        var Cal = CalcCalorie(Gender,Weight, Height, Age)
+        return Cal/2
+
+ */
+        return 10000
+    }
+
     fun Hash(): Int{
         var hash = 0
         var M = 993244853
@@ -98,9 +131,9 @@ object Kernel {
         //    print("DFS("+CarlorieTot+","+Cost+","+x+","+Type+")\n")
         if(CalorieTot > CalorieLimit) return //卡路里超标则停止
         if(Cost > Budget) return //预算超标则停止
-        if(x == ncnt+1||Type == 7){//菜品遍历完，结束推荐
+        if(x == ncnt+1||Type.and(7) == 7){//菜品遍历完，结束推荐
             //I. 当前搜到的组合不优
-            if(Type < 7) return//一定要主食肉素齐全
+            if(Type.and(7) < 7) return//一定要主食肉素齐全
             var distance = Dist(1, 2) + Dist(1,3) + Dist(2,3)
             if(rcnt > 0){//已有之前的搜索结果，需要两者进行比较
                 //i. 摄入卡路里太少了不行
@@ -186,9 +219,10 @@ object Kernel {
 
         //Step2 获得推荐菜品
         //i. 获得忌口等信息
-//      val Mydata = Data
+//      val Mydata = Data 定义在计算卡路里那儿
 //      Avoidance = Mydata.getAvoidanceType()
 //      Buget = Mydata.getBudget()
+//        CalorieLimit = getCalorieLimit()
 
         //ii. 筛选出本次可以推荐的菜品集合
         ncnt = 0
