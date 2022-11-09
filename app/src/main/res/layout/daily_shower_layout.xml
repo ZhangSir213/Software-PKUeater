@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="690dp">
+
+    <View
+        android:id="@+id/divider_dinner2dessert"
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/image_bg_dessert_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_bg_dinner_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/image_bg_dessert_border"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_dinner_border"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dinner_border"
+        app:layout_constraintTop_toBottomOf="@+id/image_bg_dinner_border"
+        app:srcCompat="@drawable/bg_meal_preview" />
+
+    <TextView
+        android:id="@+id/text_dessert_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记录完整三餐，查看全天饮食评价"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert_border"
+        app:layout_constraintEnd_toEndOf="@+id/divider_dessert"
+        app:layout_constraintTop_toBottomOf="@+id/divider_dessert"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <ImageView
+        android:id="@+id/image_bg_dessert"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dessert_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dessert_border"
+        app:srcCompat="@drawable/bg_round_red" />
+
+    <View
+        android:id="@+id/divider_lunch2dinner"
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/image_bg_dinner_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_bg_lunch_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/image_bg_breakfast_border"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_meal_preview" />
+
+    <ImageView
+        android:id="@+id/image_bg_breakfast"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_round_orange"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_breakfast_border" />
+
+    <ImageView
+        android:id="@+id/image_breakfast"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon_breakfast"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_breakfast"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_breakfast"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_breakfast"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_breakfast"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/icon_breakfast" />
+
+    <TextView
+        android:id="@+id/text_reminder_breakfast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="早餐"
+        android:textAlignment="center"
+        android:textColor="#000010"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_breakfast"
+        app:layout_constraintStart_toEndOf="@+id/image_bg_breakfast"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_breakfast"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/text_breakfast_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记录完整三餐，查看全天饮食评价"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintEnd_toEndOf="@+id/divider_breakfast"
+        app:layout_constraintTop_toBottomOf="@+id/divider_breakfast"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="215dp" />
+
+    <View
+        android:id="@+id/divider_breakfast"
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/image_bg_lunch_border"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintTop_toBottomOf="@+id/image_bg_breakfast_border"
+        app:srcCompat="@drawable/bg_meal_preview" />
+
+    <View
+        android:id="@+id/divider_lunch"
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_lunch_border"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_lunch_border"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_lunch_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_lunch_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/image_bg_lunch"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_lunch_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_lunch_border"
+        app:srcCompat="@drawable/bg_round_green" />
+
+    <ImageView
+        android:id="@+id/image_lunch"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_lunch"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_lunch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_lunch"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_lunch"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/icon_lunch" />
+
+    <TextView
+        android:id="@+id/text_reminder_lunch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="午餐"
+        android:textAlignment="center"
+        android:textColor="#000010"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_lunch"
+        app:layout_constraintStart_toEndOf="@+id/image_bg_lunch"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_lunch"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/text_lunch_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记录完整三餐，查看全天饮食评价"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_lunch_border"
+        app:layout_constraintEnd_toEndOf="@+id/divider_lunch"
+        app:layout_constraintTop_toBottomOf="@+id/divider_lunch"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <ImageView
+        android:id="@+id/image_bg_dinner_border"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_lunch_border"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_lunch_border"
+        app:layout_constraintTop_toBottomOf="@+id/image_bg_lunch_border"
+        app:srcCompat="@drawable/bg_meal_preview" />
+
+    <View
+        android:id="@+id/divider_dinner"
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner_border"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_dinner_border"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dinner_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dinner_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/text_reminder_dinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="晚餐"
+        android:textAlignment="center"
+        android:textColor="#000010"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner"
+        app:layout_constraintStart_toEndOf="@+id/image_bg_dinner"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dinner"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <View
+        android:id="@+id/divider_breakfast2lunch"
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/image_bg_lunch_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_bg_breakfast_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+    <TextView
+        android:id="@+id/text_dinner_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记录完整三餐，查看全天饮食评价"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner_border"
+        app:layout_constraintEnd_toEndOf="@+id/divider_dinner"
+        app:layout_constraintTop_toBottomOf="@+id/divider_dinner"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <ImageView
+        android:id="@+id/image_bg_dinner"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dinner_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dinner_border"
+        app:srcCompat="@drawable/bg_round_blue" />
+
+    <ImageView
+        android:id="@+id/image_dinner"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_dinner"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dinner"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dinner"
+        app:srcCompat="@drawable/icon_dinner" />
+
+    <View
+        android:id="@+id/divider_dessert"
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert_border"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_dessert_border"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dessert_border"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dessert_border"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/image_dessert"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert"
+        app:layout_constraintEnd_toEndOf="@+id/image_bg_dessert"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/image_bg_dessert"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dessert"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/icon_snack" />
+
+    <TextView
+        android:id="@+id/text_reminder_dessert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="加餐"
+        android:textAlignment="center"
+        android:textColor="#000010"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert"
+        app:layout_constraintStart_toEndOf="@+id/image_bg_dessert"
+        app:layout_constraintTop_toTopOf="@+id/image_bg_dessert"
+        app:layout_constraintVertical_bias="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,8 @@
         android:background="@color/colorYellow"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toEndOf="parent"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintEnd_toEndOf="parent">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/text_reminder_canteen"
