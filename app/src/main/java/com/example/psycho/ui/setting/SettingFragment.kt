@@ -18,9 +18,15 @@ import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.FragmentSettingBinding
+import com.example.psycho.kernel.Kernel
+import com.example.psycho.resource.AcceptableAdapter
+import com.example.psycho.resource.AvoidanceAdapter
+import com.example.psycho.resource.CanteenAdapter
 import com.example.psycho.ui.log.LogActivity
 import com.example.psycho.ui.login.LoginActivity
 import com.example.psycho.ui.setting.usage.CountActivity
@@ -30,19 +36,16 @@ import java.util.*
 class SettingFragment : Fragment() {
     private var _data = Data
     private var _binding: FragmentSettingBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    /*
-        var mWeightRuler: RulerView? = null
-        var mHeightRuler: RulerView? = null
-        var mTvWeight: TextView? = null
-        var mTvHeight: TextView? = null
-        var weighted: Float = 55f
-        var height: Int = 165
-     */
+    // Russian
+    private var avoidanceList: List<String>? = null
+    private var acceptableList: List<String>? = null
+    private var recyclerViewAcceptable: RecyclerView? = null
+    private var acceptableAdapter: AcceptableAdapter? = null
+    private var recyclerViewAvoidance: RecyclerView? = null
+    private var avoidanceAdapter: AvoidanceAdapter? = null
+
     /**
      * 重启应用
      * @param context
@@ -55,14 +58,7 @@ class SettingFragment : Fragment() {
     ): View {
         val settingViewModel =
             ViewModelProvider(this).get(SettingViewModel::class.java)
-        /*
-        val view : View = inflater.inflate(R.layout.fragment_setting,null)
-        mWeightRuler = view.findViewById(R.id.ruler_weight)
-        mHeightRuler = view.findViewById(R.id.ruler_height)
-        mTvWeight= view.findViewById(R.id.tv_weight)
-        mTvHeight= view.findViewById(R.id.tv_height)
 
-         */
 
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -127,6 +123,70 @@ class SettingFragment : Fragment() {
             }
         }, 0, 500) //延迟10毫秒后，执行一次task
 
+        // Roulette Avoidance
+        // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
+        avoidanceList = listOf("辣的","甜的","还真想吃点儿酸的",
+            "农园一层", "农园二层ios", "燕南一", "家园一层",
+            "家园二层", "家园三层666", "家园四层", "松林包子",
+            "学一食堂4", "学五食堂123", "勺园一层fqr", "勺园二qeqw层",
+            "佟园餐厅", "勺园e西餐厅", "勺园中餐ww厅",
+            "点外卖ewrqrq", "出校吃", "吃餐车")
+        recyclerViewAvoidance = binding.recyclerAvoidance
+        recyclerViewAvoidance?.layoutManager =
+            StaggeredGridLayoutManager(2,
+            StaggeredGridLayoutManager.HORIZONTAL)
+        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
+        recyclerViewAvoidance?.adapter = avoidanceAdapter
+        avoidanceAdapter?.mOnRecyclerViewItemClick = object :
+            AvoidanceAdapter.OnRecyclerViewItemClick<String> {
+            override fun onItemClick(view: View?, t: String?, position: Int) {
+                when (view?.id) {
+                    R.id.content_avoidance -> {
+                        // Roulette
+                        // 在这里设置修改avoidanceList和acceptableList
+                        /*
+                        t?.let {
+                            Kernel.delAvoidance(it)
+                            Kernel.addAcceptable(it)
+                        }
+                         */
+                        // _data.setMenuChange(true)
+                        // cuisineMenu = Kernel.getResult()
+                        // _data.setTodayMenu(cuisineMenu!!)
+                    }
+                }
+            }
+        }
+        // Roulette Acceptable
+        // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
+        acceptableList = listOf("辣的","甜的","还真想吃点儿酸的",
+            "农园一层", "农园二层ios", "燕南一", "家园一层",
+            "家园二层", "家园三层666", "家园四层", "松林包子",
+            "学一食堂4", "学五食堂123", "勺园一层fqr", "勺园二qeqw层",
+            "佟园餐厅", "勺园e西餐厅", "勺园中餐ww厅",
+            "点外卖ewrqrq", "出校吃", "吃餐车")
+        recyclerViewAcceptable = binding.recyclerAcceptable
+        recyclerViewAcceptable?.layoutManager =
+            StaggeredGridLayoutManager(3,
+                StaggeredGridLayoutManager.HORIZONTAL)
+        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
+        recyclerViewAcceptable?.adapter = acceptableAdapter
+        acceptableAdapter?.mOnRecyclerViewItemClick = object :
+            AcceptableAdapter.OnRecyclerViewItemClick<String> {
+            override fun onItemClick(view: View?, t: String?, position: Int) {
+                when (view?.id) {
+                    R.id.content_acceptable -> {
+                        // Roulette
+                        // 在这里设置修改acceptableList和acceptableList
+                        /*
+                        t?.let {
+                            Kernel.delAcceptable(it)
+                            Kernel.addAvoidance(it)
+                         */
+                    }
+                }
+            }
+        }
 
         buttonLogout.setOnClickListener {
 

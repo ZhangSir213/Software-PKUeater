@@ -182,31 +182,31 @@
         android:id="@+id/borderTextViewHeight"
         android:layout_width="128dp"
         android:layout_height="104dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="20dp"
         android:text="border"
         android:textColor="#00FFFFFF"
         app:BorderCornerRadius="8dp"
         app:BorderStrokeColor="#E91E63"
         app:BorderStrokeWidth="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_setting"
+        app:layout_constraintBottom_toBottomOf="@+id/borderTextViewWeight"
         app:layout_constraintStart_toEndOf="@+id/borderTextViewWeight"
-        app:layout_constraintTop_toBottomOf="@+id/image_top_bg"
-        app:layout_constraintVertical_bias="0.966" />
+        app:layout_constraintTop_toTopOf="@+id/borderTextViewWeight"
+        app:layout_constraintVertical_bias="0.5" />
 
     <com.example.psycho.ui.custom.BorderTextView
         android:id="@+id/borderTextViewWeight"
         android:layout_width="128dp"
         android:layout_height="104dp"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="36dp"
         android:text="border"
         android:textColor="#00FFFFFF"
         app:BorderCornerRadius="8dp"
         app:BorderStrokeColor="@color/colorAccent"
         app:BorderStrokeWidth="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_setting"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/text_setting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_top_bg"
+        app:layout_constraintVertical_bias="0.898" />
 
     <ImageButton
         android:id="@+id/button_setting"
@@ -223,21 +223,20 @@
         app:layout_constraintVertical_bias="0.525" />
 
 
-
-
     <TextView
         android:id="@+id/text_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:textAlignment="center"
+        android:textColor="#00FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/button_setting"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
+        app:layout_constraintVertical_bias="0.477" />
 
     <View
         android:id="@+id/divider"
@@ -254,33 +253,68 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:text="@string/logout"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewGender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider" />
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/imageViewGender"
+        app:layout_constraintTop_toTopOf="@+id/imageViewGender"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/button_log"
         android:layout_width="411dp"
         android:layout_height="62dp"
         android:layout_marginTop="28dp"
-        android:text="添加饮食日志"
+        android:text="添加忌口清单"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_setting" />
 
     <ImageView
         android:id="@+id/imageViewGender"
-        android:layout_width="106dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="176dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/boy"
-        app:layout_constraintEnd_toStartOf="@+id/logout"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_user_photo" />
+        app:layout_constraintBottom_toTopOf="@+id/borderTextViewWeight"
+        app:layout_constraintEnd_toEndOf="@+id/borderTextViewWeight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/borderTextViewWeight"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.5" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_avoidance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_acceptable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_log">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_acceptable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/divider_setting_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <View
+        android:id="@+id/divider_setting_bottom"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="56dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
