@@ -29,10 +29,10 @@ object Data {
     private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true, dietLog)
+        avoidanceValue, menu, budget, false,true, dietLog, false)
     private val root=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true, dietLog)
+        avoidanceValue, menu, budget, false,true, dietLog, false)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
@@ -327,6 +327,17 @@ object Data {
         write2Json()
     }
 
+    fun setAvoidanceChange(flag: Boolean){
+        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.avoidanceFlag = flag
+        write2Json()
+    }
+    fun getAvoidanceChange(): Boolean{
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.avoidanceFlag
+    }
+
     // 设置菜单
     fun getTodayMenu(): List<String>{
         val content = File(userDataFile).readText()
@@ -379,7 +390,7 @@ object Data {
         user = nowUser
         for(i in avoidanceString.indices){
             if(avoidanceName == avoidanceString[i]){
-                user.avoidanceValue[i] = true
+                user.avoidanceValue[i] = !user.avoidanceValue[i]
                 break
             }
         }
@@ -403,7 +414,7 @@ object Data {
         user = nowUser
         for(i in avoidanceString.indices){
             if(avoidanceName == avoidanceString[i]){
-                user.avoidanceValue[i] = false
+                user.avoidanceValue[i] = !user.avoidanceValue[i]
                 break
             }
         }
