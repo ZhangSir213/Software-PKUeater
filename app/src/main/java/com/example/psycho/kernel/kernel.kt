@@ -1,6 +1,5 @@
 package com.example.psycho.kernel
 
-import android.util.Log
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.Food
@@ -28,8 +27,7 @@ object Kernel {
     var Canteen:String = ""//推荐该食堂的菜品
     val mealMap= mapOf("辣子鸡" to R.drawable.chicken,"油麦菜" to R.drawable.vagetable,
         "一两米饭" to R.drawable.rice,"红豆粥" to R.drawable.redbean,"奥尔良鸡腿" to R.drawable.chickenleg,
-        "土豆丝" to R.drawable.potato,"枣糕" to R.drawable.cake,"煎饼果子" to R.drawable.pancake,"真tm的好" to R.drawable.pkueater,
-    "菜品名称" to R.drawable.pkueater)
+        "土豆丝" to R.drawable.potato,"枣糕" to R.drawable.cake,"煎饼果子" to R.drawable.pancake,"真tm的好" to R.drawable.pkueater)
     /*
         PreferCanteen = "农园一层"等
                       = “随机食堂”
@@ -59,7 +57,6 @@ object Kernel {
         {
             food[++cnt]=FoodList.get(i)
         }
-        Log.d("kernel_init",cnt.toString())
     }
 
     fun setPrefer(string: String): Boolean{
@@ -132,26 +129,26 @@ object Kernel {
             var distance = Dist(1, 2) + Dist(1,3) + Dist(2,3)
             if(rcnt > 0){//已有之前的搜索结果，需要两者进行比较
                 //i. 摄入卡路里太少了不行
-                if(CalorieTot < rec_calorie-10000) return
+                if(CalorieTot < rec_calorie-100) return
                 //ii. 走的距离太远了不行
-                if(distance > rec_distance+100) return
+                if(distance > rec_distance+3) return
             }
 
             //II. 随机因素：两个几乎等价的结果，有50%概率更新
-            var update: Int = round(random()*1000).toInt() % 3
+            var update: Int = round(random()*1000).toInt() % 2
             if(rcnt == 0) update = 1//第一组结果，直接保留
             else {//如果该组结果明显优于上组，直接保留
                 //i. 少走大量的路
-                if(distance < rec_distance-100) update = 1
+                if(distance < rec_distance-5) update = 1
                 //ii. 比上组结果更加接近calorielimit
-                if(CalorieTot > rec_calorie+1000) update = 1
+                if(CalorieTot > rec_calorie+100) update = 1
             }
-            if(update != 1) return
+            if(update == 0) return
 
             //III. 搜到和上次相同的推荐
             var recommendationHash = Hash()
             if(PreferCanteen == "换个推荐" &&
-               recommendationHash == lastRecommendationHash)
+                recommendationHash == lastRecommendationHash)
                 return
 
             //顺利更新答案
@@ -185,13 +182,13 @@ object Kernel {
          */
         print("所有的食物数据：\n")
         for(j in 1..cnt) {
-               print(food[j])
-               print('\n')
+            print(food[j])
+            print('\n')
         }
 
 
         //Step1 计算去哪个食堂
-        var ableCanteen = intArrayOf(2,5)
+        var ableCanteen = intArrayOf(2,5,16)
         if(PreferCanteen == "随机食堂"){
             //默认情况
             Canteen = Kernel.CanteenList[ableCanteen.random()]
@@ -240,7 +237,7 @@ object Kernel {
         ncnt = 0
         for(i in 1..cnt) {
             if((Canteen == CanteenList[food[i].canteenId]) && //食堂对应
-               (Avoidance.and(food[i].avoidance) == 0)       //忌口对应
+                (Avoidance.and(food[i].avoidance) == 0)       //忌口对应
             )
                 nwfood[++ncnt] = food[i]
         }
@@ -260,10 +257,6 @@ object Kernel {
         var result = listOf<String>(Canteen)
         for(i in 1..rcnt)
             result = result.plusElement(recommend[i].name)
-        Log.d("kernell:",rcnt.toString())
-        for(i in 1..3-rcnt)
-            result = result.plusElement("菜品名称")
-
         return result
     }
 }
