@@ -34,16 +34,7 @@ class SelectFoodActivity : AppCompatActivity() {
     }
     private fun initFoods(){
         //TODO:获取真实菜品列表
-        /*
-        foodList.add(Food("辣子鸡",R.drawable.chicken))
-        foodList.add(Food("红豆粥",R.drawable.redbean))
-        foodList.add(Food("奥尔良鸡腿",R.drawable.chickenleg))
-        foodList.add(Food("土豆丝",R.drawable.potato))
-        foodList.add(Food("油麦菜",R.drawable.vagetable))
-        foodList.add(Food("煎饼果子",R.drawable.pancake))
-        foodList.add(Food("枣糕",R.drawable.cake))
-        foodList.add(Food("米饭",R.drawable.rice))
-        */
+
         val foodNameList: List<String> = Kernel.getFoodlist()
         if(foodNameList.isEmpty()){
             return
