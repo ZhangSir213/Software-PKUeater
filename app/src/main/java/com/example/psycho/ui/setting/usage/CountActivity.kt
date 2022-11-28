@@ -31,6 +31,28 @@ class CountActivity : AppCompatActivity() {
     private var year:Int=0
     private var date:Date=Date(0)
 
+    private fun planLayout()
+    {
+        setContentView(R.layout.plan_selector)
+        val button1:Button=findViewById(R.id.button_keep)
+        button1.setOnClickListener {
+            _data.setPlan(Data.Plan.keep)
+            finish()
+        }
+        val button2:Button=findViewById(R.id.button_slim)
+        button2.setOnClickListener {
+            _data.setPlan(Data.Plan.slim)
+            finish()
+        }
+
+        val button3:Button=findViewById(R.id.button_strong)
+        button3.setOnClickListener {
+            _data.setPlan(Data.Plan.strong)
+            finish()
+        }
+
+    }
+
     private fun dateLayout()
     {
         setContentView(R.layout.datapicker)
@@ -66,8 +88,7 @@ class CountActivity : AppCompatActivity() {
             _data.setYear(year)
             Log.d("Finish","Count")
             _data.setFirstFlag()
-
-            finish()
+            planLayout()
         }
 
     }

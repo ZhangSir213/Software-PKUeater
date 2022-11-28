@@ -13,6 +13,10 @@ import java.io.*
  * created by WSH
  */
 object Data {
+
+    enum class Plan{
+        slim,strong,keep
+    }
     private var trueWeight:CharSequence = "182"
     private var trueHeight:CharSequence = "182"
     private var userName:CharSequence="Lemon"
@@ -29,10 +33,10 @@ object Data {
     private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true, dietLog)
+        avoidanceValue, menu, budget, false,true, dietLog,Plan.keep)
     private val root=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true, dietLog)
+        avoidanceValue, menu, budget, false,true, dietLog,Plan.keep)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
@@ -41,6 +45,8 @@ object Data {
     private var heightVisible=false
     private var weightVisible=false
     private var Carolie=100
+
+    private var plan=Plan.keep
 
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
@@ -68,6 +74,16 @@ object Data {
     {
         heightVisible=false
     }
+
+    fun setPlan(plan1:Plan)
+    {
+        plan=plan1
+    }
+    fun getPlan():Plan
+    {
+        return plan
+    }
+
     fun setCarolie(car :Int)
     {
         Carolie=car
