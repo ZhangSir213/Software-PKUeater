@@ -33,10 +33,10 @@ object Data {
     private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true, dietLog,Plan.keep)
+        avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private val root=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
-        avoidanceValue, menu, budget, false,true, dietLog,Plan.keep)
+        avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData.json"
