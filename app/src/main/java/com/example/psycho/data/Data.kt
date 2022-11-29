@@ -42,7 +42,7 @@ object Data {
         avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
-    private val fileName = "userData.json"
+    private val fileName = "userData2.json"
     private var modify_flag=true
     private var timer=false
     private var heightVisible=false
