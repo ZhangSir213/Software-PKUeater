@@ -77,17 +77,21 @@ object Kernel {
     fun getAllCanteen(): List<String>{
         return CanteenList
     }
+    fun getFoodlist(): List<String>{
+        var res: List<String> = listOf()
+        for(i in 1..cnt)
+            res = res.plusElement(food[i].name)
+        return res
+    }
+    fun getCanteenfood(Canteen: String): List<String>{
+        var res: List<String> = listOf()
+        for(i in 1..cnt)
+            if(Canteen == CanteenList[food[i].canteenId])
+                res = res.plusElement(food[i].name)
+        return res
+    }
 
-    /*
-        Calculate the Calorie
-        查论文目前最先进的方法：
-        Mifflin St.Jeor Formulas
-        Mifflin St.Jeor Formulas
-        Mifflin St.Jeor Formulas
-
-        减肥一公斤，减少摄入3580kal,一个月每天少100卡，增肥同理
-     */
-    fun CalcCalorie(Gender:Int, Weight: Int, Height: Int,Age: Int): Int{
+    fun CalcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int): Int{
         // Weight kg   Height cm
         var calorie: Double = 0.1
         if(Gender == 1)//Man
@@ -95,18 +99,6 @@ object Kernel {
         else//Woman
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
         return calorie.roundToInt()
-    }
-//      val Mydata = Data 定义在最上面
-    fun getCalorie(): Int{
-/*        var Gender = Mydata.getGender()
-        var Weight = Mydata.getWeight()
-        var Height = Mydata.getHeight()
-        var Age = Mydata.getAge()
-        var Cal = CalcCalorie(Gender,Weight, Height, Age)
-        return Cal/2
-
- */
-        return 10000
     }
 
     fun Hash(): Int{
@@ -156,7 +148,7 @@ object Kernel {
             //III. 搜到和上次相同的推荐
             var recommendationHash = Hash()
             if(PreferCanteen == "换个推荐" &&
-               recommendationHash == lastRecommendationHash)
+                recommendationHash == lastRecommendationHash)
                 return
 
             //顺利更新答案
@@ -190,8 +182,8 @@ object Kernel {
          */
         print("所有的食物数据：\n")
         for(j in 1..cnt) {
-               print(food[j])
-               print('\n')
+            print(food[j])
+            print('\n')
         }
 
 
@@ -219,16 +211,33 @@ object Kernel {
 
         //Step2 获得推荐菜品
         //i. 获得忌口等信息
-//      val Mydata = Data 定义在计算卡路里那儿
-//      Avoidance = Mydata.getAvoidanceType()
-//      Buget = Mydata.getBudget()
-//        CalorieLimit = getCalorieLimit()
+
+        val Mydata = Data //定义在最上面
+        //计算卡路里（xzy电脑安卓模拟机坏了，，inline方便调试）
+        /*
+            Calculate the Calorie
+            查论文目前最先进的方法：
+            Mifflin St.Jeor Formulas
+
+            减肥一公斤，减少摄入3580kal,一个月每天少100卡，增肥同理
+        */
+        var Gender = Mydata.getGender()
+        var Weight = Mydata.getTrueWeight()
+        var Height = Mydata.getTrueHeight()
+        var Age = 2022-Mydata.getYear()
+        var Cal = CalcCalorie(Gender,Weight, Height, Age)
+
+        Avoidance = Mydata.AvoidanceToAlgo()
+        Budget = Mydata.getBudget()
+        CalorieLimit = Cal/2
+
+
 
         //ii. 筛选出本次可以推荐的菜品集合
         ncnt = 0
         for(i in 1..cnt) {
             if((Canteen == CanteenList[food[i].canteenId]) && //食堂对应
-               (Avoidance.and(food[i].avoidance) == 0)       //忌口对应
+                (Avoidance.and(food[i].avoidance) == 0)       //忌口对应
             )
                 nwfood[++ncnt] = food[i]
         }
@@ -254,8 +263,20 @@ object Kernel {
 
 fun main(){
     var xzy = Kernel
-    print(xzy.getResult())
+    print(xzy.getFoodlist())
+    print("\n")
+    print(xzy.getCanteenfood("家园二层"))
 }
+/*
+README 1113:
+    推荐算法大纲已实现
+    新增获取所有菜品的接口
+    新增获取指定食堂所有菜品的接口
+
+    待实现：
+    1、减肥与增重的卡路里计算功能
+    2、随机算法好像不够随机，可以更优化
+ */
 /*
 README1108:
     更新了推荐算法：
