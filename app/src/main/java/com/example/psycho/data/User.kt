@@ -25,6 +25,8 @@ data class User(
     var loginFirst:Boolean,
     var dietlog: ArrayList<DietLog>,
     var avoidanceFlag: Boolean,
+    var plan:Data.Plan
+
 )
 
 

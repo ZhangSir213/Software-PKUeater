@@ -13,6 +13,10 @@ import java.io.*
  * created by WSH
  */
 object Data {
+
+    enum class Plan{
+        slim,strong,keep
+    }
     private var trueWeight:CharSequence = "182"
     private var trueHeight:CharSequence = "182"
     private var userName:CharSequence="Lemon"
@@ -42,6 +46,8 @@ object Data {
     private var weightVisible=false
     private var Carolie=100
 
+    private var plan=Plan.keep
+
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
 
     init{//构造函数,将用户信息初始化
@@ -68,6 +74,16 @@ object Data {
     {
         heightVisible=false
     }
+
+    fun setPlan(plan1:Plan)
+    {
+        plan=plan1
+    }
+    fun getPlan():Plan
+    {
+        return plan
+    }
+
     fun setCarolie(car :Int)
     {
         Carolie=car

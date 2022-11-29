@@ -127,14 +127,14 @@ class HomeFragment : Fragment() {
                             textCuisine2.text = "菜品名称"
                             textCuisine3.text = "菜品名称"
 
-                            textCuisine1.text = todayMenu[1]
-                            textCuisine2.text = todayMenu[2]
-                            textCuisine3.text = todayMenu[3]
+                            //textCuisine1.text = todayMenu[1]
+                            //textCuisine2.text = todayMenu[2]
+                            //textCuisine3.text = todayMenu[3]
 
-                            imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
-                            imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
-                            imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
-                            /*
+                            //imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
+                            //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
+                            //imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
+
                             textCuisine1.text = "菜品名称"
                             textCuisine2.text = "菜品名称"
                             textCuisine3.text = "菜品名称"
@@ -152,7 +152,7 @@ class HomeFragment : Fragment() {
                             }else if(todayMenu.size == 4){
                                 textCuisine3.text = todayMenu[3]
                                 imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
-                            }*/
+                            }
 
 
 
