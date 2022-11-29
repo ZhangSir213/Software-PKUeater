@@ -119,7 +119,7 @@ fun simplePostUseFrom(url: String, params: Map<String,*>? = null) {
 fun DownloadPicture(){
     val client = OkHttpClient()
     val request = Request.Builder().get()
-        .url("http://47.94.139.212:3000/img/food/416.png")
+        .url("http://47.94.139.212:3000/img/food/1.png")
         .build()
     val response = client.newCall(request).execute()
     val inputStream = response.body!!.byteStream()
@@ -132,7 +132,6 @@ fun DownloadPicture(){
         fos.close()
     }
     catch (e:java.lang.Exception) {e.printStackTrace()}
-
 }
 
 
@@ -141,10 +140,9 @@ fun main()
     val url="http://47.94.139.212:3000/food/list"
     //val map = mapOf("name" to "user1","gender" to "2","age" to "25","password" to "23333")
     //simplePostUseFrom(url,map)
-    val map = mapOf("id" to "1")
-    print(simpleGetUseFrom(url,null))
-
-    //DownloadPicture()
+    //val map = mapOf("id" to "1")
+    //print(simpleGetUseFrom(url,null))
+    DownloadPicture()
     /*
     val url="localhost:8090/user/register"
     var jsonObject = JSONObject()

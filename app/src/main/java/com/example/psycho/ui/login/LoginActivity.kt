@@ -20,6 +20,8 @@ import com.example.psycho.MainActivity
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.ActivityLogin2Binding
+import com.example.psycho.simplePostUseFrom
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,6 +52,13 @@ class LoginActivity : AppCompatActivity() {
         var globalFile=Data
         if((globalFile.getLoginFlag())==true)
         {
+            val map = mapOf("name" to globalFile.getUserName(), "password" to globalFile.getPassword())
+            val url = "http://47.94.139.212:3000/user/login"
+            simplePostUseFrom(url, map)
+            if (globalFile.getState()=="fail")
+            {
+                throw IOException("Error Login")
+            }
             val intentL:Intent = Intent(this, MainActivity::class.java)
             startActivity(intentL)
         }
