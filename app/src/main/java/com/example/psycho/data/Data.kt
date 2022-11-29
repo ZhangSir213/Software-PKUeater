@@ -218,6 +218,10 @@ object Data {
         Log.d("Get","False")
         return false
     }
+    fun getidCode():Int
+    {
+        return idCode
+    }
     fun setPostData(data:PostData):Int
     {
         postData =data
@@ -289,7 +293,7 @@ object Data {
         user.height = int
         write2Json()
     }
-    fun getUserName():CharSequence{
+    fun getUserName():String{
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         user = nowUser
