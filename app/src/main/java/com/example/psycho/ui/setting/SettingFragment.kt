@@ -243,7 +243,8 @@ class SettingFragment : Fragment() {
         }
 
         buttonLogout.setOnClickListener {
-
+            _data.setHeightInvisible()
+            _data.setWeightInvisible()
             _data.deleteUser()
             val act : FragmentActivity? =getActivity()
             val intentL:Intent = Intent(act,LoginActivity::class.java)

@@ -57,7 +57,7 @@ fun simpleGetUseFrom(url: String, params: Map<String,String>? = null):String {
     return responseData
 }
 @Synchronized
-fun simplePostUseFrom(url: String, params: Map<String,String>? = null) {
+fun simplePostUseFrom(url: String, params: Map<String,*>? = null) {
     //创建 formBody
     val t= thread{
 
@@ -65,7 +65,8 @@ fun simplePostUseFrom(url: String, params: Map<String,String>? = null) {
             .also { builder ->
                 params?.forEach { (name, value) ->
                     //参数需要 add 进入FormBody.Builder
-                    builder.add(name, value)
+                    val v=value.toString()
+                    builder.add(name, v)
                 }
             }.build()
         val okHttpClient = OkHttpClient()
@@ -84,6 +85,7 @@ fun simplePostUseFrom(url: String, params: Map<String,String>? = null) {
             //val response=Gson().fromJson(responses.body.toString(),PostData::class.java)
             //println(response.status)
             val response=Gson().fromJson(msg_new,PostData::class.java)
+            Log.d("Post",response.data.name)
             var global_file=Data
             global_file.setPostData(response)
         } catch (e: Throwable) {

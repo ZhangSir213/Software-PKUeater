@@ -4,9 +4,11 @@ import android.content.ContentValues
 import android.os.Environment
 import android.util.Log
 import com.example.psycho.R
+import com.example.psycho.simplePostUseFrom
 import com.google.gson.Gson
 import java.io.*
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -32,10 +34,10 @@ object Data {
     private var budget: Double = 5000000.5
     private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
-        false,0,2002,4,10, IntArray(18), avoidanceString,
+        false,0,"2002-04-10", IntArray(18), avoidanceString,
         avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private val root=User("Lemon","123456",60.0,170,
-        false,0,2002,4,10, IntArray(18), avoidanceString,
+        false,0,"2002-04-10", IntArray(18), avoidanceString,
         avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
@@ -45,7 +47,7 @@ object Data {
     private var heightVisible=false
     private var weightVisible=false
     private var Carolie=100
-
+    private var idCode=100
     private var plan=Plan.keep
 
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
@@ -56,6 +58,7 @@ object Data {
         if(fileExist == 0){//文件已经存在
             val content = File(userDataFile).readText()
             user = Gson().fromJson(content, User::class.java)
+            Log.d("Init","Init User")
         }else{//文件还不存在
             //user.dietlog.clear()
             write2Json()
@@ -65,6 +68,38 @@ object Data {
 
 
         timer=true
+    }
+    fun update()
+    {
+        val url = "http://47.94.139.212:3000/user/update"
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user = nowUser
+        val avoidance= AvoidanceToAlgo()
+        var state=0
+        if (user.plan==Plan.slim)
+        {
+            state=0
+        }
+        else if(user.plan==Plan.strong)
+        {
+            state=1
+        }
+        else
+        {
+            state=2
+        }
+        val map = mapOf("id" to idCode,"gender" to user.gender,"birthday" to user.birthday,
+            "avoidance" to avoidance,"weight" to user.weight.toInt(),"height" to user.height.toInt(),"state" to state)
+
+        simplePostUseFrom(url, map)
+        Log.d("Finish","update")
+        if (getState()=="fail")
+        {
+            throw IOException("Error Update")
+        }
+
+
     }
     fun setHeightVisible()
     {
@@ -77,13 +112,31 @@ object Data {
 
     fun setPlan(plan1:Plan)
     {
-        plan=plan1
+        val fileExist = createNewFile(dataDir, fileName)
+        user.plan=plan1
+        write2Json()
     }
     fun getPlan():Plan
     {
-        return plan
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user = nowUser
+        return user.plan
     }
 
+    fun setBirthday(birthday:String)
+    {
+        val fileExist = createNewFile(dataDir, fileName)
+        user.birthday=birthday
+        write2Json()
+    }
+    fun getBirthday():String
+    {
+        val content = File(userDataFile).readText()
+        val nowUser = Gson().fromJson(content, User::class.java)
+        user = nowUser
+        return user.birthday
+    }
     fun setCarolie(car :Int)
     {
         Carolie=car
@@ -167,6 +220,37 @@ object Data {
     fun setPostData(data:PostData):Int
     {
         postData =data
+        if(postData.status=="success")
+        {
+            Log.d("Login", postData.data.toString())
+            setBirthday(postData.data.birthday)
+            setUserName(postData.data.name)
+            setGender(postData.data.gender)
+            idCode= postData.data.id
+            setTrueWeight(postData.data.weight.toDouble())
+            setTrueHeight(postData.data.height)
+            for(i in avoidanceValue.indices)
+            {
+                val j=1 shl i
+                if((postData.data.avoidance and j)!=0)
+                {
+                    user.avoidanceValue[i]=true
+                }
+            }
+            if (postData.data.state==0)
+            {
+                setPlan(Plan.slim)
+            }
+            else if(postData.data.state==1)
+            {
+                setPlan(Plan.strong)
+            }
+            else
+            {
+                setPlan(Plan.keep)
+            }
+
+        }
         return 1
     }
     fun getState():String
@@ -248,44 +332,6 @@ object Data {
         write2Json()
     }
 
-    fun setDay(day:Int)
-    {
-        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
-        user.day=day
-        write2Json()
-    }
-    fun getDay():Int
-    {
-        val content = File(userDataFile).readText()
-        val nowUser=Gson().fromJson(content, User::class.java)
-        return nowUser.day
-    }
-
-    fun setMonth(month:Int)
-    {
-        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
-        user.month=month
-        write2Json()
-    }
-    fun getMonth():Int
-    {
-        val content = File(userDataFile).readText()
-        val nowUser=Gson().fromJson(content, User::class.java)
-        return nowUser.month
-    }
-
-    fun setYear(year:Int)
-    {
-        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
-        user.year=year
-        write2Json()
-    }
-    fun getYear():Int
-    {
-        val content = File(userDataFile).readText()
-        val nowUser=Gson().fromJson(content, User::class.java)
-        return nowUser.year
-    }
 
     fun setGender(gender:Int)
     {
@@ -296,6 +342,7 @@ object Data {
 
     fun getGender():Int
     {
+        val fileExist = createNewFile(dataDir, fileName)
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         return nowUser.gender
@@ -347,6 +394,7 @@ object Data {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.avoidanceFlag = flag
         write2Json()
+        update()
     }
     fun getAvoidanceChange(): Boolean{
         val content = File(userDataFile).readText()
@@ -565,7 +613,7 @@ object Data {
 
         if (!dirFile.exists()) {
             //创建目录
-            Log.d("File",dirFile.toString())
+            Log.d("file",dirFile.toString())
             dirFile.mkdirs()
         }
 
@@ -577,7 +625,7 @@ object Data {
             Log.d("file","Try to Create")
             if(!file.createNewFile())
             {
-                Log.d("cookie","Create file Failed")
+                Log.d("file","Create file Failed")
                 return -2
             }
             write2Json()
