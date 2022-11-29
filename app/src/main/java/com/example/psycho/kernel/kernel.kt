@@ -8,6 +8,7 @@ import com.example.psycho.resource.CanteenAdapter
 import com.example.psycho.simpleGetUseFrom
 import com.google.gson.Gson
 import java.lang.Math.*
+import java.text.SimpleDateFormat
 import java.util.function.DoubleUnaryOperator
 import java.util.function.Predicate
 import kotlin.math.roundToInt
@@ -99,7 +100,7 @@ object Kernel {
         else//Woman
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
 
-        calorie += Goal * 250
+        calorie += Goat * 250
         return calorie.roundToInt()
     }
 
@@ -226,7 +227,8 @@ object Kernel {
         var Gender = Mydata.getGender()
         var Weight = Mydata.getTrueWeight()
         var Height = Mydata.getTrueHeight()
-        var Age = 2022-Mydata.getYear()
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        var Age = 2022-sdf.parse(Mydata.getBirthday()).year
         var Goal = 0//keep
         if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
         if(Mydata.getPlan() == Data.Plan.strong) Goal = 1

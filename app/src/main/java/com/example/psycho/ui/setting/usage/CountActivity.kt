@@ -14,6 +14,7 @@ import com.example.psycho.ui.custom.RulerView
 import com.example.psycho.ui.login.LoginActivity
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.DateTimePicker
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CountActivity : AppCompatActivity() {
@@ -29,6 +30,7 @@ class CountActivity : AppCompatActivity() {
     private var monthOfYear:Int=0
     private var dayOfMonth:Int=0
     private var year:Int=0
+    private var birthday:String=""
     private var date:Date=Date(0)
 
     private fun planLayout()
@@ -37,18 +39,22 @@ class CountActivity : AppCompatActivity() {
         val button1:Button=findViewById(R.id.button_keep)
         button1.setOnClickListener {
             _data.setPlan(Data.Plan.keep)
+            _data.update()
             finish()
         }
         val button2:Button=findViewById(R.id.button_slim)
         button2.setOnClickListener {
             _data.setPlan(Data.Plan.slim)
+            _data.update()
             finish()
         }
 
         val button3:Button=findViewById(R.id.button_strong)
         button3.setOnClickListener {
             _data.setPlan(Data.Plan.strong)
+            _data.update()
             finish()
+
         }
 
     }
@@ -65,8 +71,11 @@ class CountActivity : AppCompatActivity() {
         picker.showLabel(true)
         picker.setOnDateTimeChangedListener {
             var calendar  = Calendar.getInstance()
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+
             calendar.timeInMillis = it
             val time=calendar.time
+            birthday=sdf.format(time)
             date=time
             monthOfYear=time.month+1
             year=time.year+1900
@@ -83,9 +92,7 @@ class CountActivity : AppCompatActivity() {
         }
         val btn_confirm:Button=findViewById(R.id.btn_confirm)
         btn_confirm.setOnClickListener{
-            _data.setDay(dayOfMonth)
-            _data.setMonth(monthOfYear)
-            _data.setYear(year)
+            _data.setBirthday(birthday)
             Log.d("Finish","Count")
             _data.setFirstFlag()
             planLayout()
