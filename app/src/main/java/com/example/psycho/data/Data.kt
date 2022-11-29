@@ -723,7 +723,6 @@ object Data {
                 //Log.d("getlog",(dietLog.foodName == null).toString())
             }
         }
-
         return res
     }
 
@@ -739,5 +738,18 @@ object Data {
                 "calorie" to calorie, "price" to price)
             simplePostUseFrom(url, map)
         }
+    }
+
+    fun getCalorieFromServer(uid: Int = idCode): Int {
+        val url = "http://47.94.139.212:3000/journal/listbyusr"
+        val map = mapOf("uid" to uid.toString())
+        val responseData = simpleGetUseFrom(url, map)
+        val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
+        val dietLogList = getResponse.data
+        var res:Int = 0
+        for (dietLog in dietLogList) {
+            res += dietLog.calorie
+        }
+        return res
     }
 }

@@ -106,7 +106,7 @@ class DashboardFragment : Fragment() {
             if(snack.size > 0){
                 textTodayDessert.setText(snack.toString())
             }
-            val Todaycal:Int = (breakfast.size + lunch.size + dinner.size + snack.size)*180 + 130
+            val Todaycal:Int = userData.getCalorieFromServer()
             todayCalorie.setText(Todaycal.toString())
         }
 
