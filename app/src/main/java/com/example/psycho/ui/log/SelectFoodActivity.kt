@@ -25,7 +25,8 @@ class SelectFoodActivity : AppCompatActivity() {
         listView.adapter = adapter
         listView.setOnItemClickListener { parent, view, position, id ->
             val food = foodList[position]
-            userData.addDietLog(meal, food.name)//添加日志记录
+            //userData.addDietLog(meal, food.name)//添加日志记录
+            userData.postLogToServer(food.foodId, meal)
             finish()
         }
 
@@ -43,7 +44,7 @@ class SelectFoodActivity : AppCompatActivity() {
             //Kernel.getPictureId(foodNameList[i])?.let { Food(foodNameList[i], it) }
             //  ?.let { foodList.add(it)
             Log.d("url", foodNameList[i].imgAddr)
-            foodList.add(Food(foodNameList[i].name, foodNameList[i].imgAddr))
+            foodList.add(Food(foodNameList[i].name, foodNameList[i].imgAddr, foodNameList[i].id))
         }
       }
 

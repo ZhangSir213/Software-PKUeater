@@ -11,7 +11,7 @@ import com.example.psycho.R
 import com.squareup.picasso.Picasso
 
 
-class Food(val name:String, val imageUrl: String)
+class Food(val name:String, val imageUrl: String, val foodId:Int)
 
 class FoodAdapter(activity: Activity, val resourceId: Int, data: List<Food>):
         ArrayAdapter<Food>(activity, resourceId, data){

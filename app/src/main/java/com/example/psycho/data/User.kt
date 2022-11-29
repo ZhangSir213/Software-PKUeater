@@ -5,10 +5,12 @@ import java.io.File
 
 data class DietLog (
     //var datetime: String,
+    var fid: Int,
     var meal: Int,
     var foodName: String,
     var calorie: Int = 0,
-    var price: Int = 0
+    var price: Int = 0,
+
 )
 
 data class DietLogGet (var status: String = "fail", var data: List<DietLog>)
