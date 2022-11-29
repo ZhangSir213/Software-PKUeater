@@ -35,7 +35,7 @@ class SelectFoodActivity : AppCompatActivity() {
     private fun initFoods(){
         //TODO:获取真实菜品列表
 
-        val foodNameList: List<String> = Kernel.getFoodlist()
+        val foodNameList: List<String> = Kernel.getFoodList()
         if(foodNameList.isEmpty()){
             return
         }

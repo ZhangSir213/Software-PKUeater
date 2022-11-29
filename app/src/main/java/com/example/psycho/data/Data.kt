@@ -4,11 +4,12 @@ import android.content.ContentValues
 import android.os.Environment
 import android.util.Log
 import com.example.psycho.R
+import com.example.psycho.simpleGetUseFrom
 import com.example.psycho.simplePostUseFrom
 import com.google.gson.Gson
 import java.io.*
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -689,4 +690,23 @@ object Data {
         return null
     }
 
+    fun getLogFromServer(uid: Int): List<DietLog> {
+        val url = "http://47.94.139.212:3000/journal/listbyusr"
+        val map = mapOf("uid" to uid.toString())
+        val responseData = simpleGetUseFrom(url, map)
+        val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
+        return getResponse.data
+    }
+
+    fun postLogToServer(meal: Int, uid: Int, fid: Int, calorie: Int = 0, price: Int = 0) {
+        val url = "http://47.94.139.212:3000/journal/create"
+        if (fid != 0) {
+            val map = mapOf("meal" to meal, "uid" to uid, "fid" to fid)
+            simplePostUseFrom(url, map)
+        } else {
+            val map = mapOf("meal" to meal, "uid" to uid, "fid" to 0,
+                "calorie" to calorie, "price" to price)
+            simplePostUseFrom(url, map)
+        }
+    }
 }
