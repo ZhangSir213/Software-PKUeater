@@ -91,13 +91,15 @@ object Kernel {
         return res
     }
 
-    fun CalcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int): Int{
+    fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goat: Int): Int{
         // Weight kg   Height cm
         var calorie: Double = 0.1
         if(Gender == 1)//Man
             calorie = 10*Weight + 6.25*Height - 5*Age + 5
         else//Woman
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
+
+        calorie += Goal * 250
         return calorie.roundToInt()
     }
 
@@ -219,13 +221,16 @@ object Kernel {
             查论文目前最先进的方法：
             Mifflin St.Jeor Formulas
 
-            减肥一公斤，减少摄入3580kal,一个月每天少100卡，增肥同理
+            减肥一公斤，减少摄入7500kcal,一个月每天少250卡，增肥同理
         */
         var Gender = Mydata.getGender()
         var Weight = Mydata.getTrueWeight()
         var Height = Mydata.getTrueHeight()
         var Age = 2022-Mydata.getYear()
-        var Cal = CalcCalorie(Gender,Weight, Height, Age)
+        var Goal = 0//keep
+        if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
+        if(Mydata.getPlan() == Data.Plan.strong) Goal = 1
+        var Cal = calcCalorie(Gender,Weight, Height, Age, Goal)
 
         Avoidance = Mydata.AvoidanceToAlgo()
         Budget = Mydata.getBudget()
