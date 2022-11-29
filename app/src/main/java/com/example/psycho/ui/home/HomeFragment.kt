@@ -49,7 +49,8 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this)[HomeViewModel::class.java]
 
-
+        _data.setTodayMenu(Kernel.getResult())
+        _data.setMenuChange(true)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val act: FragmentActivity? = activity
@@ -121,13 +122,30 @@ class HomeFragment : Fragment() {
                             var todayMenu = _data.getTodayMenu()
 
                             textTodayCanteen.text = todayMenu[0]
-                            textCuisine1.text = todayMenu[1]
+                            Log.d("homessss",todayMenu.size.toString())
+                            textCuisine1.text = "菜品名称"
                             textCuisine2.text = "菜品名称"
                             textCuisine3.text = "菜品名称"
 
-                            imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
+                            //textCuisine1.text = todayMenu[1]
+                            //textCuisine2.text = todayMenu[2]
+                            //textCuisine3.text = todayMenu[3]
+
+                            //imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
+                            //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
+                            //imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
+
+                            textCuisine1.text = "菜品名称"
+                            textCuisine2.text = "菜品名称"
+                            textCuisine3.text = "菜品名称"
+
+                            imageCuisine1.setImageResource(R.drawable.pkueater)
                             imageCuisine2.setImageResource(R.drawable.pkueater)
                             imageCuisine3.setImageResource(R.drawable.pkueater)
+                            if(todayMenu.size == 2){
+                                textCuisine1.text = todayMenu[1]
+                                imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
+                            }
                             if(todayMenu.size == 3){//有两个菜品的情况
                                 textCuisine2.text = todayMenu[2]
                                 imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)

@@ -83,7 +83,29 @@ class SettingFragment : Fragment() {
             override fun run() {
                 //在这里更新数据
                 activity?.runOnUiThread {
-                    if(_data.getTimerFlag()==true) {
+                    if(_data.getTimerFlag()) {
+                        if (_data.getAvoidanceChange()) {
+                            /*
+                            avoidanceList = userData.getAvoidanceType()
+                            recyclerViewAvoidance = binding.recyclerAvoidance
+                            recyclerViewAvoidance?.layoutManager =
+                                StaggeredGridLayoutManager(2,
+                                    StaggeredGridLayoutManager.HORIZONTAL)
+                            avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
+                            recyclerViewAvoidance?.adapter = avoidanceAdapter
+
+
+                            acceptableList = userData.getAcceptable()
+                            recyclerViewAcceptable = binding.recyclerAcceptable
+                            recyclerViewAcceptable?.layoutManager =
+                                StaggeredGridLayoutManager(3,
+                                    StaggeredGridLayoutManager.HORIZONTAL)
+                            acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
+                            recyclerViewAcceptable?.adapter = acceptableAdapter
+                            _data.setAvoidanceChange(false)
+                             */
+                        }
+
                         if (_data.getModifyFlag()) {
                             if (_data.getWeightVisible())
                             {
@@ -125,12 +147,7 @@ class SettingFragment : Fragment() {
 
         // Roulette Avoidance
         // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
-        avoidanceList = listOf("辣的","甜的","还真想吃点儿酸的",
-            "农园一层", "农园二层ios", "燕南一", "家园一层",
-            "家园二层", "家园三层666", "家园四层", "松林包子",
-            "学一食堂4", "学五食堂123", "勺园一层fqr", "勺园二qeqw层",
-            "佟园餐厅", "勺园e西餐厅", "勺园中餐ww厅",
-            "点外卖ewrqrq", "出校吃", "吃餐车")
+        avoidanceList = _data.getAvoidanceType()
         recyclerViewAvoidance = binding.recyclerAvoidance
         recyclerViewAvoidance?.layoutManager =
             StaggeredGridLayoutManager(2,
@@ -142,6 +159,26 @@ class SettingFragment : Fragment() {
             override fun onItemClick(view: View?, t: String?, position: Int) {
                 when (view?.id) {
                     R.id.content_avoidance -> {
+                        t?.let {
+                            _data.deleteAvoidance(t)
+                        }
+                        avoidanceList = _data.getAvoidanceType()
+                        recyclerViewAvoidance = binding.recyclerAvoidance
+                        recyclerViewAvoidance?.layoutManager =
+                            StaggeredGridLayoutManager(2,
+                                StaggeredGridLayoutManager.HORIZONTAL)
+                        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
+                        recyclerViewAvoidance?.adapter = avoidanceAdapter
+
+                        acceptableList = _data.getAcceptable()
+                        recyclerViewAcceptable = binding.recyclerAcceptable
+                        recyclerViewAcceptable?.layoutManager =
+                            StaggeredGridLayoutManager(3,
+                                StaggeredGridLayoutManager.HORIZONTAL)
+                        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
+                        recyclerViewAcceptable?.adapter = acceptableAdapter
+
+                        _data.setAvoidanceChange(true)
                         // Roulette
                         // 在这里设置修改avoidanceList和acceptableList
                         /*
@@ -159,12 +196,7 @@ class SettingFragment : Fragment() {
         }
         // Roulette Acceptable
         // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
-        acceptableList = listOf("辣的","甜的","还真想吃点儿酸的",
-            "农园一层", "农园二层ios", "燕南一", "家园一层",
-            "家园二层", "家园三层666", "家园四层", "松林包子",
-            "学一食堂4", "学五食堂123", "勺园一层fqr", "勺园二qeqw层",
-            "佟园餐厅", "勺园e西餐厅", "勺园中餐ww厅",
-            "点外卖ewrqrq", "出校吃", "吃餐车")
+        acceptableList = _data.getAcceptable()
         recyclerViewAcceptable = binding.recyclerAcceptable
         recyclerViewAcceptable?.layoutManager =
             StaggeredGridLayoutManager(3,
@@ -176,6 +208,28 @@ class SettingFragment : Fragment() {
             override fun onItemClick(view: View?, t: String?, position: Int) {
                 when (view?.id) {
                     R.id.content_acceptable -> {
+                        t?.let {
+                            _data.addAvoidance(t)
+                            // Log.d("click::",t.toString())
+                        }
+
+                        avoidanceList = _data.getAvoidanceType()
+                        recyclerViewAvoidance = binding.recyclerAvoidance
+                        recyclerViewAvoidance?.layoutManager =
+                            StaggeredGridLayoutManager(2,
+                                StaggeredGridLayoutManager.HORIZONTAL)
+                        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
+                        recyclerViewAvoidance?.adapter = avoidanceAdapter
+
+                        acceptableList = _data.getAcceptable()
+                        recyclerViewAcceptable = binding.recyclerAcceptable
+                        recyclerViewAcceptable?.layoutManager =
+                            StaggeredGridLayoutManager(3,
+                                StaggeredGridLayoutManager.HORIZONTAL)
+                        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
+                        recyclerViewAcceptable?.adapter = acceptableAdapter
+
+                        _data.setAvoidanceChange(true)
                         // Roulette
                         // 在这里设置修改acceptableList和acceptableList
                         /*

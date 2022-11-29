@@ -29,7 +29,7 @@ object Data {
         "芥末","花椒","洋葱","芹菜","牛奶","鸡蛋","非素食","非清真")
     private var avoidanceValue: BooleanArray = BooleanArray(16)
     private var menu: List<String> = listOf("你干嘛","小黑子","只因你太美","两年半")
-    private var budget: Double = 15.5
+    private var budget: Double = 5000000.5
     private val dietLog: ArrayList<DietLog> = ArrayList<DietLog>()
     private var user=User("Lemon","123456",60.0,170,
         false,0,2002,4,10, IntArray(18), avoidanceString,
@@ -343,6 +343,17 @@ object Data {
         write2Json()
     }
 
+    fun setAvoidanceChange(flag: Boolean){
+        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.avoidanceFlag = flag
+        write2Json()
+    }
+    fun getAvoidanceChange(): Boolean{
+        val content = File(userDataFile).readText()
+        val nowUser=Gson().fromJson(content, User::class.java)
+        return nowUser.avoidanceFlag
+    }
+
     // 设置菜单
     fun getTodayMenu(): List<String>{
         val content = File(userDataFile).readText()
@@ -395,7 +406,7 @@ object Data {
         user = nowUser
         for(i in avoidanceString.indices){
             if(avoidanceName == avoidanceString[i]){
-                user.avoidanceValue[i] = true
+                user.avoidanceValue[i] = !user.avoidanceValue[i]
                 break
             }
         }
@@ -419,7 +430,7 @@ object Data {
         user = nowUser
         for(i in avoidanceString.indices){
             if(avoidanceName == avoidanceString[i]){
-                user.avoidanceValue[i] = false
+                user.avoidanceValue[i] = !user.avoidanceValue[i]
                 break
             }
         }
