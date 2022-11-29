@@ -690,21 +690,28 @@ object Data {
         return null
     }
 
-    fun getLogFromServer(uid: Int): List<DietLog> {
+    fun getLogFromServer( uid: Int, meal: Int): List<String> {
         val url = "http://47.94.139.212:3000/journal/listbyusr"
         val map = mapOf("uid" to uid.toString())
         val responseData = simpleGetUseFrom(url, map)
         val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
-        return getResponse.data
+        val dietLogList = getResponse.data
+        var res = listOf<String>()
+        for (dietLog in dietLogList) {
+            if (dietLog.meal == meal) {
+                res = res.plusElement(dietLog.foodName)
+            }
+        }
+        return res
     }
 
-    fun postLogToServer(meal: Int, uid: Int, fid: Int, calorie: Int = 0, price: Int = 0) {
+    fun postLogToServer(uid: Int, fid: Int, meal: Int, calorie: Int = 0, price: Int = 0) {
         val url = "http://47.94.139.212:3000/journal/create"
         if (fid != 0) {
-            val map = mapOf("meal" to meal, "uid" to uid, "fid" to fid)
+            val map = mapOf("uid" to uid, "fid" to fid, "meal" to meal)
             simplePostUseFrom(url, map)
         } else {
-            val map = mapOf("meal" to meal, "uid" to uid, "fid" to 0,
+            val map = mapOf("uid" to uid, "fid" to 0, "meal" to meal,
                 "calorie" to calorie, "price" to price)
             simplePostUseFrom(url, map)
         }
