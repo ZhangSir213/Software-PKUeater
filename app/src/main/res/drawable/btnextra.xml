@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- hjh:我抄了一个渐变色按钮 -->
+    <!--https://blog.csdn.net/zsh19980915/article/details/78180544-->
+
+    <solid android:color="#459BB0"></solid>
+    <corners android:radius="50dp"></corners>
+    <gradient
+        android:startColor ="#459BB0"
+        android:endColor="#459BB0"
+        android:angle="180"/>
+</shape>

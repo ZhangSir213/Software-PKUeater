@@ -90,7 +90,7 @@ fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean 
             //val response=Gson().fromJson(responses.body.toString(),PostData::class.java)
             //println(response.status)
             val response=Gson().fromJson(msg_new,PostData::class.java)
-            Log.d("Post",response.data.name)
+            //Log.d("Post",response.data.name)
             var global_file=Data
             global_file.setPostData(response,update)
         } catch (e: Throwable) {

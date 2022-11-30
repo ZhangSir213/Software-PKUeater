@@ -50,8 +50,8 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this)[HomeViewModel::class.java]
 
-        _data.setTodayMenu(Kernel.getResult())
-        _data.setMenuChange(true)
+        //_data.setTodayMenu(Kernel.getResult())
+        //_data.setMenuChange(true)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val act: FragmentActivity? = activity
@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
         canteenAdapter?.mOnRecyclerViewItemClick = object :OnRecyclerViewItemClick<String>{
             override fun onItemClick(view:View?, t:String?, position:Int) {
                 when (view?.id) {
-
                     R.id.item_view_canteen -> Toast.makeText(
                         this@HomeFragment.activity,
                         "您本次选择了${position}",
@@ -105,6 +104,17 @@ class HomeFragment : Fragment() {
             Log.d("Random","choose")
         }
         // timer刷新重写
+
+        //// 看一下scram模型是怎么来落实的？
+        /*
+        val textView: TextView = binding.textHome
+        homeViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
+        }
+         */
+        val button1:Button=binding.buttonAddlog1
+        val button2:Button=binding.buttonAddlog2
+        val button3:Button=binding.buttonAddlog3
         val textTodayCanteen: TextView = binding.textTodayCanteen
         val textCuisine1: TextView = binding.textCuisine1
         val textCuisine2: TextView = binding.textCuisine2
@@ -113,40 +123,6 @@ class HomeFragment : Fragment() {
         val imageCuisine2:ImageView=binding.imageCuisine2
         val imageCuisine3:ImageView=binding.imageCuisine3
         val timer = Timer()
-        val button1:Button=binding.buttonAddlog1
-        val button2:Button=binding.buttonAddlog2
-        val button3:Button=binding.buttonAddlog3
-
-        button1.setOnClickListener{
-             val text=textCuisine1.text
-             if (text!="菜品名称")
-             {
-                 val foodFind=Kernel.getFood(text.toString())
-                 val meal=_data.getMeal()
-                 _data.postLogToServer(foodFind.id, meal)
-                 Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
-             }
-         }
-        button2.setOnClickListener{
-            val text=textCuisine2.text
-            if (text!="菜品名称")
-            {
-                val foodFind=Kernel.getFood(text.toString())
-                val meal=_data.getMeal()
-                _data.postLogToServer(foodFind.id, meal)
-                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
-            }
-        }
-        button3.setOnClickListener{
-            val text=textCuisine3.text
-            if (text!="菜品名称")
-            {
-                val foodFind=Kernel.getFood(text.toString())
-                val meal=_data.getMeal()
-                _data.postLogToServer(foodFind.id, meal)
-                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
-            }
-        }
         timer.schedule(object : TimerTask() {
             override fun run() {
                 //在这里更新数据
@@ -162,13 +138,6 @@ class HomeFragment : Fragment() {
                             textCuisine2.text = "菜品名称"
                             textCuisine3.text = "菜品名称"
 
-                            //textCuisine1.text = todayMenu[1]
-                            //textCuisine2.text = todayMenu[2]
-                            //textCuisine3.text = todayMenu[3]
-
-                            //imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
-                            //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
-                            //imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
 
                             textCuisine1.text = "菜品名称"
                             textCuisine2.text = "菜品名称"
@@ -202,16 +171,39 @@ class HomeFragment : Fragment() {
             }
         }, 0, 500) //延迟10毫秒后，执行一次task
 
-        //// 看一下scram模型是怎么来落实的？
-        /*
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        button1.setOnClickListener{
+            val text=textCuisine1.text
+            if (text!="菜品名称")
+            {
+                val foodFind=Kernel.getFood(text.toString())
+                val meal=_data.getMeal()
+                _data.postLogToServer(foodFind.id, meal)
+                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
+            }
         }
-         */
+        button2.setOnClickListener{
+            val text=textCuisine2.text
+            if (text!="菜品名称")
+            {
+                val foodFind=Kernel.getFood(text.toString())
+                val meal=_data.getMeal()
+                _data.postLogToServer(foodFind.id, meal)
+                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
+            }
+        }
+        button3.setOnClickListener{
+            val text=textCuisine3.text
+            if (text!="菜品名称")
+            {
+                val foodFind=Kernel.getFood(text.toString())
+                val meal=_data.getMeal()
+                _data.postLogToServer(foodFind.id, meal)
+                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         return root
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
