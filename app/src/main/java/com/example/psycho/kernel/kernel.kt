@@ -232,7 +232,7 @@ object Kernel {
         var Weight = Mydata.getTrueWeight()
         var Height = Mydata.getTrueHeight()
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        var Age = 2022-sdf.parse(Mydata.getBirthday()).year
+        var Age = 2022-sdf.parse(Mydata.getBirthday()).year-1900
         var Goal = 0//keep
         if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
         if(Mydata.getPlan() == Data.Plan.strong) Goal = 1

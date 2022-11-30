@@ -57,8 +57,13 @@ fun simpleGetUseFrom(url: String, params: Map<String,String>? = null):String {
     return responseData
 }
 @Synchronized
-fun simplePostUseFrom(url: String, params: Map<String,*>? = null) {
+fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean =false) {
     //创建 formBody
+    var update=update
+    if ((url=="http://47.94.139.212:3000/user/register")||(url=="http://47.94.139.212:3000/user/login"))
+    {
+        update=true
+    }
     val t= thread{
 
         val formBody = FormBody.Builder()
@@ -87,7 +92,7 @@ fun simplePostUseFrom(url: String, params: Map<String,*>? = null) {
             val response=Gson().fromJson(msg_new,PostData::class.java)
             Log.d("Post",response.data.name)
             var global_file=Data
-            global_file.setPostData(response)
+            global_file.setPostData(response,update)
         } catch (e: Throwable) {
             Log.d("Post", "failed")
             println(e.toString())
