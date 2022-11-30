@@ -695,6 +695,21 @@ object Data {
         return avoidancetype.toList()
     }
 
+
+    fun addAvoidance(context: Context, avoidanceName: String):Boolean{
+        var avoidance: Int = query(context, "avoidance").toInt()
+        for(i in avoidanceString.indices){
+            if(avoidanceName == avoidanceString[i]){
+                avoidance = avoidance.or(i)
+            }
+        }
+        try {
+            update(context, "avoidance", avoidance.toString())
+        }catch(e : okio.IOException){
+            return false
+        }
+        return true
+    }
     /**
      *  Param: 忌口类型名 : String
      *  return : 成功返回true，否则返回false
@@ -717,8 +732,23 @@ object Data {
         }
         return true
 
+
     }
 
+    fun deleteAvoidance(context: Context,avoidanceName: String): Boolean{
+        var avoidance: Int = query(context, "avoidance").toInt()
+        for(i in avoidanceString.indices){
+            if(avoidanceName == avoidanceString[i]){
+                avoidance = avoidance.or(i.inv())
+            }
+        }
+        try {
+            update(context, "avoidance", avoidance.toString())
+        }catch(e : okio.IOException){
+            return false
+        }
+        return true
+    }
     /**
      * Param:忌口类型名: String,
      * return: 成功返回true，否则返回false
@@ -743,6 +773,10 @@ object Data {
     }
 
 
+    fun AvoidanceTOAlgo(context: Context):Int {
+        val avoidance:Int = query(context, "avoidance").toInt()
+        return avoidance
+    }
     /**
      * 返回标记为忌口的菜品，对应二进制位标记位1
      **/
@@ -775,7 +809,6 @@ object Data {
         return (user.budget*100).toInt()
     }
 
-
     fun setBudget(context: Context, budget: Double): Boolean{
         try{
             update(context, "budget", budget.toString())
@@ -785,6 +818,8 @@ object Data {
         return true
 
     }
+
+
     /**
      * 设置用户预算
      * param: Budget limit
