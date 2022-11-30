@@ -1,6 +1,5 @@
 package com.example.psycho.kernel
 
-import android.util.Log
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.Food
@@ -36,8 +35,8 @@ object Kernel {
                       = "换个推荐"
                       = “换个食堂”
      */
-    var food = listOf<Food>()           //各类食物信息
-    //var food = Array<Food>(1000, {i: Int -> Food()})
+    var listOfFood = listOf<Food>()           //各类食物信息
+    var food = Array<Food>(1000, {i: Int -> Food()})
     var nwfood = Array<Food>(1000, {i: Int -> Food()})                  //排除忌口等因素后本次可以推荐的食物
     var candidate = Array<Food>(10, {i: Int -> Food()})                 //每次搜索的推荐结果
     var recommend = Array<Food>(10, {i: Int -> Food()})                 //最终推荐结果
@@ -56,16 +55,12 @@ object Kernel {
         val responseData = simpleGetUseFrom(url,null)
         val getResponse = Gson().fromJson(responseData, FoodGet::class.java)
         //val foodList = getResponse.data
-        food = getResponse.data
-        Log.d("Food",food[0].canteenId.toString())
-        Log.d("Food",food[0].name)
-        Log.d("Food",food[0].calorie.toString())
-        cnt=food.size
-        /*val length = foodList.size
+        listOfFood = getResponse.data
+        val length = listOfFood.size
         for (i in 0 until length)
         {
-            food[++cnt] = foodList[i]
-        }*/
+            food[++cnt] = listOfFood[i]
+        }
     }
 
     fun setPrefer(string: String): Boolean{
@@ -91,7 +86,7 @@ object Kernel {
         for(i in 1..cnt)
             res = res.plusElement(food[i].name)
         return res*/
-        return food
+        return listOfFood
     }
     /*fun getCanteenFood(Canteen: String): MutableList<String>{
         var res = mutableListOf<String>()
@@ -108,9 +103,6 @@ object Kernel {
             calorie = 10*Weight + 6.25*Height - 5*Age + 5
         else//Woman
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
-        Log.d("Cal",Age.toString())
-        Log.d("Cal",calorie.toString())
-        Log.d("Cal",Goat.toString())
 
         calorie += Goat * 250
         return calorie.roundToInt()
@@ -160,20 +152,18 @@ object Kernel {
             }
             if(update == 0) return
 
-
             //III. 搜到和上次相同的推荐
             var recommendationHash = Hash()
             if(PreferCanteen == "换个推荐" &&
                 recommendationHash == lastRecommendationHash)
                 return
+
             //顺利更新答案
             rcnt = 0
             for(i in 1..ccnt) {
                 recommend[++rcnt] = candidate[i]
-                //   print("food:"+candidate[i]+"\n")
-                Log.d("Re", candidate[i].toString())
+                //    print("food:"+candidate[i]+"\n")
             }
-            Log.d("Re","Finish")
             rec_calorie = CalorieTot
             rec_distance = distance
             lastRecommendationHash = recommendationHash
@@ -181,7 +171,6 @@ object Kernel {
             return
         }
         if(Type.and(nwfood[x].type) == 0){
-
             candidate[++ccnt] = nwfood[x]
             dfs(CalorieTot+nwfood[x].calorie, Cost+ nwfood[x].price, x+1,Type+nwfood[x].type)
             ccnt--  //回溯
@@ -200,7 +189,7 @@ object Kernel {
          */
         print("所有的食物数据：\n")
         for(j in 1..cnt) {
-            print(food[j-1])
+            print(food[j])
             print('\n')
         }
 
@@ -243,9 +232,7 @@ object Kernel {
         var Weight = Mydata.getTrueWeight()
         var Height = Mydata.getTrueHeight()
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        Log.d("Birthday",sdf.parse(Mydata.getBirthday()).toString())
-
-        var Age = 2022-sdf.parse(Mydata.getBirthday()).year-1900
+        var Age = 2022-sdf.parse(Mydata.getBirthday()).year
         var Goal = 0//keep
         if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
         if(Mydata.getPlan() == Data.Plan.strong) Goal = 1
@@ -254,17 +241,16 @@ object Kernel {
         Avoidance = Mydata.AvoidanceToAlgo()
         Budget = Mydata.getBudget()
         CalorieLimit = Cal/2
-        Log.d("Food", CalorieLimit.toString())
-        Log.d("Food", Budget.toString())
-        Log.d("Food", Avoidance.toString())
+
+
 
         //ii. 筛选出本次可以推荐的菜品集合
         ncnt = 0
         for(i in 1..cnt) {
-            if((Canteen == CanteenList[food[i-1].canteenId]) && //食堂对应
-                (Avoidance.and(food[i-1].avoidance) == 0)       //忌口对应
+            if((Canteen == CanteenList[food[i].canteenId]) && //食堂对应
+                (Avoidance.and(food[i].avoidance) == 0)       //忌口对应
             )
-                nwfood[++ncnt] = food[i-1]
+                nwfood[++ncnt] = food[i]
         }
         print("筛选后的食物数据：\n")
         for(j in 1..ncnt) {
@@ -274,7 +260,6 @@ object Kernel {
         //iii. 获得本次推荐
         dfs(0,0,1,0)
         print("推荐的食物：\n")
-
         for(i in 1..rcnt) {
             print(recommend[i])
             print('\n')
