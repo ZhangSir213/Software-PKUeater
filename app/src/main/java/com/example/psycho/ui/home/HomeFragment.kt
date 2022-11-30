@@ -20,6 +20,7 @@ import com.example.psycho.databinding.FragmentHomeBinding
 import com.example.psycho.kernel.Kernel
 import com.example.psycho.resource.CanteenAdapter
 import com.example.psycho.resource.CanteenAdapter.OnRecyclerViewItemClick
+import com.squareup.picasso.Picasso
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -145,14 +146,20 @@ class HomeFragment : Fragment() {
                             imageCuisine3.setImageResource(R.drawable.pkueater)
                             if(todayMenu.size >= 2){
                                 textCuisine1.text = todayMenu[1]
-                                imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
+                                val foodFind=Kernel.getFood(todayMenu[1])
+                                Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine1)
+                                //imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
                             }
                             if(todayMenu.size >= 3){//有两个菜品的情况
                                 textCuisine2.text = todayMenu[2]
-                                imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
+                                val foodFind=Kernel.getFood(todayMenu[2])
+                                Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine2)
+                                //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
                             }else if(todayMenu.size >= 4){
                                 textCuisine3.text = todayMenu[3]
-                                imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
+                                val foodFind=Kernel.getFood(todayMenu[3])
+                                Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine3)
+                                //imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
                             }
 
 

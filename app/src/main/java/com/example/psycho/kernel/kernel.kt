@@ -62,7 +62,16 @@ object Kernel {
             food[++cnt] = listOfFood[i]
         }
     }
-
+    fun getFood(name:String):Food
+    {
+        var foodFind=Food()
+        for (i in 1 .. cnt)
+        {
+            if (food[i].name==name)
+                foodFind= food[i]
+        }
+        return foodFind
+    }
     fun setPrefer(string: String): Boolean{
         PreferCanteen = string
         return true
@@ -178,6 +187,7 @@ object Kernel {
         dfs(CalorieTot, Cost, x+1, Type)  //不选择这个食物
         return
     }
+
 
     fun getResult():List<String> {
         //Step0 读取食物数据

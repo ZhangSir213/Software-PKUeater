@@ -67,8 +67,6 @@ object Data {
         }
         if(user.dietlog == null)
             Log.d("init:","dietlog==null")
-
-
         timer=true
     }
     fun update()
