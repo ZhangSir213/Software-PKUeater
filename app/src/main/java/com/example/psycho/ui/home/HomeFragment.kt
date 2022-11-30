@@ -112,8 +112,38 @@ class HomeFragment : Fragment() {
         val imageCuisine1:ImageView=binding.imageCuisine1
         val imageCuisine2:ImageView=binding.imageCuisine2
         val imageCuisine3:ImageView=binding.imageCuisine3
-
         val timer = Timer()
+        val button1:Button=binding.buttonAddlog1
+        val button2:Button=binding.buttonAddlog2
+        val button3:Button=binding.buttonAddlog3
+
+         button1.setOnClickListener{
+             val text=textCuisine1.text
+             if (text!="菜品名称")
+             {
+                val foodFind=Kernel.getFood(text.toString())
+                 _data.postLogToServer(foodFind.id, 2)
+                 Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
+             }
+         }
+        button2.setOnClickListener{
+            val text=textCuisine2.text
+            if (text!="菜品名称")
+            {
+                val foodFind=Kernel.getFood(text.toString())
+                _data.postLogToServer(foodFind.id, 2)
+                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
+            }
+        }
+        button3.setOnClickListener{
+            val text=textCuisine3.text
+            if (text!="菜品名称")
+            {
+                val foodFind=Kernel.getFood(text.toString())
+                _data.postLogToServer(foodFind.id, 2)
+                Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
+            }
+        }
         timer.schedule(object : TimerTask() {
             override fun run() {
                 //在这里更新数据
