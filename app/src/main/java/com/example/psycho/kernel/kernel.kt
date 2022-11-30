@@ -60,6 +60,7 @@ object Kernel {
         Log.d("Food",food[0].canteenId.toString())
         Log.d("Food",food[0].name)
         Log.d("Food",food[0].calorie.toString())
+        cnt=food.size
         /*val length = foodList.size
         for (i in 0 until length)
         {
@@ -159,18 +160,20 @@ object Kernel {
             }
             if(update == 0) return
 
+
             //III. 搜到和上次相同的推荐
             var recommendationHash = Hash()
             if(PreferCanteen == "换个推荐" &&
                 recommendationHash == lastRecommendationHash)
                 return
-
             //顺利更新答案
             rcnt = 0
             for(i in 1..ccnt) {
                 recommend[++rcnt] = candidate[i]
-                //    print("food:"+candidate[i]+"\n")
+                //   print("food:"+candidate[i]+"\n")
+                Log.d("Re", candidate[i].toString())
             }
+            Log.d("Re","Finish")
             rec_calorie = CalorieTot
             rec_distance = distance
             lastRecommendationHash = recommendationHash
@@ -178,6 +181,7 @@ object Kernel {
             return
         }
         if(Type.and(nwfood[x].type) == 0){
+
             candidate[++ccnt] = nwfood[x]
             dfs(CalorieTot+nwfood[x].calorie, Cost+ nwfood[x].price, x+1,Type+nwfood[x].type)
             ccnt--  //回溯
@@ -196,7 +200,7 @@ object Kernel {
          */
         print("所有的食物数据：\n")
         for(j in 1..cnt) {
-            print(food[j])
+            print(food[j-1])
             print('\n')
         }
 
@@ -257,10 +261,10 @@ object Kernel {
         //ii. 筛选出本次可以推荐的菜品集合
         ncnt = 0
         for(i in 1..cnt) {
-            if((Canteen == CanteenList[food[i].canteenId]) && //食堂对应
-                (Avoidance.and(food[i].avoidance) == 0)       //忌口对应
+            if((Canteen == CanteenList[food[i-1].canteenId]) && //食堂对应
+                (Avoidance.and(food[i-1].avoidance) == 0)       //忌口对应
             )
-                nwfood[++ncnt] = food[i]
+                nwfood[++ncnt] = food[i-1]
         }
         print("筛选后的食物数据：\n")
         for(j in 1..ncnt) {
@@ -270,6 +274,7 @@ object Kernel {
         //iii. 获得本次推荐
         dfs(0,0,1,0)
         print("推荐的食物：\n")
+
         for(i in 1..rcnt) {
             print(recommend[i])
             print('\n')

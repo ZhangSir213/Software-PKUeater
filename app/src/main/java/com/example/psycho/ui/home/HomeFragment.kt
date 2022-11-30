@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
                         _data.setMenuChange(true)
                         cuisineMenu = Kernel.getResult()
                         _data.setTodayMenu(cuisineMenu!!)
+                        cuisineMenu=null
                     }
                 }
                 println("yes")
@@ -142,14 +143,14 @@ class HomeFragment : Fragment() {
                             imageCuisine1.setImageResource(R.drawable.pkueater)
                             imageCuisine2.setImageResource(R.drawable.pkueater)
                             imageCuisine3.setImageResource(R.drawable.pkueater)
-                            if(todayMenu.size == 2){
+                            if(todayMenu.size >= 2){
                                 textCuisine1.text = todayMenu[1]
                                 imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
                             }
-                            if(todayMenu.size == 3){//有两个菜品的情况
+                            if(todayMenu.size >= 3){//有两个菜品的情况
                                 textCuisine2.text = todayMenu[2]
                                 imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
-                            }else if(todayMenu.size == 4){
+                            }else if(todayMenu.size >= 4){
                                 textCuisine3.text = todayMenu[3]
                                 imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
                             }
