@@ -9,7 +9,6 @@
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp">
-
     </ImageView>
 
     <TextView
@@ -18,6 +17,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp">
-
     </TextView>
 </LinearLayout>
