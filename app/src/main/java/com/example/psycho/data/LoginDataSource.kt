@@ -1,5 +1,6 @@
 package com.example.psycho.data
 
+import android.content.Context
 import android.util.Log
 import com.example.psycho.data.model.LoggedInUser
 import com.example.psycho.simplePostUseFrom
@@ -10,18 +11,21 @@ import java.io.IOException
  */
 class LoginDataSource {
 
-    fun login(username: String, password: String,register:Boolean): Result<LoggedInUser> {
+    fun login(username: String, password: String,register:Boolean,context:Context): Result<LoggedInUser> {
         val globalFile = Data
         try {
             if (register==false)
             {
                 Log.d("username", username)
                 Log.d("password", password)
+                globalFile.setUserName(context,username)
+                globalFile.setPassword(context,password)
+
                 globalFile.setUserName(username)
                 globalFile.setPassword(password)
                 val map = mapOf("name" to username, "password" to password)
                 val url = "http://47.94.139.212:3000/user/login"
-                simplePostUseFrom(url, map,true)
+                simplePostUseFrom(url, map,true,context)
                 Log.d("Finish","login")
                 if (globalFile.getState()=="fail")
                 {
@@ -41,7 +45,7 @@ class LoginDataSource {
                 globalFile.setPassword(password)
                 val map = mapOf("name" to username, "password" to password)
                 val url = "http://47.94.139.212:3000/user/register"
-                simplePostUseFrom(url, map,true)
+                simplePostUseFrom(url, map,true,context)
                 Log.d("Finish","register")
                 if (globalFile.getState()=="fail")
                 {

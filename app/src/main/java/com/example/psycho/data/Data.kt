@@ -58,7 +58,42 @@ object Data {
     private var plan=Plan.keep
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
     private  var mysqlhelper: SQLiteOpenHelper? = null
+    var DB_NAME = "Pku-Eater.db" //数据库名称
+    var TABLE_NAME = "USER" //表名称
+    var CURRENT_VERSION = 1 //当前的最新版本，如有表结构变更，该版本号要加一
 
+    fun update(context:Context,column:String,value:String)
+    {
+        val dbHelper=MyDatabaseHelper(context, DB_NAME,1)
+        dbHelper.writableDatabase
+        val db=dbHelper.writableDatabase
+        val values=ContentValues()
+        values.put(column,value)
+        db.update(TABLE_NAME,values,"uid=?", arrayOf(idCode.toString()))
+        db.close()
+    }
+    fun query(context: Context,column: String):String
+    {
+        val dbHelper=MyDatabaseHelper(context, DB_NAME,1)
+        dbHelper.writableDatabase
+        val db=dbHelper.writableDatabase
+        val condition="uid=$idCode"
+        val sql = "select $column from $TABLE_NAME where $condition;"
+        val cursor=db.rawQuery(sql,null)
+        var value=""
+        if (cursor.moveToFirst()) {
+            while (true) {
+                value=cursor.getString(0)
+                if (cursor.isLast) {
+                    break
+                }
+                cursor.moveToNext()
+            }
+        }
+        cursor.close()
+        db.close()
+        return value
+    }
 
     init{//构造函数,将用户信息初始化
         //write2Json()
@@ -79,12 +114,45 @@ object Data {
 
     fun getLoginFlag(context:Context):Boolean
     {
-        val dbHelper=MyDatabaseHelper(context,"Pku-Eater.db",1)
-        dbHelper.writableDatabase
-        val db=dbHelper.writableDatabase
-        val cursor=db.query("User",null,null,null,null,null,null)
-        return true
+        val value=query(context,"login").toInt()
+        if (value==1)
+        {
+            return true
+        }
+        return false
     }
+    fun setFirstFlag(context: Context)
+    {
+        try {
+            update(context,"login","0")
+        }
+        catch (e:IOException)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    fun setUserName(context: Context,username: String)
+    {
+        try {
+            update(context,"name",username)
+        }
+        catch (e:IOException)
+        {
+            e.printStackTrace()
+        }
+    }
+    fun setPassword(context: Context,password: String)
+    {
+        try {
+            update(context,"password",password)
+        }
+        catch (e:IOException)
+        {
+            e.printStackTrace()
+        }
+    }
+
     fun getTime():Int
     {
         val current = LocalDateTime.now()
@@ -155,13 +223,33 @@ object Data {
     {
         heightVisible=false
     }
-
+    fun setPlan(context: Context,state:Int)
+    {
+        update(context,"state",state.toString())
+    }
     fun setPlan(plan1:Plan)
     {
         val fileExist = createNewFile(dataDir, fileName)
         user.plan=plan1
         write2Json()
     }
+    fun getPlan(context: Context):Plan
+    {
+        val value= query(context,"state").toInt()
+        if (value==0)
+        {
+            return Plan.slim
+        }
+        else if(value==1)
+        {
+            return Plan.keep
+        }
+        else
+        {
+            return Plan.strong
+        }
+    }
+
     fun getPlan():Plan
     {
         val content = File(userDataFile).readText()
@@ -170,6 +258,16 @@ object Data {
         return user.plan
     }
 
+    fun setBirthday(context: Context,birthday: String)
+    {
+        try {
+            update(context,"birthday",birthday)
+        }
+        catch (e:IOException)
+        {
+            e.printStackTrace()
+        }
+    }
     fun setBirthday(birthday:String)
     {
         val fileExist = createNewFile(dataDir, fileName)
@@ -215,11 +313,19 @@ object Data {
             return false
         return timer
     }
+    fun deleteUser(context: Context)
+    {
+        timer=false
+        update(context,"name","root")
+        update(context,"password","123456")
+        timer=true
+    }
     fun deleteUser()
     {
         timer=false
         File(dataDir, fileName).delete()
         user=root.copy()
+
         var fileExist = createNewFile(dataDir, fileName)
         timer=true
     }
@@ -267,18 +373,27 @@ object Data {
     {
         return idCode
     }
-    fun setPostData(data:PostData,update:Boolean):Int
+    fun setPostData(data:PostData,update:Boolean,context: Context?):Int
     {
         postData =data
         if((postData.status=="success")&&(update==true))
         {
             Log.d("Login", postData.data.toString())
+            setBirthday(context!!, postData.data.birthday)
             setBirthday(postData.data.birthday)
+            setUserName(context!!,postData.data.name)
             setUserName(postData.data.name)
+            setGender(context!!,postData.data.gender)
             setGender(postData.data.gender)
+            update(context!!,"uid", postData.data.id.toString())
             idCode= postData.data.id
+            setTrueWeight(context!!,postData.data.weight.toDouble())
+            setTrueHeight(context!!,postData.data.height)
+
             setTrueWeight(postData.data.weight.toDouble())
             setTrueHeight(postData.data.height)
+            setAvoidance(context!!, postData.data.avoidance)
+
             for(i in avoidanceValue.indices)
             {
                 val j=1 shl i
@@ -287,6 +402,7 @@ object Data {
                     user.avoidanceValue[i]=true
                 }
             }
+            setPlan(context!!, postData.data.state)
             if (postData.data.state==0)
             {
                 setPlan(Plan.slim)
@@ -303,6 +419,11 @@ object Data {
         }
         return 1
     }
+
+    private fun setAvoidance(context: Context,avoidance:Int) {
+        update(context,"avoidance",avoidance.toString())
+    }
+
     fun getState():String
     {
         return postData.status
@@ -326,11 +447,21 @@ object Data {
         return nowUser.height
     }
     //设置用户体重
+    fun setTrueWeight(context: Context,double: Double)
+    {
+        update(context,"weight",double.toString())
+    }
+
     fun setTrueWeight(double: Double){
         val fileExist = createNewFile(dataDir, fileName)
         user.weight = double
         write2Json()
 
+    }
+
+    fun setTrueHeight(context: Context,int: Int)
+    {
+        update(context,"weight",int.toString())
     }
 
     fun setTrueHeight(int: Int){
@@ -382,14 +513,21 @@ object Data {
         write2Json()
     }
 
-
+    fun setGender(context: Context,gender: Int)
+    {
+        update(context,"gender",gender.toString())
+    }
     fun setGender(gender:Int)
     {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.gender=gender
         write2Json()
     }
-
+    fun getGender(context: Context):Int
+    {
+        val value= query(context,"gender").toInt()
+        return value
+    }
     fun getGender():Int
     {
         val fileExist = createNewFile(dataDir, fileName)

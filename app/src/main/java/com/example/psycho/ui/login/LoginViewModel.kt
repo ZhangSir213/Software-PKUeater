@@ -1,5 +1,6 @@
 package com.example.psycho.ui.login
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,9 +19,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String,register:Boolean) {
+    fun login(username: String, password: String,register:Boolean,context:Context) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password,register)
+        val result = loginRepository.login(username, password,register,context)
 
         if (result is com.example.psycho.data.Result.Success) {
             _loginResult.value =

@@ -16,6 +16,7 @@ class MyDatabaseHelper (var context: Context, name: String, version: Int):SQLite
             "gender int,"+
             "avoidance int,"+
             "login int,"+
+            "password text,"+
             "menu text)"
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -29,23 +30,6 @@ class MyDatabaseHelper (var context: Context, name: String, version: Int):SQLite
         db?.execSQL("drop table if exists User")
         onCreate(db)
     }
+
 }
 
-class MyFoodHelper (var context: Context, name: String, version: Int):SQLiteOpenHelper(context, name, null, version)
-{
-    public var createFood="create table Food (" +
-            "id integer primary key autoincrement," +
-            "food json)"
-
-    override fun onCreate(db: SQLiteDatabase?) {
-//        下面这个todo 如果不注释掉的话就会报错。
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        db?.execSQL(createFood)
-        Toast.makeText(context,"Create Success",Toast.LENGTH_LONG).show()
-    }
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        db?.execSQL("drop table if exists Food")
-        onCreate(db)
-    }
-}
