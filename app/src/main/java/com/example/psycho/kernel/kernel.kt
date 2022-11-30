@@ -35,8 +35,8 @@ object Kernel {
                       = "换个推荐"
                       = “换个食堂”
      */
-    var food = listOf<Food>()           //各类食物信息
-    //var food = Array<Food>(1000, {i: Int -> Food()})
+    var listOfFood = listOf<Food>()           //各类食物信息
+    var food = Array<Food>(1000, {i: Int -> Food()})
     var nwfood = Array<Food>(1000, {i: Int -> Food()})                  //排除忌口等因素后本次可以推荐的食物
     var candidate = Array<Food>(10, {i: Int -> Food()})                 //每次搜索的推荐结果
     var recommend = Array<Food>(10, {i: Int -> Food()})                 //最终推荐结果
@@ -55,12 +55,12 @@ object Kernel {
         val responseData = simpleGetUseFrom(url,null)
         val getResponse = Gson().fromJson(responseData, FoodGet::class.java)
         //val foodList = getResponse.data
-        food = getResponse.data
-        /*val length = foodList.size
+        listOfFood = getResponse.data
+        val length = listOfFood.size
         for (i in 0 until length)
         {
-            food[++cnt] = foodList[i]
-        }*/
+            food[++cnt] = listOfFood[i]
+        }
     }
 
     fun setPrefer(string: String): Boolean{
@@ -86,7 +86,7 @@ object Kernel {
         for(i in 1..cnt)
             res = res.plusElement(food[i].name)
         return res*/
-        return food
+        return listOfFood
     }
     /*fun getCanteenFood(Canteen: String): MutableList<String>{
         var res = mutableListOf<String>()
