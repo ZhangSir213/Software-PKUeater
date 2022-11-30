@@ -7,39 +7,41 @@
     tools:context=".ui.home.HomeFragment">
 
     <TextView
-        android:id="@+id/text_cuisine3_info"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="这里会有一句话说明菜品"
+        android:id="@+id/text_cuisine1_info3"
+        android:layout_width="162dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:text="这里会有一句话介绍或者评价菜品"
+        android:textColor="@color/deepgrey"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_cuisine3"
-        app:layout_constraintStart_toStartOf="@+id/text_cuisine3" />
+        app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
+        app:layout_constraintTop_toBottomOf="@+id/text_cuisine2_tag" />
 
     <TextView
         android:id="@+id/text_cuisine3_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="特点，如：辣..."
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_cuisine3_info"
-        app:layout_constraintStart_toStartOf="@+id/text_cuisine3"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine3" />
 
     <TextView
         android:id="@+id/text_cuisine3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:text="菜品名称"
         android:textColor="@color/black"
-        android:textSize="32sp"
-        app:layout_constraintStart_toEndOf="@+id/image_cuisine3"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@+id/text_cuisine2"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine3" />
 
     <ImageView
         android:id="@+id/image_cuisine3"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/button_get_menu"
         app:layout_constraintStart_toStartOf="@+id/image_cuisine1"
@@ -48,46 +50,37 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/text_cuisine2_info"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="这里会有一句话说明菜品"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_cuisine2"
-        app:layout_constraintStart_toStartOf="@+id/text_cuisine2" />
-
-    <TextView
         android:id="@+id/text_cuisine2_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="特点，如：辣..."
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_cuisine2_info"
-        app:layout_constraintStart_toStartOf="@+id/text_cuisine2"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_cuisine1_info3"
+        app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine2"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.347" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_canteen"
         android:layout_width="111dp"
         android:layout_height="78dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="48dp"
         android:layout_marginBottom="48dp"
-        android:background="@color/colorYellow"
+        android:background="@color/lightgrey"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toEndOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintStart_toEndOf="@+id/button_get_menu"></androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/text_reminder_canteen"
         android:layout_width="108dp"
         android:layout_height="29dp"
-        android:background="#FCA43F"
+        android:background="@drawable/gradient_white"
         android:text="换个食堂？"
         android:textAlignment="viewEnd"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="19sp"
         app:layout_constraintBottom_toTopOf="@+id/recycler_canteen"
         app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
         app:layout_constraintStart_toStartOf="@+id/recycler_canteen" />
@@ -107,7 +100,7 @@
         android:layout_width="88dp"
         android:layout_height="31dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btngradient"
+        android:background="@drawable/gradient_white"
         android:text="随机食堂"
         android:textAlignment="center"
         android:textSize="16sp"
@@ -116,26 +109,25 @@
         app:layout_constraintHorizontal_bias="0.608"
         app:layout_constraintStart_toStartOf="@+id/recycler_canteen" />
 
+
     <Button
         android:id="@+id/button_get_menu"
-        android:layout_width="196dp"
-        android:layout_height="125dp"
+        android:layout_width="200dp"
+        android:layout_height="76dp"
         android:background="@drawable/btngradient"
         android:text="今天吃啥"
         android:textColor="@color/black"
-        android:textSize="45sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toStartOf="@+id/recycler_canteen"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/image_cuisine3"
         app:layout_constraintTop_toTopOf="@+id/text_reminder_canteen"
-        app:layout_constraintVertical_bias="0.466" />
-
+        app:layout_constraintVertical_bias="0.405" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="111dp"
-        android:layout_height="38dp"
-        android:background="@color/colorYellow"
+        android:layout_height="35dp"
+        android:background="@color/grey"
         android:text="TextView"
         android:textColor="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
@@ -147,47 +139,49 @@
         android:id="@+id/text_today_canteen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="食堂名称"
+        android:text="   食堂名称   "
         android:textAlignment="center"
-        android:textColor="@color/colorOrange"
+        android:textColor="@color/black"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_reminder_cuisine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_cuisine"
-        app:layout_constraintTop_toTopOf="@+id/text_reminder_cuisine" />
+        app:layout_constraintTop_toTopOf="@+id/text_reminder_cuisine"
+        app:layout_constraintVertical_bias="0.421" />
 
     <TextView
         android:id="@+id/text_reminder_cuisine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="今日推荐："
+        android:layout_marginTop="16dp"
+        android:background="@drawable/gradient_yellow"
+        android:text="今日推荐 ："
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_cuisine1"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_reminder_cuisine"
-        app:layout_constraintVertical_bias="0.04"
+        app:layout_constraintVertical_bias="0.068"
         tools:src="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/image_cuisine2"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/image_cuisine3"
         app:layout_constraintStart_toStartOf="@+id/image_cuisine1"
@@ -198,43 +192,56 @@
         android:id="@+id/text_cuisine1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="10sp"
         android:text="菜品名称"
         android:textColor="@color/black"
-        android:textSize="32sp"
-        app:layout_constraintStart_toEndOf="@+id/image_cuisine1"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@+id/text_reminder_cuisine"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine1" />
 
     <TextView
         android:id="@+id/text_cuisine2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:text="菜品名称"
         android:textColor="@color/black"
-        android:textSize="32sp"
-        app:layout_constraintStart_toEndOf="@+id/image_cuisine2"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@+id/text_cuisine1"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine2" />
 
     <TextView
         android:id="@+id/text_cuisine1_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="27dp"
         android:text="特点，如：辣..."
-        android:textSize="20sp"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/text_cuisine1_info"
-        app:layout_constraintStart_toStartOf="@+id/text_cuisine1"
+        app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine1"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.108" />
 
     <TextView
         android:id="@+id/text_cuisine1_info"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="这里会有一句话说明菜品"
+        android:layout_width="162dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:text="这里会有一句话介绍或者评价菜品"
+        android:textColor="@color/deepgrey"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_cuisine1"
-        app:layout_constraintStart_toStartOf="@+id/text_cuisine1" />
+        app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
+        app:layout_constraintTop_toBottomOf="@+id/text_cuisine1_tag" />
+
+    <TextView
+        android:id="@+id/text_cuisine1_info4"
+        android:layout_width="162dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:text="这里会有一句话介绍或者评价菜品"
+        android:textColor="@color/deepgrey"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
+        app:layout_constraintTop_toBottomOf="@+id/text_cuisine3_tag" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"
@@ -255,49 +262,47 @@
 
     <Button
         android:id="@+id/button_addlog1"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/btngradient"
+        android:layout_width="47dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/btnnoraml"
         android:text="＋"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/button_addlog3"
+        app:layout_constraintTop_toTopOf="@+id/image_cuisine1" />
 
     <Button
         android:id="@+id/button_addlog2"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
-        android:background="@drawable/btngradient"
+        android:layout_width="47dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/btnnoraml"
         android:text="＋"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button_addlog3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.997"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_addlog1"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintStart_toStartOf="@+id/button_addlog3"
+        app:layout_constraintTop_toTopOf="@+id/image_cuisine2" />
 
     <Button
         android:id="@+id/button_addlog3"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="264dp"
-        android:background="@drawable/btngradient"
+        android:layout_width="47dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="103dp"
+        android:background="@drawable/btnnoraml"
         android:text="＋"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.997"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toEndOf="@+id/text_cuisine3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_addlog1" />
+        app:layout_constraintTop_toTopOf="@+id/image_cuisine3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

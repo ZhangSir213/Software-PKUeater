@@ -335,43 +335,46 @@
         android:id="@+id/button6"
         android:layout_width="50dp"
         android:layout_height="28dp"
-        android:background="@drawable/btnextra"
         android:layout_marginStart="152dp"
         android:layout_marginBottom="68dp"
-        android:text="－"
+        android:background="@drawable/btnnoraml"
+        android:text="-"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_breakfast_border"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_breakfast" />
+
     <Button
         android:id="@+id/button7"
         android:layout_width="50dp"
         android:layout_height="28dp"
-        android:background="@drawable/btnextra"
         android:layout_marginStart="152dp"
         android:layout_marginBottom="68dp"
-        android:text="－"
+        android:background="@drawable/btnnoraml"
+        android:text="-"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_lunch_border"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_lunch" />
+
     <Button
         android:id="@+id/button8"
         android:layout_width="50dp"
         android:layout_height="28dp"
-        android:background="@drawable/btnextra"
         android:layout_marginStart="152dp"
         android:layout_marginBottom="68dp"
-        android:text="－"
+        android:background="@drawable/btnnoraml"
+        android:text="-"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner_border"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_dinner" />
+
     <Button
         android:id="@+id/button9"
         android:layout_width="50dp"
         android:layout_height="28dp"
-        android:background="@drawable/btnextra"
         android:layout_marginStart="152dp"
         android:layout_marginBottom="68dp"
-        android:text="－"
+        android:background="@drawable/btnnoraml"
+        android:text="-"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert_border"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_dessert" />

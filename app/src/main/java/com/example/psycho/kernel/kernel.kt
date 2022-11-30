@@ -17,7 +17,7 @@ import kotlin.random.Random
 object Kernel {
     //    var food = arrayOfNulls<Array<kernel.Food?> >(4)
     private var CanteenList: List<String> = listOf(
-        "空食堂占位！","农园一层", "农园二层", "燕南一层", "家园一层",
+        "合 利 屋","农园一层", "农园二层", "燕南一层", "家园一层",
         "家园二层", "家园三层", "家园四层", "松林包子",
         "学一食堂", "学五食堂", "勺园一层", "勺园二层",
         "佟园餐厅", "勺西餐厅", "勺中餐厅", "艺园食堂")

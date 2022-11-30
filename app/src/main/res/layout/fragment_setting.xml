@@ -267,6 +267,7 @@
         android:layout_height="62dp"
         android:layout_marginTop="28dp"
         android:text="添加忌口清单"
+        android:background="@drawable/gradient_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_setting" />
 
