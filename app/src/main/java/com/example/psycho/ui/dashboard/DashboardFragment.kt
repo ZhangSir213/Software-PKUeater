@@ -82,10 +82,17 @@ class DashboardFragment : Fragment() {
 
 
         if(userData.checkDietLog()){
+            /*
             var breakfast:List<String> = userData.getDietLog(1)
             var lunch:List<String> = userData.getDietLog(2)
             var dinner:List<String> = userData.getDietLog(3)
             var snack:List<String> = userData.getDietLog(4)
+            */
+            var breakfast:List<String> = userData.getLogFromServer(1)
+            var lunch:List<String> = userData.getLogFromServer(2)
+            var dinner:List<String> = userData.getLogFromServer(3)
+            var snack:List<String> = userData.getLogFromServer(4)
+
 
             if(breakfast.size > 0){
                 textTodayBreakfast.setText(breakfast.toString())
@@ -99,7 +106,7 @@ class DashboardFragment : Fragment() {
             if(snack.size > 0){
                 textTodayDessert.setText(snack.toString())
             }
-            val Todaycal:Int = (breakfast.size + lunch.size + dinner.size + snack.size)*180 + 130
+            val Todaycal:Int = userData.getCalorieFromServer()
             todayCalorie.setText(Todaycal.toString())
         }
 

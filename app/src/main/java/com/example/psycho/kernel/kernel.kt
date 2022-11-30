@@ -35,10 +35,11 @@ object Kernel {
                       = "换个推荐"
                       = “换个食堂”
      */
-    var food = Array<Food>(1000, {i: Int -> Food()})     //各类食物信息
-    var nwfood = Array<Food>(1000, {i: Int -> Food()})    //排除忌口等因素后本次可以推荐的食物
-    var candidate = Array<Food>(10, {i: Int -> Food()})                  //每次搜索的推荐结果
-    var recommend = Array<Food>(10, {i: Int -> Food()})                  //最终推荐结果
+    var food = listOf<Food>()           //各类食物信息
+    //var food = Array<Food>(1000, {i: Int -> Food()})
+    var nwfood = Array<Food>(1000, {i: Int -> Food()})                  //排除忌口等因素后本次可以推荐的食物
+    var candidate = Array<Food>(10, {i: Int -> Food()})                 //每次搜索的推荐结果
+    var recommend = Array<Food>(10, {i: Int -> Food()})                 //最终推荐结果
     var cnt = 0                       //记录各类食物数量
     var ncnt = 0                      //记录当前可供推荐的各类食物数量
     var ccnt = 0                      //记录搜索出来的推荐结果的数量
@@ -50,14 +51,16 @@ object Kernel {
     init
     {
         //构造函数
-        val responseData= simpleGetUseFrom("http://47.94.139.212:3000/food/list",null)
-        val getResponse=Gson().fromJson(responseData,FoodGet::class.java)
-        val FoodList=getResponse.data
-        val length=FoodList.size
-        for (i in 0 until  length)
+        val url = "http://47.94.139.212:3000/food/list"
+        val responseData = simpleGetUseFrom(url,null)
+        val getResponse = Gson().fromJson(responseData, FoodGet::class.java)
+        //val foodList = getResponse.data
+        food = getResponse.data
+        /*val length = foodList.size
+        for (i in 0 until length)
         {
-            food[++cnt]=FoodList.get(i)
-        }
+            food[++cnt] = foodList[i]
+        }*/
     }
 
     fun setPrefer(string: String): Boolean{
@@ -68,7 +71,7 @@ object Kernel {
     {
         if (dish in mealMap.keys)
         {
-            return mealMap.get(dish)
+            return mealMap[dish]
         }
         return R.drawable.pkueater
     }
@@ -78,19 +81,20 @@ object Kernel {
     fun getAllCanteen(): List<String>{
         return CanteenList
     }
-    fun getFoodlist(): List<String>{
-        var res: List<String> = listOf()
+    fun getFoodList(): List<Food>{
+        /*var res: List<String> = listOf()
         for(i in 1..cnt)
             res = res.plusElement(food[i].name)
-        return res
+        return res*/
+        return food
     }
-    fun getCanteenfood(Canteen: String): List<String>{
-        var res: List<String> = listOf()
+    /*fun getCanteenFood(Canteen: String): MutableList<String>{
+        var res = mutableListOf<String>()
         for(i in 1..cnt)
             if(Canteen == CanteenList[food[i].canteenId])
                 res = res.plusElement(food[i].name)
         return res
-    }
+    }*/
 
     fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goat: Int): Int{
         // Weight kg   Height cm
@@ -270,9 +274,10 @@ object Kernel {
 
 fun main(){
     var xzy = Kernel
-    print(xzy.getFoodlist())
+    print(xzy.getFoodList())
     print("\n")
-    print(xzy.getCanteenfood("家园二层"))
+    //print(xzy.getCanteenFood("家园二层"))
+    print(xzy.getResult())
 }
 /*
 README 1113:

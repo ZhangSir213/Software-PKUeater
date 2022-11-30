@@ -4,11 +4,13 @@ import android.content.ContentValues
 import android.os.Environment
 import android.util.Log
 import com.example.psycho.R
+import com.example.psycho.kernel.Kernel
+import com.example.psycho.simpleGetUseFrom
 import com.example.psycho.simplePostUseFrom
 import com.google.gson.Gson
 import java.io.*
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -41,7 +43,7 @@ object Data {
         avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
-    private val fileName = "userData.json"
+    private val fileName = "userData2.json"
     private var modify_flag=true
     private var timer=false
     private var heightVisible=false
@@ -217,6 +219,10 @@ object Data {
         Log.d("Get","False")
         return false
     }
+    fun getidCode():Int
+    {
+        return idCode
+    }
     fun setPostData(data:PostData):Int
     {
         postData =data
@@ -288,7 +294,7 @@ object Data {
         user.height = int
         write2Json()
     }
-    fun getUserName():CharSequence{
+    fun getUserName():String{
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         user = nowUser
@@ -542,7 +548,7 @@ object Data {
     **增加日志记录，成功则返回true
     * param: meal=1-早餐,2-午餐,3-晚餐,4-加餐
      */
-    fun addDietLog(meal: Int, foodName:String):Boolean{
+    /*fun addDietLog(meal: Int, foodName:String):Boolean{
         val content = File(userDataFile).readText()
         val nowUser = Gson().fromJson(content, User::class.java)
         user = nowUser
@@ -557,6 +563,7 @@ object Data {
         }
         return true
     }
+     */
 
     /**
      *获取对应类型的日志
@@ -579,13 +586,20 @@ object Data {
      */
     fun checkDietLog():Boolean{
         Log.d("checkDietLog","enter")
+        /*
         val content = File(userDataFile).readText()
         val nowUser = Gson().fromJson(content, User::class.java)
         user = nowUser
         if(user.dietlog.size == 0){
             return false
+        }*/
+        for (i in 1..4){
+            val foodName = getLogFromServer(i)
+            if(!foodName.isEmpty()){
+                return true
+            }
         }
-        return true
+        return false
     }
 
     /**
@@ -689,4 +703,53 @@ object Data {
         return null
     }
 
+    fun getLogFromServer(meal: Int, uid: Int = idCode): List<String> {
+        val url = "http://47.94.139.212:3000/journal/listbyusr"
+        val map = mapOf("uid" to uid.toString())
+        val responseData = simpleGetUseFrom(url, map)
+        val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
+        val dietLogList = getResponse.data
+        Log.d("dietlog",dietLogList.toString())
+        val foodList = Kernel.getFoodList()
+        var res = listOf<String>()
+        for (dietLog in dietLogList) {
+            if (dietLog.meal == meal) {
+                for (food in foodList) {
+                    if (food.id == dietLog.fid) {
+                        res = res.plusElement(food.name)
+                    }
+                }
+                //res = res.plusElement(dietLog.foodName)
+                //Log.d("getlog",(dietLog.foodName == null).toString())
+            }
+        }
+        return res
+    }
+
+    fun postLogToServer(fid: Int, meal: Int, uid: Int = idCode, calorie: Int = 0, price: Int = 0) {
+        val url = "http://47.94.139.212:3000/journal/create"
+        Log.d("postlog",fid.toString())
+        Log.d("userId", idCode.toString())
+        if (fid != 0) {
+            val map = mapOf("uid" to uid, "fid" to fid, "meal" to meal)
+            simplePostUseFrom(url, map)
+        } else {
+            val map = mapOf("uid" to uid, "fid" to 0, "meal" to meal,
+                "calorie" to calorie, "price" to price)
+            simplePostUseFrom(url, map)
+        }
+    }
+
+    fun getCalorieFromServer(uid: Int = idCode): Int {
+        val url = "http://47.94.139.212:3000/journal/listbyusr"
+        val map = mapOf("uid" to uid.toString())
+        val responseData = simpleGetUseFrom(url, map)
+        val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
+        val dietLogList = getResponse.data
+        var res:Int = 0
+        for (dietLog in dietLogList) {
+            res += dietLog.calorie
+        }
+        return res
+    }
 }

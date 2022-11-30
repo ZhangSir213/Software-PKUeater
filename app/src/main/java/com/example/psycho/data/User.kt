@@ -3,28 +3,36 @@ package com.example.psycho.data
 import com.google.gson.Gson
 import java.io.File
 
+data class DietLog (
+    //var datetime: String,
+    var fid: Int,
+    var meal: Int,
+    var foodName: String,
+    var calorie: Int = 0,
+    var price: Int = 0,
 
-data class DietLog(var meal: Int, var foodName:String)
+)
 
-data class User(
+data class DietLogGet (var status: String = "fail", var data: List<DietLog>)
+
+data class User (
     var username: String,
     var password: String,
     var weight: Double,
     var height: Int,
     var Login: Boolean,
-    var gender:Int,
-    var birthday:String,
+    var gender: Int,
+    var birthday: String,
     var canteenCount: IntArray,
     val avoidanceString: List<String>,
     var avoidanceValue: BooleanArray,
     var todayMenu: List<String>,
     var budget: Double,
     var menuChange: Boolean,
-    var loginFirst:Boolean,
+    var loginFirst: Boolean,
     var dietlog: ArrayList<DietLog>,
     var avoidanceFlag: Boolean,
-    var plan:Data.Plan
-
+    var plan: Data.Plan
 )
 
 

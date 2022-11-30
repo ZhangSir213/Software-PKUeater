@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.psycho.R
+import com.squareup.picasso.Picasso
 
-class Food(val name:String, val imageId: Int)
+
+class Food(val name:String, val imageUrl: String, val foodId:Int)
 
 class FoodAdapter(activity: Activity, val resourceId: Int, data: List<Food>):
         ArrayAdapter<Food>(activity, resourceId, data){
@@ -24,7 +26,8 @@ class FoodAdapter(activity: Activity, val resourceId: Int, data: List<Food>):
         val foodName: TextView = view.findViewById(R.id.foodName)
         val food = getItem(position)
         if (food != null){
-            foodImage.setImageResource(food.imageId)
+            //foodImage.setImageResource(food.imageId)
+            Picasso.with(context).load("http://47.94.139.212:3000"+food.imageUrl).into(foodImage)
             foodName.text = food.name
         }
         return view
