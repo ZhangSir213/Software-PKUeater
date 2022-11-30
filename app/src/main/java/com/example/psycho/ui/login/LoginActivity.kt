@@ -81,7 +81,21 @@ class LoginActivity : AppCompatActivity() {
         cursor.close()
         db.close()
 
+
         var globalFile=Data
+        //globalFile.update(this,"weight","100")
+        val result=globalFile.query(this,"weight")
+        Log.d("SQL",result)
+
+        val map = mapOf("name" to globalFile.getUserName(), "password" to globalFile.getPassword())
+        val url = "http://47.94.139.212:3000/user/login"
+        simplePostUseFrom(url, map)
+        if (globalFile.getState()=="success")
+        {
+            val intentL:Intent = Intent(this, MainActivity::class.java)
+            startActivity(intentL)
+        }
+        /*
         if((globalFile.getLoginFlag())==true)
         {
             val map = mapOf("name" to globalFile.getUserName(), "password" to globalFile.getPassword())
@@ -94,6 +108,7 @@ class LoginActivity : AppCompatActivity() {
             val intentL:Intent = Intent(this, MainActivity::class.java)
             startActivity(intentL)
         }
+        */
         binding = ActivityLogin2Binding.inflate(layoutInflater)
         if((globalFile.getLoginFlag())==false)
         {
@@ -209,31 +224,20 @@ class LoginActivity : AppCompatActivity() {
                         loginViewModel.login(
                             username.text.toString(),
                             password.text.toString(),
-                            false
+                            false,this@LoginActivity
                         )
                 }
                 false
             }
 
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        registerViewModel.login(
-                            username.text.toString(),
-                            password.text.toString(),
-                            true
-                        )
-                }
-                false
-            }
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString(),false)
+                loginViewModel.login(username.text.toString(), password.text.toString(),false,this@LoginActivity)
             }
             register!!.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                registerViewModel.login(username.text.toString(), password.text.toString(),true)
+                registerViewModel.login(username.text.toString(), password.text.toString(),true,this@LoginActivity)
             }
         }
 

@@ -1,5 +1,6 @@
 package com.example.psycho
 
+import android.content.Context
 import android.util.Log
 import com.example.psycho.data.CanteenGet
 import com.example.psycho.data.Data
@@ -57,7 +58,7 @@ fun simpleGetUseFrom(url: String, params: Map<String,String>? = null):String {
     return responseData
 }
 @Synchronized
-fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean =false) {
+fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean =false,context: Context?=null) {
     //创建 formBody
     var update=update
     if ((url=="http://47.94.139.212:3000/user/register")||(url=="http://47.94.139.212:3000/user/login"))
@@ -92,7 +93,7 @@ fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean 
             val response=Gson().fromJson(msg_new,PostData::class.java)
             //Log.d("Post",response.data.name)
             var global_file=Data
-            global_file.setPostData(response,update)
+            global_file.setPostData(response,update,context)
         } catch (e: Throwable) {
             Log.d("Post", "failed")
             println(e.toString())

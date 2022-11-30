@@ -1,5 +1,6 @@
 package com.example.psycho.data
 
+import android.content.Context
 import com.example.psycho.data.model.LoggedInUser
 
 /**
@@ -27,9 +28,9 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String,register: Boolean): Result<LoggedInUser> {
+    fun login(username: String, password: String,register: Boolean,context:Context): Result<LoggedInUser> {
         // handle login
-        val result = dataSource.login(username, password,register)
+        val result = dataSource.login(username, password,register,context)
 
         if (result is Result.Success) {
             setLoggedInUser(result.data)
