@@ -12,5 +12,5 @@ data class Food (
         var type: Int = 0,
         var intro: String = ""          //简单描述
 )
-
+data class Menu(var list:List<String>)
 data class FoodGet (var status: String = "fail", var data: List<Food>)

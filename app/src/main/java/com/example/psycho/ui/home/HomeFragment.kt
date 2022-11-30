@@ -77,10 +77,11 @@ class HomeFragment : Fragment() {
                      */
                     R.id.content_canteen -> {
                         t?.let { Kernel.setPrefer(it) }
-                        _data.setMenuChange(true)
                         cuisineMenu = Kernel.getResult()
                         _data.setTodayMenu(cuisineMenu!!)
+
                         cuisineMenu=null
+                        _data.setMenuChange(true)
                     }
                 }
                 println("yes")

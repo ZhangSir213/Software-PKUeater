@@ -1,6 +1,8 @@
 package com.example.psycho.data
 
 import android.content.ContentValues
+import android.content.Context
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Environment
 import android.util.Log
 import com.example.psycho.R
@@ -54,11 +56,13 @@ object Data {
     private var Carolie=100
     private var idCode=100
     private var plan=Plan.keep
-
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
+    private  var mysqlhelper: SQLiteOpenHelper? = null
+
 
     init{//构造函数,将用户信息初始化
         //write2Json()
+
         var fileExist = createNewFile(dataDir, fileName)
         if(fileExist == 0){//文件已经存在
             val content = File(userDataFile).readText()
@@ -71,6 +75,15 @@ object Data {
         if(user.dietlog == null)
             Log.d("init:","dietlog==null")
         timer=true
+    }
+
+    fun getLoginFlag(context:Context):Boolean
+    {
+        val dbHelper=MyDatabaseHelper(context,"Pku-Eater.db",1)
+        dbHelper.writableDatabase
+        val db=dbHelper.writableDatabase
+        val cursor=db.query("User",null,null,null,null,null,null)
+        return true
     }
     fun getTime():Int
     {
@@ -86,15 +99,15 @@ object Data {
         var meal=4
         val hour= getTime()
         Log.d("Time",hour.toString())
-        if ((6<hour)&&(hour<9))
+        if ((6<=hour)&&(hour<=9))
         {
             meal=1
         }
-        else if((11<hour)&&(hour<13))
+        else if((11<=hour)&&(hour<=13))
         {
             meal=2
         }
-        else if((17<hour)&&(hour<19))
+        else if((17<=hour)&&(hour<=19))
         {
             meal=3
         }

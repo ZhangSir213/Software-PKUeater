@@ -1,7 +1,10 @@
 package com.example.psycho.ui.login
 
 import android.app.Activity
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,15 +22,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.psycho.MainActivity
 import com.example.psycho.R
 import com.example.psycho.data.Data
+import com.example.psycho.data.MyDatabaseHelper
 import com.example.psycho.databinding.ActivityLogin2Binding
 import com.example.psycho.simplePostUseFrom
 import java.io.IOException
+
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var registerViewModel: LoginViewModel
     private lateinit var binding: ActivityLogin2Binding
+    //var mysqlhelper: SQLiteOpenHelper? = null
+
     private val permissions = arrayOf(
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.WRITE_CONTACTS,
@@ -47,8 +54,33 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         ActivityCompat.requestPermissions(this, permissions, 321)
+
+        val dbHelper=MyDatabaseHelper(this,"Pku-Eater.db",1)
+        dbHelper.writableDatabase
+        val db=dbHelper.writableDatabase
+        val userRoot=ContentValues().apply {
+            put("uid",1)
+            put("name","Root")
+            put("weight",50)
+            put("height",170)
+            put("state",0)
+            put("birthday","1111-11-11")
+            put("gender",1)
+            put("avoidance",0)
+        }
+        db.insert("User",null,userRoot)
+        val cursor=db.query("User",null,null,null,null,null,null)
+        if (cursor.moveToFirst()){
+            do {
+                val name=cursor.getString(cursor.getColumnIndex("name"))
+                Log.d("SQL",name)
+            }
+                while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+
         var globalFile=Data
         if((globalFile.getLoginFlag())==true)
         {
@@ -117,7 +149,7 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-                setResult(Activity.RESULT_OK)
+                setResult(RESULT_OK)
                 var globalFile=Data
                 val intentL: Intent = Intent(this, MainActivity::class.java)
                 Log.d("Main","Start")
@@ -139,7 +171,7 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-                setResult(Activity.RESULT_OK)
+                setResult(RESULT_OK)
                 finish()
             }
             //Complete and destroy login activity once successful
