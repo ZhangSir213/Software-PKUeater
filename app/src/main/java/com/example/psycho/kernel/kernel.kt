@@ -1,5 +1,6 @@
 package com.example.psycho.kernel
 
+import android.util.Log
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.Food
@@ -56,6 +57,9 @@ object Kernel {
         val getResponse = Gson().fromJson(responseData, FoodGet::class.java)
         //val foodList = getResponse.data
         food = getResponse.data
+        Log.d("Food",food[0].canteenId.toString())
+        Log.d("Food",food[0].name)
+        Log.d("Food",food[0].calorie.toString())
         /*val length = foodList.size
         for (i in 0 until length)
         {
@@ -103,6 +107,9 @@ object Kernel {
             calorie = 10*Weight + 6.25*Height - 5*Age + 5
         else//Woman
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
+        Log.d("Cal",Age.toString())
+        Log.d("Cal",calorie.toString())
+        Log.d("Cal",Goat.toString())
 
         calorie += Goat * 250
         return calorie.roundToInt()
@@ -232,7 +239,9 @@ object Kernel {
         var Weight = Mydata.getTrueWeight()
         var Height = Mydata.getTrueHeight()
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        var Age = 2022-sdf.parse(Mydata.getBirthday()).year
+        Log.d("Birthday",sdf.parse(Mydata.getBirthday()).toString())
+
+        var Age = 2022-sdf.parse(Mydata.getBirthday()).year-1900
         var Goal = 0//keep
         if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
         if(Mydata.getPlan() == Data.Plan.strong) Goal = 1
@@ -241,8 +250,9 @@ object Kernel {
         Avoidance = Mydata.AvoidanceToAlgo()
         Budget = Mydata.getBudget()
         CalorieLimit = Cal/2
-
-
+        Log.d("Food", CalorieLimit.toString())
+        Log.d("Food", Budget.toString())
+        Log.d("Food", Avoidance.toString())
 
         //ii. 筛选出本次可以推荐的菜品集合
         ncnt = 0

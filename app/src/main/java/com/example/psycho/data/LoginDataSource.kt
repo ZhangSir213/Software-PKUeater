@@ -21,7 +21,7 @@ class LoginDataSource {
                 globalFile.setPassword(password)
                 val map = mapOf("name" to username, "password" to password)
                 val url = "http://47.94.139.212:3000/user/login"
-                simplePostUseFrom(url, map)
+                simplePostUseFrom(url, map,true)
                 Log.d("Finish","login")
                 if (globalFile.getState()=="fail")
                 {
@@ -41,7 +41,7 @@ class LoginDataSource {
                 globalFile.setPassword(password)
                 val map = mapOf("name" to username, "password" to password)
                 val url = "http://47.94.139.212:3000/user/register"
-                simplePostUseFrom(url, map)
+                simplePostUseFrom(url, map,true)
                 Log.d("Finish","register")
                 if (globalFile.getState()=="fail")
                 {

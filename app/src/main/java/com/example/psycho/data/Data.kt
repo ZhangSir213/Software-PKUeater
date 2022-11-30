@@ -91,6 +91,8 @@ object Data {
         {
             state=2
         }
+        Log.d("Update",user.birthday)
+
         val map = mapOf("id" to idCode,"gender" to user.gender,"birthday" to user.birthday,
             "avoidance" to avoidance,"weight" to user.weight.toInt(),"height" to user.height.toInt(),"state" to state)
 
@@ -223,10 +225,10 @@ object Data {
     {
         return idCode
     }
-    fun setPostData(data:PostData):Int
+    fun setPostData(data:PostData,update:Boolean):Int
     {
         postData =data
-        if(postData.status=="success")
+        if((postData.status=="success")&&(update==true))
         {
             Log.d("Login", postData.data.toString())
             setBirthday(postData.data.birthday)
