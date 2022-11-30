@@ -117,12 +117,13 @@ class HomeFragment : Fragment() {
         val button2:Button=binding.buttonAddlog2
         val button3:Button=binding.buttonAddlog3
 
-         button1.setOnClickListener{
+        button1.setOnClickListener{
              val text=textCuisine1.text
              if (text!="菜品名称")
              {
-                val foodFind=Kernel.getFood(text.toString())
-                 _data.postLogToServer(foodFind.id, 2)
+                 val foodFind=Kernel.getFood(text.toString())
+                 val meal=_data.getMeal()
+                 _data.postLogToServer(foodFind.id, meal)
                  Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
              }
          }
@@ -131,7 +132,8 @@ class HomeFragment : Fragment() {
             if (text!="菜品名称")
             {
                 val foodFind=Kernel.getFood(text.toString())
-                _data.postLogToServer(foodFind.id, 2)
+                val meal=_data.getMeal()
+                _data.postLogToServer(foodFind.id, meal)
                 Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
             }
         }
@@ -140,7 +142,8 @@ class HomeFragment : Fragment() {
             if (text!="菜品名称")
             {
                 val foodFind=Kernel.getFood(text.toString())
-                _data.postLogToServer(foodFind.id, 2)
+                val meal=_data.getMeal()
+                _data.postLogToServer(foodFind.id, meal)
                 Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
             }
         }

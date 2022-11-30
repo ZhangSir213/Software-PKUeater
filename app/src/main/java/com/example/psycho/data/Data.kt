@@ -9,6 +9,8 @@ import com.example.psycho.simpleGetUseFrom
 import com.example.psycho.simplePostUseFrom
 import com.google.gson.Gson
 import java.io.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -68,6 +70,30 @@ object Data {
         if(user.dietlog == null)
             Log.d("init:","dietlog==null")
         timer=true
+    }
+    fun getTime():Int
+    {
+        val current = LocalDateTime.now()
+        //val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+        return current.hour
+    }
+    fun getMeal():Int
+    {
+        var meal=4
+        val hour= getTime()
+        if ((6<hour)&&(hour<9))
+        {
+            meal=1
+        }
+        else if((11<hour)&&(hour<13))
+        {
+            meal=2
+        }
+        else if((17<hour)&&(hour<19))
+        {
+            meal=3
+        }
+        return meal
     }
     fun update()
     {

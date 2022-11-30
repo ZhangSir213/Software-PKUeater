@@ -10,7 +10,7 @@
         android:id="@+id/text_cuisine3_info"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="这里会有一句话说明这个菜品的一些小评价或者细节"
+        android:text="这里会有一句话说明菜品"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_cuisine3"
         app:layout_constraintStart_toStartOf="@+id/text_cuisine3" />
@@ -51,7 +51,7 @@
         android:id="@+id/text_cuisine2_info"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="这里会有一句话说明这个菜品的一些小评价或者细节"
+        android:text="这里会有一句话说明菜品"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_cuisine2"
         app:layout_constraintStart_toStartOf="@+id/text_cuisine2" />
@@ -231,7 +231,7 @@
         android:id="@+id/text_cuisine1_info"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="这里会有一句话说明这个菜品的一些小评价或者细节"
+        android:text="这里会有一句话说明菜品"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_cuisine1"
         app:layout_constraintStart_toStartOf="@+id/text_cuisine1" />
@@ -252,6 +252,52 @@
         android:id="@+id/group3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button_addlog1"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/btngradient"
+        android:text="＋"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_addlog2"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btngradient"
+        android:text="＋"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_addlog3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.997"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_addlog1"
+        app:layout_constraintVertical_bias="0.518" />
+
+    <Button
+        android:id="@+id/button_addlog3"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="264dp"
+        android:background="@drawable/btngradient"
+        android:text="＋"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.997"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_addlog1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

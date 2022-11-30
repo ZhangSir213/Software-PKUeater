@@ -107,7 +107,7 @@ class DashboardFragment : Fragment() {
                 textTodayDessert.setText(snack.toString())
             }
             val Todaycal:Int = userData.getCalorieFromServer()
-            todayCalorie.setText(Todaycal.toString())
+            todayCalorie.setText(Todaycal.toString()+"Kal")
         }
 
 
