@@ -5,6 +5,7 @@ import java.io.File
 
 data class DietLog (
     //var datetime: String,
+    var id:Int,
     var fid: Int,
     var meal: Int,
     var foodName: String,

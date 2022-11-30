@@ -8,6 +8,7 @@ import com.example.psycho.kernel.Kernel
 import com.example.psycho.simpleGetUseFrom
 import com.example.psycho.simplePostUseFrom
 import com.google.gson.Gson
+import okio.IOException
 import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -45,7 +46,7 @@ object Data {
         avoidanceValue, menu, budget, false,true, dietLog,false,Plan.keep)
     private var errorCode:Int=1
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
-    private val fileName = "userData2.json"
+    private val fileName = "userData3.json"
     private var modify_flag=true
     private var timer=false
     private var heightVisible=false
@@ -74,13 +75,17 @@ object Data {
     fun getTime():Int
     {
         val current = LocalDateTime.now()
-        //val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+        val formatted = current.format(formatter)
+
+        Log.d("Time","当前日期和时间为: $formatted")
         return current.hour
     }
     fun getMeal():Int
     {
         var meal=4
         val hour= getTime()
+        Log.d("Time",hour.toString())
         if ((6<hour)&&(hour<9))
         {
             meal=1
@@ -751,7 +756,33 @@ object Data {
         }
         return res
     }
-
+    fun deleteLogToServer(id:Int)
+    {
+        val url = "http://47.94.139.212:3000/journal/delete"
+        Log.d("delete",id.toString())
+        Log.d("delete", idCode.toString())
+        val map = mapOf("uid" to idCode.toString(),"id" to id.toString())
+        try {
+            simplePostUseFrom(url, map)
+            Log.d("delete","Success")
+        }
+        catch (e:IOException)
+        {
+            Log.d("delete","Error")
+        }
+    }
+    fun deleteLog(meal:Int)
+    {
+        val url = "http://47.94.139.212:3000/journal/listbyusr"
+        val map = mapOf("uid" to idCode.toString())
+        val responseData = simpleGetUseFrom(url, map)
+        val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
+        val dietLogList = getResponse.data
+        if (dietLogList.size<1)
+            return
+        val dietLog=dietLogList[dietLogList.size-1]
+        deleteLogToServer(dietLog.id)
+    }
     fun postLogToServer(fid: Int, meal: Int, uid: Int = idCode, calorie: Int = 0, price: Int = 0) {
         val url = "http://47.94.139.212:3000/journal/create"
         Log.d("postlog",fid.toString())
