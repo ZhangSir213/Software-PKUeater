@@ -50,12 +50,15 @@ object Data {
     private var postData:PostData=PostData("fail",BaseData(10001,"None"))
     private val fileName = "userData3.json"
     private var modify_flag=true
+    private var menuChange = false
+    private var avoidanceChange = false
     private var timer=false
     private var heightVisible=false
     private var weightVisible=false
     private var Carolie=100
     private var idCode=100
     private var plan=Plan.keep
+    private var todayMenu:List<String> = listOf("empty")
     public  val map=mapOf(10001 to R.string.register_wrong, 20002 to R.string.login_wrong,10002 to R.string.login_wrong)
     private  var mysqlhelper: SQLiteOpenHelper? = null
     var DB_NAME = "Pku-Eater.db" //数据库名称
@@ -112,25 +115,8 @@ object Data {
         timer=true
     }
 
-    fun getLoginFlag(context:Context):Boolean
-    {
-        val value=query(context,"login").toInt()
-        if (value==1)
-        {
-            return true
-        }
-        return false
-    }
-    fun setFirstFlag(context: Context)
-    {
-        try {
-            update(context,"login","0")
-        }
-        catch (e:IOException)
-        {
-            e.printStackTrace()
-        }
-    }
+
+
 
     fun setUserName(context: Context,username: String)
     {
@@ -308,9 +294,9 @@ object Data {
     
     fun getTimerFlag():Boolean
     {
-        val userFile=File(dataDir, fileName)
+        /*val userFile=File(dataDir, fileName)
         if (!userFile.exists())
-            return false
+            return false*/
         return timer
     }
     fun deleteUser(context: Context)
@@ -329,12 +315,12 @@ object Data {
         var fileExist = createNewFile(dataDir, fileName)
         timer=true
     }
-    fun initUser()
-    {
-        val content = File(userDataFile).readText()
-        val nowUser = Gson().fromJson(content, User::class.java)
-        user=nowUser
+
+    fun getFirstFlag(context:Context):Boolean{
+        val firstFlag:Boolean = query(context,"loginFirst").toBoolean()
+        return firstFlag
     }
+
     fun getFirstFlag():Boolean
     {
         val content = File(userDataFile).readText()
@@ -342,11 +328,33 @@ object Data {
         user = nowUser
         return user.loginFirst
     }
+
+    fun setFirstFlag(context: Context)
+    {
+        try {
+            update(context,"loginFirst","0")
+        }
+        catch (e:IOException)
+        {
+            e.printStackTrace()
+        }
+    }
+
     fun setFirstFlag()
     {
         val fileExist = createNewFile(dataDir, fileName)
         user.loginFirst=false
         write2Json()
+    }
+
+    fun getLoginFlag(context:Context):Boolean
+    {
+        val value=query(context,"login").toInt()
+        if (value==1)
+        {
+            return true
+        }
+        return false
     }
 
     fun getLoginFlag():Boolean
@@ -369,10 +377,12 @@ object Data {
         Log.d("Get","False")
         return false
     }
+
     fun getidCode():Int
     {
         return idCode
     }
+
     fun setPostData(data:PostData,update:Boolean,context: Context?):Int
     {
         postData =data
@@ -432,6 +442,12 @@ object Data {
     {
         return postData.data.errCode
     }
+
+    fun getTrueWeight(context: Context):Double{
+        val weight:Double = query(context,"weight").toDouble()
+        return weight
+    }
+
     //从json中获取用户体重
     fun getTrueWeight():Double{
         val content = File(userDataFile).readText()
@@ -439,6 +455,12 @@ object Data {
         user = nowUser
         return nowUser.weight
     }
+
+    fun getTrueHeight(context: Context):Double{
+        val height:Double = query(context,"height").toDouble()
+        return height
+    }
+
     //从json中获取用户身高
     fun getTrueHeight():Int{
         val content = File(userDataFile).readText()
@@ -469,17 +491,33 @@ object Data {
         user.height = int
         write2Json()
     }
+    fun getUserName(context: Context):String{
+        val name:String = query(context, "name").toString()
+        return name
+    }
+
     fun getUserName():String{
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         user = nowUser
         return nowUser.username
     }
+
+    fun getPassword(context: Context):String{
+        val password: String = query(context, "password").toString()
+        return password
+    }
+
     fun getPassword():String{
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         user = nowUser
         return nowUser.password
+    }
+
+    fun getLogin(context: Context):Boolean{
+        val login:Boolean = query(context, "login").toBoolean()
+        return login
     }
 
     fun getLogin():Boolean
@@ -506,6 +544,11 @@ object Data {
     {
         return modify_flag
     }
+
+    fun setUserName(context: Context, seq:CharSequence){
+        update(context, "name", seq.toString())
+    }
+
     fun setUserName(seq:CharSequence)
     {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
@@ -517,6 +560,7 @@ object Data {
     {
         update(context,"gender",gender.toString())
     }
+
     fun setGender(gender:Int)
     {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
@@ -542,13 +586,17 @@ object Data {
         user.password=seq.toString()
         write2Json()
     }
+    fun setLogin(context:Context)
+    {
+        update(context,"login","1")
+    }
     fun setLogin()
     {
         val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.Login=true
         write2Json()
     }
-    fun addCanteenCount(canteenId: Int){//增加对应食堂的计数
+    /*fun addCanteenCount(canteenId: Int){//增加对应食堂的计数
         val fileExist = createNewFile(dataDir, fileName)
         var content:String = ""
         if(fileExist == 0){//若用户数据已经存在,则从文件中读取用户信息
@@ -557,49 +605,64 @@ object Data {
         }
         user.canteenCount[canteenId] += 1
         write2Json()
-    }
+    }*/
 
+    /*
     fun getCanteenCount(canteenId: Int):Int{//获取第canteenId个食堂的计数
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         return nowUser.canteenCount[canteenId]
     }
 
+     */
+
     // 设置当天菜单更改标记
     fun getMenuChange(): Boolean{
-
+        return menuChange
+        /*
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         return nowUser.menuChange
+
+         */
     }
     fun setMenuChange(flag: Boolean){
-        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        menuChange = flag
+        /*val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.menuChange = flag
         write2Json()
+
+         */
     }
 
     fun setAvoidanceChange(flag: Boolean){
-        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        /*val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
         user.avoidanceFlag = flag
         write2Json()
-        update()
+        update()*/
+        avoidanceChange = flag
     }
     fun getAvoidanceChange(): Boolean{
-        val content = File(userDataFile).readText()
+        /*val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
         return nowUser.avoidanceFlag
+         */
+        return avoidanceChange
     }
 
     // 设置菜单
     fun getTodayMenu(): List<String>{
+        /*
         val content = File(userDataFile).readText()
         val nowUser=Gson().fromJson(content, User::class.java)
-        return nowUser.todayMenu
+        return nowUser.todayMenu*/
+        return todayMenu
     }
-    fun setTodayMenu(todayMenu:List<String>){
-        val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
-        user.todayMenu = todayMenu
-        write2Json()
+    fun setTodayMenu(todayMenu_:List<String>){
+        /*val fileExist = createNewFile(dataDir, fileName)//打开/创建文件
+        user.todayMenu = todayMenu_
+        write2Json()*/
+        todayMenu = todayMenu_
     }
 
     fun getAvoidanceString(): List<String>{//获取所有忌口类型字符串
@@ -696,6 +759,11 @@ object Data {
         return avoidance
     }
 
+    fun getBudget(context:Context):Int{
+        val budget:Double = query(context, "budget").toDouble()
+        return (budget*100).toInt()
+    }
+
     /**
      * 获取用户预算，返回值为预算*100的Int
      * （Kernel 调用）
@@ -707,6 +775,16 @@ object Data {
         return (user.budget*100).toInt()
     }
 
+
+    fun setBudget(context: Context, budget: Double): Boolean{
+        try{
+            update(context, "budget", budget.toString())
+        }catch(e : okio.IOException){
+            return false
+        }
+        return true
+
+    }
     /**
      * 设置用户预算
      * param: Budget limit
