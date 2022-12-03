@@ -16,7 +16,7 @@ import kotlin.random.Random
 object Kernel {
     //    var food = arrayOfNulls<Array<kernel.Food?> >(4)
     private var CanteenList: List<String> = listOf(
-        "空食堂占位！","农园一层", "农园二层", "燕南一层", "家园一层",
+        "","农园一层", "农园二层", "燕南一层", "家园一层",
         "家园二层", "家园三层", "家园四层", "松林包子",
         "学一食堂", "学五食堂", "勺园一层", "勺园二层",
         "佟园餐厅", "勺西餐厅", "勺中餐厅", "艺园食堂")
@@ -91,7 +91,7 @@ object Kernel {
         return res
     }
 
-    fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goat: Int): Int{
+    fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goal: Int): Int{
         // Weight kg   Height cm
         var calorie: Double = 0.1
         if(Gender == 1)//Man
@@ -125,7 +125,7 @@ object Kernel {
         //    print("DFS("+CarlorieTot+","+Cost+","+x+","+Type+")\n")
         if(CalorieTot > CalorieLimit) return //卡路里超标则停止
         if(Cost > Budget) return //预算超标则停止
-        if(x == ncnt+1||Type.and(7) == 7){//菜品遍历完，结束推荐
+        if(x == ncnt+1||ccnt == 3){//菜品遍历完，结束推荐
             //I. 当前搜到的组合不优
             if(Type.and(7) < 7) return//一定要主食肉素齐全
             var distance = Dist(1, 2) + Dist(1,3) + Dist(2,3)
@@ -165,7 +165,11 @@ object Kernel {
             //print("Update It!!\n")
             return
         }
-        if(Type.and(nwfood[x].type) == 0){
+
+//        if(Type.and(nwfood[x].type) == 0){
+        //取消对于菜品种类重复的限制
+        //转而限制必须有3个菜品
+        if(ccnt < 3){
             candidate[++ccnt] = nwfood[x]
             dfs(CalorieTot+nwfood[x].calorie, Cost+ nwfood[x].price, x+1,Type+nwfood[x].type)
             ccnt--  //回溯
