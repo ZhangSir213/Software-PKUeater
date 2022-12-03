@@ -3,6 +3,7 @@ package com.example.psycho.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper
+import android.hardware.Sensor.TYPE_STEP_COUNTER
 import android.os.Environment
 import android.util.Log
 import com.example.psycho.R
@@ -65,7 +66,7 @@ object Data {
     var TABLE_NAME = "USER" //表名称
     var CURRENT_VERSION = 1 //当前的最新版本，如有表结构变更，该版本号要加一
 
-    fun update(context:Context,column:String,value:String)
+    private fun update(context:Context,column:String,value:String)
     {
         val dbHelper=MyDatabaseHelper(context, DB_NAME,1)
         dbHelper.writableDatabase
@@ -100,7 +101,6 @@ object Data {
 
     init{//构造函数,将用户信息初始化
         //write2Json()
-
         var fileExist = createNewFile(dataDir, fileName)
         if(fileExist == 0){//文件已经存在
             val content = File(userDataFile).readText()
@@ -213,6 +213,7 @@ object Data {
     {
         update(context,"state",state.toString())
     }
+    //完成对setPlan调用的修改
     fun setPlan(plan1:Plan)
     {
         val fileExist = createNewFile(dataDir, fileName)
@@ -259,6 +260,10 @@ object Data {
         val fileExist = createNewFile(dataDir, fileName)
         user.birthday=birthday
         write2Json()
+    }
+    fun getBirthday(context:Context):String{
+        val birthday:String = query(context,"birthday")
+        return birthday
     }
     fun getBirthday():String
     {
@@ -349,8 +354,8 @@ object Data {
 
     fun getLoginFlag(context:Context):Boolean
     {
-        val value=query(context,"login").toInt()
-        if (value==1)
+        val value=query(context,"login")
+        if (value == "1")
         {
             return true
         }
@@ -390,18 +395,18 @@ object Data {
         {
             Log.d("Login", postData.data.toString())
             setBirthday(context!!, postData.data.birthday)
-            setBirthday(postData.data.birthday)
+            //setBirthday(postData.data.birthday)
             setUserName(context!!,postData.data.name)
-            setUserName(postData.data.name)
+            //setUserName(postData.data.name)
             setGender(context!!,postData.data.gender)
-            setGender(postData.data.gender)
+            //setGender(postData.data.gender)
             update(context!!,"uid", postData.data.id.toString())
             idCode= postData.data.id
             setTrueWeight(context!!,postData.data.weight.toDouble())
             setTrueHeight(context!!,postData.data.height)
 
-            setTrueWeight(postData.data.weight.toDouble())
-            setTrueHeight(postData.data.height)
+            //setTrueWeight(postData.data.weight.toDouble())
+            //setTrueHeight(postData.data.height)
             setAvoidance(context!!, postData.data.avoidance)
 
             for(i in avoidanceValue.indices)
@@ -413,6 +418,7 @@ object Data {
                 }
             }
             setPlan(context!!, postData.data.state)
+            /*
             if (postData.data.state==0)
             {
                 setPlan(Plan.slim)
@@ -425,7 +431,7 @@ object Data {
             {
                 setPlan(Plan.keep)
             }
-
+            */
         }
         return 1
     }
@@ -456,8 +462,8 @@ object Data {
         return nowUser.weight
     }
 
-    fun getTrueHeight(context: Context):Double{
-        val height:Double = query(context,"height").toDouble()
+    fun getTrueHeight(context: Context):Int{
+        val height:Int = query(context,"height").toInt()
         return height
     }
 
@@ -519,7 +525,7 @@ object Data {
         val login:Boolean = query(context, "login").toBoolean()
         return login
     }
-
+    //唯一调用旧版本getLogin的函数未被其他模块调用
     fun getLogin():Boolean
     {
         val content = File(userDataFile).readText()
@@ -545,9 +551,7 @@ object Data {
         return modify_flag
     }
 
-    fun setUserName(context: Context, seq:CharSequence){
-        update(context, "name", seq.toString())
-    }
+
 
     fun setUserName(seq:CharSequence)
     {
@@ -669,6 +673,17 @@ object Data {
         return avoidanceString
     }
 
+    fun getAvoidanceType(context: Context): List<String>{//返回忌口的菜品
+        val avoidanceType: MutableList<String> = mutableListOf<String>()
+        val avoidance: Int = query(context,"avoidance").toInt()
+        for(i in avoidanceString.indices){
+            if((avoidance and (1 shl i)) != 0){
+                avoidanceType.add(avoidanceString[i])
+            }
+        }
+        return avoidanceType.toList()
+    }
+
     fun getAvoidanceType(): List<String>{//返回忌口的菜品
         val content = File(userDataFile).readText()
         val nowUser = Gson().fromJson(content, User::class.java)
@@ -681,6 +696,18 @@ object Data {
         }
         return avoidancetype.toList()
     }
+
+    fun getAcceptable(context: Context): List<String>{//返回接受的菜品
+        val avoidanceType: MutableList<String> = mutableListOf<String>()
+        val avoidance: Int = query(context,"avoidance").toInt()
+        for(i in avoidanceString.indices){
+            if((avoidance and (1 shl i)) == 0){
+                avoidanceType.add(avoidanceString[i])
+            }
+        }
+        return avoidanceType.toList()
+    }
+
 
     fun getAcceptable(): List<String>{//返回不忌口的菜品
         val content = File(userDataFile).readText()
@@ -718,8 +745,9 @@ object Data {
         val content = File(userDataFile).readText()
         val nowUser = Gson().fromJson(content, User::class.java)
         user = nowUser
-        for(i in avoidanceString.indices){
-            if(avoidanceName == avoidanceString[i]){
+
+        for(i in avoidanceString.indices) {
+            if (avoidanceName == avoidanceString[i]) {
                 user.avoidanceValue[i] = !user.avoidanceValue[i]
                 break
             }
@@ -773,7 +801,7 @@ object Data {
     }
 
 
-    fun AvoidanceTOAlgo(context: Context):Int {
+    fun AvoidanceToAlgo(context: Context):Int {
         val avoidance:Int = query(context, "avoidance").toInt()
         return avoidance
     }

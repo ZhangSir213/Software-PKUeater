@@ -1,5 +1,7 @@
 package com.example.psycho.kernel
 
+import android.app.Activity
+import android.content.Context
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.Food
@@ -189,7 +191,7 @@ object Kernel {
     }
 
 
-    fun getResult():List<String> {
+    fun getResult(context: Context):List<String> {
         //Step0 读取食物数据
         /*
             食物数据保存在二维数据food[4][100]中，food[i]存储第i类食物（type为i）
@@ -238,18 +240,18 @@ object Kernel {
 
             减肥一公斤，减少摄入7500kcal,一个月每天少250卡，增肥同理
         */
-        var Gender = Mydata.getGender()
-        var Weight = Mydata.getTrueWeight()
-        var Height = Mydata.getTrueHeight()
+        var Gender = Mydata.getGender(context)
+        var Weight = Mydata.getTrueWeight(context)
+        var Height = Mydata.getTrueHeight(context)
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        var Age = 2022-sdf.parse(Mydata.getBirthday()).year-1900
+        var Age = 2022-sdf.parse(Mydata.getBirthday(context)).year-1900
         var Goal = 0//keep
-        if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
-        if(Mydata.getPlan() == Data.Plan.strong) Goal = 1
+        if(Mydata.getPlan(context) == Data.Plan.slim) Goal = -1
+        if(Mydata.getPlan(context) == Data.Plan.strong) Goal = 1
         var Cal = calcCalorie(Gender,Weight, Height, Age, Goal)
 
-        Avoidance = Mydata.AvoidanceToAlgo()
-        Budget = Mydata.getBudget()
+        Avoidance = Mydata.AvoidanceToAlgo(context)
+        Budget = Mydata.getBudget(context)
         CalorieLimit = Cal/2
 
 
@@ -287,7 +289,7 @@ fun main(){
     print(xzy.getFoodList())
     print("\n")
     //print(xzy.getCanteenFood("家园二层"))
-    print(xzy.getResult())
+    //print(xzy.getResult())
 }
 /*
 README 1113:

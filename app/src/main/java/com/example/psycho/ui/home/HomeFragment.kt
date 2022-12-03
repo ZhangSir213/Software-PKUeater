@@ -25,7 +25,7 @@ import java.util.*
 
 class HomeFragment : Fragment() {
     private var _data = Data
-
+    
     private var _binding: FragmentHomeBinding? = null
     private var canteenList: List<String>? = null
     private var cuisineMenu: List<String>? = null
@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
                      */
                     R.id.content_canteen -> {
                         t?.let { Kernel.setPrefer(it) }
-                        cuisineMenu = Kernel.getResult()
+                        cuisineMenu = Kernel.getResult(context!!)
                         _data.setTodayMenu(cuisineMenu!!)
 
                         cuisineMenu=null
@@ -91,7 +91,7 @@ class HomeFragment : Fragment() {
         val buttonGetMenu: Button = binding.buttonGetMenu
         buttonGetMenu.setOnClickListener {
             val act: FragmentActivity? = activity
-            cuisineMenu = Kernel.getResult()
+            cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
         }
@@ -99,7 +99,7 @@ class HomeFragment : Fragment() {
         buttonSetRand.setOnClickListener {
             val act: FragmentActivity? = activity
             Kernel.setPrefer("随机食堂")
-            cuisineMenu = Kernel.getResult()
+            cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
             Log.d("Random","choose")
