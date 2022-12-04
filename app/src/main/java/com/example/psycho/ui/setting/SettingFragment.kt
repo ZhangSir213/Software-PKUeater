@@ -171,7 +171,7 @@ class SettingFragment : Fragment() {
         // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
         recyclerViewAvoidance = binding.recyclerAvoidance
         recyclerViewAvoidance?.layoutManager =
-            StaggeredGridLayoutManager(2,
+            StaggeredGridLayoutManager(3,
                 StaggeredGridLayoutManager.HORIZONTAL)
         recyclerViewAcceptable = binding.recyclerAcceptable
         recyclerViewAcceptable?.layoutManager =
@@ -218,6 +218,7 @@ class SettingFragment : Fragment() {
             }
         })
 
+        /*
         buttonLog.setOnClickListener {
             val act : FragmentActivity? =getActivity()
             Log.d("日志","点击成功")
@@ -225,6 +226,7 @@ class SettingFragment : Fragment() {
             act?.startActivity(intent)
 
         }
+         */
 
         return root
     }
