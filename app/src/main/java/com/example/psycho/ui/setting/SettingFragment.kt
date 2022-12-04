@@ -46,6 +46,45 @@ class SettingFragment : Fragment() {
     private var recyclerViewAvoidance: RecyclerView? = null
     private var avoidanceAdapter: AvoidanceAdapter? = null
 
+    // fix try
+    // 尝试1：把整个集成，每次点击都是完全刷新
+    fun bindAvoidanceAdapter() {
+        avoidanceList = _data.getAvoidanceType()
+        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
+        recyclerViewAvoidance?.adapter = avoidanceAdapter
+
+        acceptableList = _data.getAcceptable()
+        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
+        recyclerViewAcceptable?.adapter = acceptableAdapter
+
+        avoidanceAdapter?.mOnRecyclerViewItemClick = object :
+            AvoidanceAdapter.OnRecyclerViewItemClick<String> {
+            override fun onItemClick(view: View?, t: String?, position: Int) {
+                when (view?.id) {
+                    R.id.content_avoidance -> {
+                        t?.let {
+                            _data.deleteAvoidance(t)
+                        }
+                        bindAvoidanceAdapter()
+                    }
+                }
+            }
+        }
+        acceptableAdapter?.mOnRecyclerViewItemClick = object :
+            AcceptableAdapter.OnRecyclerViewItemClick<String> {
+            override fun onItemClick(view: View?, t: String?, position: Int) {
+                when (view?.id) {
+                    R.id.content_acceptable -> {
+                        t?.let {
+                            _data.addAvoidance(t)
+                        }
+                        bindAvoidanceAdapter()
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * 重启应用
      * @param context
@@ -85,27 +124,8 @@ class SettingFragment : Fragment() {
                 activity?.runOnUiThread {
                     if(_data.getTimerFlag()) {
                         if (_data.getAvoidanceChange()) {
-                            /*
-                            avoidanceList = userData.getAvoidanceType()
-                            recyclerViewAvoidance = binding.recyclerAvoidance
-                            recyclerViewAvoidance?.layoutManager =
-                                StaggeredGridLayoutManager(2,
-                                    StaggeredGridLayoutManager.HORIZONTAL)
-                            avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
-                            recyclerViewAvoidance?.adapter = avoidanceAdapter
 
-
-                            acceptableList = userData.getAcceptable()
-                            recyclerViewAcceptable = binding.recyclerAcceptable
-                            recyclerViewAcceptable?.layoutManager =
-                                StaggeredGridLayoutManager(3,
-                                    StaggeredGridLayoutManager.HORIZONTAL)
-                            acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
-                            recyclerViewAcceptable?.adapter = acceptableAdapter
-                            _data.setAvoidanceChange(false)
-                             */
                         }
-
                         if (_data.getModifyFlag()) {
                             if (_data.getWeightVisible())
                             {
@@ -147,100 +167,17 @@ class SettingFragment : Fragment() {
 
         // Roulette Avoidance
         // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
-        avoidanceList = _data.getAvoidanceType()
-        recyclerViewAvoidance = binding.recyclerAvoidance
-        recyclerViewAvoidance?.layoutManager =
-            StaggeredGridLayoutManager(2,
-            StaggeredGridLayoutManager.HORIZONTAL)
-        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
-        recyclerViewAvoidance?.adapter = avoidanceAdapter
-        avoidanceAdapter?.mOnRecyclerViewItemClick = object :
-            AvoidanceAdapter.OnRecyclerViewItemClick<String> {
-            override fun onItemClick(view: View?, t: String?, position: Int) {
-                when (view?.id) {
-                    R.id.content_avoidance -> {
-                        t?.let {
-                            _data.deleteAvoidance(t)
-                        }
-                        avoidanceList = _data.getAvoidanceType()
-                        recyclerViewAvoidance = binding.recyclerAvoidance
-                        recyclerViewAvoidance?.layoutManager =
-                            StaggeredGridLayoutManager(2,
-                                StaggeredGridLayoutManager.HORIZONTAL)
-                        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
-                        recyclerViewAvoidance?.adapter = avoidanceAdapter
-
-                        acceptableList = _data.getAcceptable()
-                        recyclerViewAcceptable = binding.recyclerAcceptable
-                        recyclerViewAcceptable?.layoutManager =
-                            StaggeredGridLayoutManager(3,
-                                StaggeredGridLayoutManager.HORIZONTAL)
-                        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
-                        recyclerViewAcceptable?.adapter = acceptableAdapter
-
-                        _data.setAvoidanceChange(true)
-                        // Roulette
-                        // 在这里设置修改avoidanceList和acceptableList
-                        /*
-                        t?.let {
-                            Kernel.delAvoidance(it)
-                            Kernel.addAcceptable(it)
-                        }
-                         */
-                        // _data.setMenuChange(true)
-                        // cuisineMenu = Kernel.getResult()
-                        // _data.setTodayMenu(cuisineMenu!!)
-                    }
-                }
-            }
-        }
         // Roulette Acceptable
         // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
-        acceptableList = _data.getAcceptable()
+        recyclerViewAvoidance = binding.recyclerAvoidance
+        recyclerViewAvoidance?.layoutManager =
+            StaggeredGridLayoutManager(3,
+                StaggeredGridLayoutManager.HORIZONTAL)
         recyclerViewAcceptable = binding.recyclerAcceptable
         recyclerViewAcceptable?.layoutManager =
             StaggeredGridLayoutManager(3,
                 StaggeredGridLayoutManager.HORIZONTAL)
-        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
-        recyclerViewAcceptable?.adapter = acceptableAdapter
-        acceptableAdapter?.mOnRecyclerViewItemClick = object :
-            AcceptableAdapter.OnRecyclerViewItemClick<String> {
-            override fun onItemClick(view: View?, t: String?, position: Int) {
-                when (view?.id) {
-                    R.id.content_acceptable -> {
-                        t?.let {
-                            _data.addAvoidance(t)
-                            // Log.d("click::",t.toString())
-                        }
-
-                        avoidanceList = _data.getAvoidanceType()
-                        recyclerViewAvoidance = binding.recyclerAvoidance
-                        recyclerViewAvoidance?.layoutManager =
-                            StaggeredGridLayoutManager(2,
-                                StaggeredGridLayoutManager.HORIZONTAL)
-                        avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
-                        recyclerViewAvoidance?.adapter = avoidanceAdapter
-
-                        acceptableList = _data.getAcceptable()
-                        recyclerViewAcceptable = binding.recyclerAcceptable
-                        recyclerViewAcceptable?.layoutManager =
-                            StaggeredGridLayoutManager(3,
-                                StaggeredGridLayoutManager.HORIZONTAL)
-                        acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
-                        recyclerViewAcceptable?.adapter = acceptableAdapter
-
-                        _data.setAvoidanceChange(true)
-                        // Roulette
-                        // 在这里设置修改acceptableList和acceptableList
-                        /*
-                        t?.let {
-                            Kernel.delAcceptable(it)
-                            Kernel.addAvoidance(it)
-                         */
-                    }
-                }
-            }
-        }
+        bindAvoidanceAdapter()
 
         buttonLogout.setOnClickListener {
             _data.setHeightInvisible()
@@ -281,6 +218,7 @@ class SettingFragment : Fragment() {
             }
         })
 
+        /*
         buttonLog.setOnClickListener {
             val act : FragmentActivity? =getActivity()
             Log.d("日志","点击成功")
@@ -288,6 +226,7 @@ class SettingFragment : Fragment() {
             act?.startActivity(intent)
 
         }
+         */
 
         return root
     }
