@@ -179,7 +179,8 @@ object Kernel {
             //print("Update It!!\n")
             return
         }
-        if(Type.and(nwfood[x].type) == 0){
+        //if(Type.and(nwfood[x].type) == 0){
+        if (ccnt < 3) {
             candidate[++ccnt] = nwfood[x]
             dfs(CalorieTot+nwfood[x].calorie, Cost+ nwfood[x].price, x+1,Type+nwfood[x].type)
             ccnt--  //回溯

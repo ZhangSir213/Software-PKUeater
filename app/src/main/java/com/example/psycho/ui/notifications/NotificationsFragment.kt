@@ -1,5 +1,6 @@
 package com.example.psycho.ui.notifications
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,25 @@ class NotificationsFragment : Fragment() {
         val textView: TextView = binding.textNotifications
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+        }
+
+        //val circleCpb1 = binding.circleProgressBarA
+        //val circleCpb2 = binding.circleProgressBarB
+
+        with(binding.circleProgressBarA) {
+            rindColorArray = intArrayOf(    // 渐变颜色
+                Color.parseColor("#0888FF"),
+                Color.parseColor("#6CD0FF")
+            )
+            startAnim(75)
+        }
+
+        with(binding.circleProgressBarB) {
+            rindColorArray = intArrayOf(
+                Color.parseColor("#0888FF"),
+                Color.parseColor("#6CD0FF")
+            )
+            startAnim(85)
         }
         return root
     }
