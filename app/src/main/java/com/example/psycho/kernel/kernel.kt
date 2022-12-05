@@ -1,5 +1,6 @@
 package com.example.psycho.kernel
 
+import android.hardware.Sensor.TYPE_STEP_COUNTER
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.Food
@@ -121,6 +122,9 @@ object Kernel {
     fun todayCalorie(): Int{
         if(todayTotal == -1) getResult()
         return todayTotal
+    }
+    fun todayStep(): Int{
+        return TYPE_STEP_COUNTER
     }
 
     fun Hash(): Int{
