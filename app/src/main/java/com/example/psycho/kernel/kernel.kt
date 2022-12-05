@@ -36,8 +36,8 @@ object Kernel {
                       = "换个推荐"
                       = “换个食堂”
      */
-    var listOfFood = listOf<Food>()           //各类食物信息
-    var food = Array<Food>(1000, {i: Int -> Food()})
+    var listOfFood = listOf<Food>()
+    var food = Array<Food>(1000, {i: Int -> Food()})                    //各类食物信息
     var nwfood = Array<Food>(1000, {i: Int -> Food()})                  //排除忌口等因素后本次可以推荐的食物
     var candidate = Array<Food>(10, {i: Int -> Food()})                 //每次搜索的推荐结果
     var recommend = Array<Food>(10, {i: Int -> Food()})                 //最终推荐结果
@@ -106,7 +106,7 @@ object Kernel {
         return res
     }*/
 
-    fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goal: Int): Int{
+    private fun calcCalorie(Gender:Int, Weight: Double, Height: Int, Age: Int, Goal: Int): Int{
         // Weight kg   Height cm
         var calorie: Double = 0.1
         if(Gender == 1)//Man
@@ -250,21 +250,21 @@ object Kernel {
 
             减肥一公斤，减少摄入7500kcal,一个月每天少250卡，增肥同理
         */
-        var Gender = Mydata.getGender()
-        var Weight = Mydata.getTrueWeight()
-        var Height = Mydata.getTrueHeight()
+        var gender = Mydata.getGender()
+        var weight = Mydata.getTrueWeight()
+        var height = Mydata.getTrueHeight()
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        var Age = 2022-sdf.parse(Mydata.getBirthday()).year-1900
-        var Goal = 0//keep
-        if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
-        if(Mydata.getPlan() == Data.Plan.strong) Goal = 1
-        var Cal = calcCalorie(Gender,Weight, Height, Age, Goal)
-        todayTotal = Cal
+        var age = 2022-sdf.parse(Mydata.getBirthday()).year-1900
+        var goal = 0//keep
+        if(Mydata.getPlan() == Data.Plan.slim) goal = -1
+        if(Mydata.getPlan() == Data.Plan.strong) goal = 1
+        var stdCalorie = calcCalorie(gender,weight, height, age, goal)
+        todayTotal = stdCalorie
 
 
         Avoidance = Mydata.AvoidanceToAlgo()
         Budget = Mydata.getBudget()
-        CalorieLimit = Cal/2
+        CalorieLimit = stdCalorie/2
 
 
 

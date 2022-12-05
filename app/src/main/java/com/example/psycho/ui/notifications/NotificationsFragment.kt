@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.psycho.data.Data
 import com.example.psycho.databinding.FragmentNotificationsBinding
+import com.example.psycho.kernel.Kernel
 
 class NotificationsFragment : Fragment() {
 
@@ -37,20 +39,26 @@ class NotificationsFragment : Fragment() {
         //val circleCpb1 = binding.circleProgressBarA
         //val circleCpb2 = binding.circleProgressBarB
 
-        with(binding.circleProgressBarA) {
+        with(binding.circleProgressBarA) {  // 卡路里
             rindColorArray = intArrayOf(    // 渐变颜色
                 Color.parseColor("#0888FF"),
                 Color.parseColor("#6CD0FF")
             )
-            startAnim(75)
+            max = Kernel.todayCalorie()
+            val myCalorie = Data.getCalorieFromServer()
+            descText = "卡路里$myCalorie/$max"
+            startAnim(myCalorie)
         }
 
-        with(binding.circleProgressBarB) {
+        with(binding.circleProgressBarB) {  // 步数
             rindColorArray = intArrayOf(
                 Color.parseColor("#0888FF"),
                 Color.parseColor("#6CD0FF")
             )
-            startAnim(85)
+            max = 8000
+            val myStep = Kernel.todayStep()
+            descText = "步数$myStep/$max"
+            startAnim(myStep)
         }
         return root
     }

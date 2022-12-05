@@ -10,7 +10,6 @@
         android:id="@+id/circle_progress_bar_a"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:descText="卡路里"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="4dp" />
@@ -19,7 +18,6 @@
         android:id="@+id/circle_progress_bar_b"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:descText="步数"
         app:layout_constraintBottom_toBottomOf="@+id/circle_progress_bar_a"
         app:layout_constraintStart_toEndOf="@+id/circle_progress_bar_a"
         app:layout_constraintTop_toTopOf="@+id/circle_progress_bar_a"
