@@ -105,7 +105,7 @@ object Kernel {
         return res
     }*/
 
-    fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goat: Int): Int{
+    fun calcCalorie(Gender:Int, Weight: Double, Height: Int,Age: Int,Goal: Int): Int{
         // Weight kg   Height cm
         var calorie: Double = 0.1
         if(Gender == 1)//Man
@@ -113,8 +113,14 @@ object Kernel {
         else//Woman
             calorie = 10*Weight + 6.25*Height - 5*Age - 161
 
-        calorie += Goat * 250
+        calorie += Goal * 250
         return calorie.roundToInt()
+    }
+
+    var todayTotal = -1
+    fun todayCalorie(): Int{
+        if(todayTotal == -1) getResult()
+        return todayTotal
     }
 
     fun Hash(): Int{
@@ -139,9 +145,10 @@ object Kernel {
         //    print("DFS("+CarlorieTot+","+Cost+","+x+","+Type+")\n")
         if(CalorieTot > CalorieLimit) return //卡路里超标则停止
         if(Cost > Budget) return //预算超标则停止
-        if(x == ncnt+1||Type.and(7) == 7){//菜品遍历完，结束推荐
+        if(x == ncnt+1||ccnt == 3){//菜品遍历完，结束推荐
             //I. 当前搜到的组合不优
             if(Type.and(7) < 7) return//一定要主食肉素齐全
+            if(ccnt < 3) return//一定要三个菜
             var distance = Dist(1, 2) + Dist(1,3) + Dist(2,3)
             if(rcnt > 0){//已有之前的搜索结果，需要两者进行比较
                 //i. 摄入卡路里太少了不行
@@ -248,10 +255,13 @@ object Kernel {
         if(Mydata.getPlan() == Data.Plan.slim) Goal = -1
         if(Mydata.getPlan() == Data.Plan.strong) Goal = 1
         var Cal = calcCalorie(Gender,Weight, Height, Age, Goal)
+        todayTotal = Cal
+
 
         Avoidance = Mydata.AvoidanceToAlgo()
         Budget = Mydata.getBudget()
         CalorieLimit = Cal/2
+
 
 
 
@@ -285,8 +295,8 @@ object Kernel {
 
 fun main(){
     var xzy = Kernel
-    print(xzy.getFoodList())
-    print("\n")
+//    print(xzy.getFoodList())
+//    print("\n")
     //print(xzy.getCanteenFood("家园二层"))
     print(xzy.getResult())
 }
