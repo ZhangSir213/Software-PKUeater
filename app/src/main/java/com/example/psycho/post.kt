@@ -58,7 +58,7 @@ fun simpleGetUseFrom(url: String, params: Map<String,String>? = null):String {
     return responseData
 }
 @Synchronized
-fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean =false,context: Context?=null) {
+fun simplePostUseTo(url: String, params: Map<String,*>? = null,update:Boolean =false,context: Context?=null) {
     //创建 formBody
     var update=update
     if ((url=="http://47.94.139.212:3000/user/register")||(url=="http://47.94.139.212:3000/user/login"))
@@ -122,7 +122,7 @@ fun simplePostUseFrom(url: String, params: Map<String,*>? = null,update:Boolean 
 }
 
 
-fun DownloadPicture(){
+fun downloadPicture(){
     val client = OkHttpClient()
     val request = Request.Builder().get()
         .url("http://47.94.139.212:3000/img/food/1.png")
@@ -148,7 +148,7 @@ fun main()
     //simplePostUseFrom(url,map)
     //val map = mapOf("id" to "1")
     //print(simpleGetUseFrom(url,null))
-    DownloadPicture()
+    downloadPicture()
     /*
     val url="localhost:8090/user/register"
     var jsonObject = JSONObject()

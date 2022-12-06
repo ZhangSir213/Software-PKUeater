@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -25,7 +24,7 @@ import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.data.MyDatabaseHelper
 import com.example.psycho.databinding.ActivityLogin2Binding
-import com.example.psycho.simplePostUseFrom
+import com.example.psycho.simplePostUseTo
 import java.io.IOException
 
 
@@ -56,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCompat.requestPermissions(this, permissions, 321)
-        /*
+
         val dbHelper=MyDatabaseHelper(this,"Pku-Eater.db",1)
         dbHelper.writableDatabase
         val db=dbHelper.writableDatabase
@@ -81,7 +80,6 @@ class LoginActivity : AppCompatActivity() {
         }
         cursor.close()
         db.close()
-        */
 
 
         var globalFile=Data
@@ -91,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
 
         val map = mapOf("name" to globalFile.getUserName(), "password" to globalFile.getPassword())
         val url = "http://47.94.139.212:3000/user/login"
-        simplePostUseFrom(url, map, context = this)
+        simplePostUseTo(url, map)
         if (globalFile.getState()=="success")
         {
             val intentL:Intent = Intent(this, MainActivity::class.java)
