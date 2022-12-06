@@ -61,10 +61,10 @@ object Data {
     var DB_NAME = "Pku-Eater.db" //数据库名称
     var TABLE_NAME = "USER" //表名称
     var CURRENT_VERSION = 1 //当前的最新版本，如有表结构变更，该版本号要加一
-
+    var version=2
     fun update(context:Context,column:String,value:String)
     {
-        val dbHelper=MyDatabaseHelper(context, DB_NAME,1)
+        val dbHelper=MyDatabaseHelper(context, DB_NAME,version)
         dbHelper.writableDatabase
         val db=dbHelper.writableDatabase
         val values=ContentValues()
@@ -74,7 +74,7 @@ object Data {
     }
     fun query(context: Context,column: String):String
     {
-        val dbHelper=MyDatabaseHelper(context, DB_NAME,1)
+        val dbHelper=MyDatabaseHelper(context, DB_NAME,version)
         dbHelper.writableDatabase
         val db=dbHelper.writableDatabase
         val condition="uid=$idCode"
