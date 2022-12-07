@@ -121,8 +121,8 @@ object Kernel {
     }
 
     var todayTotal = -1
-    fun todayCalorie(): Int{
-        if(todayTotal == -1) getResult()
+    fun todayCalorie(context: Context): Int{
+        if(todayTotal == -1) getResult(context)
         return todayTotal
     }
     fun todayStep(): Int{
@@ -260,7 +260,7 @@ object Kernel {
         var goal = 0//keep
         if(Mydata.getPlan(context) == Data.Plan.slim) goal = -1
         if(Mydata.getPlan(context) == Data.Plan.strong) goal = 1
-        var stdCalorie = calcCalorie(gender,weight, height, age, goal)
+        var stdCalorie = calcCalorie(Gender,Weight, Height, age, goal)
         todayTotal = stdCalorie
 
 

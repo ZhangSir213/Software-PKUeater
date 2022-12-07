@@ -23,7 +23,7 @@ class LogActivity : AppCompatActivity() {
         val button_snack:ImageButton = binding.snack
 
         val view = binding.root
-        userData.initDietLog()
+        //userData.initDietLog()
         setContentView(view)
 
         button_breakfast.setOnClickListener {

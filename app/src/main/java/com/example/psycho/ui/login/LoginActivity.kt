@@ -82,15 +82,16 @@ class LoginActivity : AppCompatActivity() {
 
         */
         var globalFile=Data
+        Data.initSQL(this)
         //globalFile.update(this,"weight","100")
-        val result=globalFile.query(this,"weight")
-        Log.d("SQL",result)
 
-        val map = mapOf("name" to globalFile.getUserName(applicationContext), "password" to globalFile.getPassword(applicationContext))
+        val map = mapOf("name" to globalFile.getUserName(this), "password" to globalFile.getPassword(this))
         val url = "http://47.94.139.212:3000/user/login"
+        Log.d("Login",map.toString())
         simplePostUseTo(url, map)
         if (globalFile.getState()=="success")
         {
+            globalFile.update(this)
             val intentL:Intent = Intent(this, MainActivity::class.java)
             startActivity(intentL)
         }
@@ -115,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
         val adapter = ArrayAdapter<Any>(this, android.R.layout.simple_spinner_item,CanteenList)
 
         binding = ActivityLogin2Binding.inflate(layoutInflater)
-        if((globalFile.getLoginFlag(applicationContext))==false)
+        if((globalFile.getLoginFlag(this))==false)
         {
             setContentView(binding.root)
         }

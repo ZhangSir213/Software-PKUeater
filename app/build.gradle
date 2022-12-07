@@ -60,4 +60,5 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation files('libs/mysql-connector-j-8.0.31.jar')
+    implementation 'com.amitshekhar.android:debug-db:1.0.0'
 }

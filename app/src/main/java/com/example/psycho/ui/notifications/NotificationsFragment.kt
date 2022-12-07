@@ -44,7 +44,7 @@ class NotificationsFragment : Fragment() {
                 Color.parseColor("#0888FF"),
                 Color.parseColor("#6CD0FF")
             )
-            max = Kernel.todayCalorie()
+            max = Kernel.todayCalorie(context)
             val myCalorie = Data.getCalorieFromServer()
             descText = "卡路里$myCalorie/$max"
             startAnim(myCalorie)
