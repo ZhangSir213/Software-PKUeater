@@ -1,5 +1,6 @@
 package com.example.psycho.ui.log
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class SelectFoodActivity : AppCompatActivity() {
             val food = foodList[position]
             //userData.addDietLog(meal, food.name)//添加日志记录
             userData.postLogToServer(food.foodId, meal)
+            setResult(Activity.RESULT_OK,intent)
             finish()
         }
 

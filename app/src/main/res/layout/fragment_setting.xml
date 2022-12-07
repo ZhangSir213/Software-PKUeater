@@ -71,11 +71,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ImageView
         android:id="@+id/image_user_photo"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:alpha="14"
@@ -84,10 +84,11 @@
         android:src="@drawable/icon_camera"
         app:circularflow_radiusInDP="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/image_top_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_top_bg"
-        app:layout_constraintVertical_bias="0.5" />
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_weight"
@@ -253,13 +254,12 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
         android:text="@string/logout"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewGender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toEndOf="@+id/imageViewGender"
-        app:layout_constraintTop_toTopOf="@+id/imageViewGender"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_log"
@@ -270,19 +270,6 @@
         android:background="@drawable/gradient_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_setting" />
-
-    <ImageView
-        android:id="@+id/imageViewGender"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/boy"
-        app:layout_constraintBottom_toTopOf="@+id/borderTextViewWeight"
-        app:layout_constraintEnd_toEndOf="@+id/borderTextViewWeight"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/borderTextViewWeight"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.5" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_avoidance"

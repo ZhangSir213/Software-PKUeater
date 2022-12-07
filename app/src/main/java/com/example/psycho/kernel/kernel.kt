@@ -50,7 +50,7 @@ object Kernel {
     var rec_calorie = 0       //推荐结果的卡路里总量
     var rec_distance = 0      //推荐结果的步行距离
     var lastRecommendationHash = 0  //上一次推荐的哈希值
-
+    val Mydata = Data //定义在最上面
     init
     {
         //构造函数
@@ -126,7 +126,7 @@ object Kernel {
         return todayTotal
     }
     fun todayStep(): Int{
-        return TYPE_STEP_COUNTER
+        return TYPE_STEP_COUNTER+ Mydata.sC
     }
 
     fun Hash(): Int{
@@ -243,7 +243,6 @@ object Kernel {
         //Step2 获得推荐菜品
         //i. 获得忌口等信息
 
-        val Mydata = Data //定义在最上面
         //计算卡路里（xzy电脑安卓模拟机坏了，，inline方便调试）
         /*
             Calculate the Calorie
@@ -295,6 +294,7 @@ object Kernel {
         var result = listOf<String>(Canteen)
         for(i in 1..rcnt)
             result = result.plusElement(recommend[i].name)
+
         return result
     }
 }

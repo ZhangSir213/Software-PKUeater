@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, permissions, 321)
         }
 
-        if(_data.getFirstFlag(applicationContext))
+        if(_data.getFirstFlag(applicationContext)==1)
         {
             val intentL: Intent = Intent(this, CountActivity::class.java)
             Log.d("Count","Start")

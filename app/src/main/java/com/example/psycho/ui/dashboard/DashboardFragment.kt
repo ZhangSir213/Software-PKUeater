@@ -1,5 +1,6 @@
 package com.example.psycho.ui.dashboard
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import com.example.psycho.data.Data
 import com.example.psycho.databinding.FragmentDashboardBinding
 import com.example.psycho.ui.log.LogActivity
 import com.example.psycho.ui.log.SelectFoodActivity
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
@@ -26,6 +28,15 @@ class DashboardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val userData = Data
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("Q","1")
+        when(requestCode){
+            100->if (resultCode==Activity.RESULT_OK){
+                flash()
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,38 +49,34 @@ class DashboardFragment : Fragment() {
         val chooseDessert: ImageView = binding.includeDailyShower.imageBgDessertBorder
 
         chooseBreakfast.setOnClickListener {
-            val act: FragmentActivity? = getActivity()
+            //val act: FragmentActivity? = getActivity()
             // Russian
-            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            val intent: Intent = Intent(context!!, SelectFoodActivity::class.java)
             intent.putExtra("meal",1)
-            act?.startActivity(intent)
-            onResume()
+            startActivityForResult(intent,100)
         }
         chooseLunch.setOnClickListener{
-            val act: FragmentActivity? = getActivity()
+            //val act: FragmentActivity? = getActivity()
             // Russian
-            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            val intent: Intent = Intent(context!!, SelectFoodActivity::class.java)
             intent.putExtra("meal",2)
-            act?.startActivity(intent)
-            onResume()
+            startActivityForResult(intent,100)
         }
         chooseDinner.setOnClickListener{
-            val act: FragmentActivity? = getActivity()
+            //val act: FragmentActivity? = getActivity()
             // Russian
-            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
+            val intent: Intent = Intent(context!!, SelectFoodActivity::class.java)
             intent.putExtra("meal",3)
-            act?.startActivity(intent)
-            onResume()
+            startActivityForResult(intent,100)
         }
         chooseDessert.setOnClickListener{
-            val act: FragmentActivity? = getActivity()
-            // Russian
-            val intent: Intent = Intent(act, SelectFoodActivity::class.java)
-            intent.putExtra("meal",4)
-            act?.startActivity(intent)
-            onResume()
-        }
 
+            // Russian
+            val intent: Intent = Intent(context!!, SelectFoodActivity::class.java)
+            intent.putExtra("meal",4)
+            startActivityForResult(intent,100)
+        }
+        flash()
         val button1=binding.includeDailyShower.button6
         val button2=binding.includeDailyShower.button7
         val button3=binding.includeDailyShower.button8

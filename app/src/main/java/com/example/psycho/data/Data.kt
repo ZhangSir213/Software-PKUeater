@@ -17,7 +17,7 @@ import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-
+import android.hardware.Sensor.TYPE_STEP_COUNTER
 
 /**
  * created by WSH
@@ -61,7 +61,14 @@ object Data {
     var DB_NAME = "Pku-Eater.db" //数据库名称
     var TABLE_NAME = "USER" //表名称
     var CURRENT_VERSION = 3 //当前的最新版本，如有表结构变更，该版本号要加一
+    var sC=0
 
+    fun todaySC(): Int{
+        return ((TYPE_STEP_COUNTER+ sC)/1000).toInt()*50
+    }
+    fun addSC(){
+        sC+=1000
+    }
     fun initSQL(context:Context)
     {
         val dbHelper=MyDatabaseHelper(context, DB_NAME, CURRENT_VERSION)
@@ -81,7 +88,7 @@ object Data {
                 put("gender",1)
                 put("avoidance",0)
                 put("login",0)
-                put("loginFirst",0)
+                put("loginFirst",1)
                 put("password","caonima")
                 put("budget",50)
             }
@@ -91,6 +98,7 @@ object Data {
         {
             cursor.moveToFirst()
             idCode=cursor.getInt(cursor.getColumnIndex("uid"))
+            update(context)
         }
     }
     private fun update(context:Context,column:String,value:String)
@@ -297,32 +305,24 @@ object Data {
         update(context,"name","root")
         update(context,"password","123456")
         update(context,"login","0")
+        update(context,"loginFirst","0")
         timer=true
     }
 
 
-    fun getFirstFlag(context:Context):Boolean{
-        val firstFlag:Boolean = query(context,"loginFirst").toBoolean()
+    fun getFirstFlag(context:Context):Int{
+        val firstFlag:Int = query(context,"loginFirst").toInt()
         return firstFlag
     }
 
-    fun getFirstFlag():Boolean
-    {
-        val content = File(userDataFile).readText()
-        val nowUser = Gson().fromJson(content, User::class.java)
-        user = nowUser
-        return user.loginFirst
-    }
 
     fun setFirstFlag(context: Context)
     {
-        try {
+        if (getFirstFlag(context)==1)
             update(context,"loginFirst","0")
-        }
-        catch (e:IOException)
-        {
-            e.printStackTrace()
-        }
+        else
+            update(context,"loginFirst","1")
+
     }
 
 
@@ -744,7 +744,15 @@ object Data {
         val dietLogList = getResponse.data
         if (dietLogList.isEmpty())
             return
-        val dietLog=dietLogList[dietLogList.size-1]
+        var dietLog=dietLogList[dietLogList.size-1]
+        var i=dietLogList.size-1
+        while((dietLog.meal!=meal)&&(i>=0)) {
+            //doSth
+            dietLog=dietLogList[i]
+            i-=1
+        }
+        if (i<0)
+            return
         updateDeletedLogToServer(dietLog.id)
     }
     fun postLogToServer(fid: Int, meal: Int, uid: Int = idCode, calorie: Int = 0, price: Int = 0) {
@@ -769,8 +777,9 @@ object Data {
         val dietLogList = getResponse.data
         var res:Int = 0
         for (dietLog in dietLogList) {
-            res += dietLog.calorie
+                res += dietLog.calorie
         }
+        res=res- todaySC()
         return res
     }
 }

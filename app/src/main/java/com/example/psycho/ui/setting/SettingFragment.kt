@@ -1,20 +1,14 @@
 package com.example.psycho.ui.setting
 
-import android.app.ActivityManager
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.os.*
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.getSystemService
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -23,11 +17,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.FragmentSettingBinding
-import com.example.psycho.kernel.Kernel
 import com.example.psycho.resource.AcceptableAdapter
 import com.example.psycho.resource.AvoidanceAdapter
-import com.example.psycho.resource.CanteenAdapter
-import com.example.psycho.ui.log.LogActivity
 import com.example.psycho.ui.login.LoginActivity
 import com.example.psycho.ui.setting.usage.CountActivity
 import java.util.*
@@ -45,7 +36,51 @@ class SettingFragment : Fragment() {
     private var acceptableAdapter: AcceptableAdapter? = null
     private var recyclerViewAvoidance: RecyclerView? = null
     private var avoidanceAdapter: AvoidanceAdapter? = null
+    private var buttonCount:ImageButton?=null
+    private var textWeight: TextView?=null
+    private var textHeight: TextView? = null
+    private var buttonLogout:Button?=null
+    private var buttonLog:Button? = null
+    private var buttonVisibleW:ImageButton? = null
+    private var textVisToolW:TextView? = null
+    private var buttonVisibleH:ImageButton? = null
+    private var textVisToolH:TextView? = null
+    fun  flash()
+    {
+        if (_data.getTimerFlag()) {
+            if (_data.getAvoidanceChange()) {
+            }
+            if (_data.getModifyFlag()) {
+                if (_data.getWeightVisible()) {
+                    textWeight!!.text =
+                        _data.getTrueWeight(context!!).toFloat().toString().format("%.1f")
+                    textVisToolW!!.text = "visible"
+                    buttonVisibleW!!.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
+                } else {
+                    textVisToolW!!.text = "invisible"
+                    buttonVisibleW!!.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
+                    textWeight!!.text = "***"
+                }
+                if (_data.getHeightVisible()) {
+                    textVisToolH!!.text = "visible"
+                    buttonVisibleH!!.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
+                    textHeight!!.text = _data.getTrueHeight(context!!).toString()
+                } else {
+                    textVisToolH!!.text = "invisible"
+                    buttonVisibleH!!.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
+                    textHeight!!.text = "***"
+                }
+                Log.d("Flush", "Flush")
+            }
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
+           flash()
+        }
+    }
     // fix try
     // 尝试1：把整个集成，每次点击都是完全刷新
     fun bindAvoidanceAdapter(context: Context) {
@@ -89,7 +124,6 @@ class SettingFragment : Fragment() {
      * 重启应用
      * @param context
      */
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -106,64 +140,21 @@ class SettingFragment : Fragment() {
             textView.text = it
         }
         val imageView:ImageView = binding.imageTopBg
-        val buttonCount:ImageButton = binding.buttonSetting
-        val textWeight: TextView = binding.textWeight
-        val textHeight: TextView = binding.textHeight
-        val buttonLogout:Button=binding.logout
-        val buttonLog:Button = binding.buttonLog
-        val imageViewGener:ImageView=binding.imageViewGender
-        val timer = Timer()
-        val buttonVisibleW:ImageButton = binding.buttonEyeWeight
-        val textVisToolW:TextView = binding.textViewToolWeightVis
-        val buttonVisibleH:ImageButton = binding.buttonEyeHeight
-        val textVisToolH:TextView = binding.textViewToolHeightVis
+        //val head:ImageButton=binding.imageButton
+        buttonCount = binding.buttonSetting
+        textWeight = binding.textWeight
+        textHeight = binding.textHeight
+        buttonLogout=binding.logout
+        buttonLog= binding.buttonLog
+        buttonVisibleW = binding.buttonEyeWeight
+        textVisToolW = binding.textViewToolWeightVis
+        buttonVisibleH= binding.buttonEyeHeight
+        textVisToolH= binding.textViewToolHeightVis
 
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                //在这里更新数据
-                activity?.runOnUiThread {
-                    if(_data.getTimerFlag()) {
-                        if (_data.getAvoidanceChange()) {
 
-                        }
-                        if (_data.getModifyFlag()) {
-                            if (_data.getWeightVisible())
-                            {
-                                textWeight.text =
-                                    _data.getTrueWeight(context!!).toFloat().toString().format("%.1f")
-                                textVisToolW.text="visible"
-                                buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                            }
-                            else
-                            {
-                                textVisToolW.text="invisible"
-                                buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
-                                textWeight.text="***"
-                            }
-                            if(_data.getHeightVisible())
-                            {
-                                textVisToolH.text="visible"
-                                buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                                textHeight.text=_data.getTrueHeight(context!!).toString()
-                            }
-                            else
-                            {
-                                textVisToolH.text="invisible"
-                                buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_off))
-                                textHeight.text="***"
-                            }
-                            Log.d("Flush","Flush")
-                            if (_data.getGender(context!!)==1) {
-                                imageViewGener.setImageResource(R.drawable.boy)
-                            }
-                            else{
-                                imageViewGener.setImageResource(R.drawable.girl)
-                            }
-                        }
-                    }
-                }
-            }
-        }, 0, 500) //延迟10毫秒后，执行一次task
+
+
+        Log.d("Flush", "Flush")
 
         // Roulette Avoidance
         // 把后面的List换成获取忌口清单的函数，要求返回值为List<String>
@@ -179,7 +170,7 @@ class SettingFragment : Fragment() {
                 StaggeredGridLayoutManager.HORIZONTAL)
         bindAvoidanceAdapter(context!!)
 
-        buttonLogout.setOnClickListener {
+        buttonLogout!!.setOnClickListener {
             _data.setHeightInvisible()
             _data.setWeightInvisible()
             _data.deleteUser(context!!)
@@ -189,31 +180,34 @@ class SettingFragment : Fragment() {
             activity?.finish()
         }
 
-        buttonCount.setOnClickListener(View.OnClickListener() {
-            val act : FragmentActivity? =getActivity()
-            val intent:Intent = Intent(act,CountActivity::class.java)
-            act?.startActivityForResult(intent, 1)
+        buttonCount!!.setOnClickListener(View.OnClickListener() {
+            //val act : FragmentActivity? =getActivity()
+            val intent:Intent = Intent(context!!,CountActivity::class.java)
             println("跳转到身高体重调整界面")
+            startActivityForResult(intent, 111)
         })
 
-        buttonVisibleW.setOnClickListener(View.OnClickListener() {
-            if(textVisToolW.text=="visible") {
+        buttonVisibleW!!.setOnClickListener(View.OnClickListener() {
+            if(textVisToolW!!.text=="visible") {
                 _data.setWeightInvisible()
             }
-            else if(textVisToolW.text=="invisible") {
+            else if(textVisToolW!!.text=="invisible") {
                 _data.setWeightVisible()
             }
+            flash()
         })
 
-        buttonVisibleH.setOnClickListener(View.OnClickListener() {
-            if(textVisToolH.text=="visible") {
+        buttonVisibleH!!.setOnClickListener(View.OnClickListener() {
+            if(textVisToolH!!.text=="visible") {
                 _data.setHeightInvisible()
             }
-            else if(textVisToolH.text=="invisible") {
+            else if(textVisToolH!!.text=="invisible") {
                 _data.setHeightVisible()
             }
+            flash()
         })
 
+        flash()
         /*
         buttonLog.setOnClickListener {
             val act : FragmentActivity? =getActivity()
@@ -239,4 +233,5 @@ class SettingFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

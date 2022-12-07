@@ -65,17 +65,31 @@
         android:id="@+id/recycler_canteen"
         android:layout_width="111dp"
         android:layout_height="78dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="44dp"
         android:background="@color/lightgrey"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintStart_toEndOf="@+id/button_get_menu"></androidx.recyclerview.widget.RecyclerView>
 
     <TextView
+        android:id="@+id/textView4"
+        android:layout_width="111dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/grey"
+        android:text="TextView"
+        android:textColor="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/recycler_canteen"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_canteen" />
+
+    <TextView
         android:id="@+id/text_reminder_canteen"
         android:layout_width="108dp"
         android:layout_height="29dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/gradient_white"
         android:text="换个食堂？"
         android:textAlignment="viewEnd"
@@ -83,6 +97,21 @@
         android:textSize="19sp"
         app:layout_constraintBottom_toTopOf="@+id/recycler_canteen"
         app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recycler_canteen" />
+
+    <Button
+        android:id="@+id/content_canteen_random"
+        android:layout_width="88dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/gradient_white"
+        android:text="随机食堂"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
+        app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="@+id/recycler_canteen" />
 
     <View
@@ -95,45 +124,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/content_canteen_random"
-        android:layout_width="88dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/gradient_white"
-        android:text="随机食堂"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
-        app:layout_constraintHorizontal_bias="0.608"
-        app:layout_constraintStart_toStartOf="@+id/recycler_canteen" />
-
 
     <Button
         android:id="@+id/button_get_menu"
-        android:layout_width="200dp"
-        android:layout_height="76dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:background="@drawable/btngradient"
         android:text="今天吃啥"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintStart_toStartOf="@+id/image_cuisine3"
         app:layout_constraintTop_toTopOf="@+id/text_reminder_canteen"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintVertical_bias="0.287" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="111dp"
-        android:layout_height="35dp"
-        android:background="@color/grey"
-        android:text="TextView"
-        android:textColor="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/recycler_canteen"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_canteen" />
+    <Button
+        android:id="@+id/btn_budget"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btnnoraml"
+        android:backgroundTint="@color/deepgrey"
+        android:text="更改预算"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_get_menu"
+        app:layout_constraintVertical_bias="0.164" />
 
     <TextView
         android:id="@+id/text_today_canteen"
@@ -192,7 +211,7 @@
         android:id="@+id/text_cuisine1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
+        android:layout_marginStart="4dp"
         android:text="菜品名称"
         android:textColor="@color/black"
         android:textSize="28sp"

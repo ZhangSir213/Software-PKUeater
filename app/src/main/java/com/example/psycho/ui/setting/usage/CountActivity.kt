@@ -42,6 +42,8 @@ class CountActivity : AppCompatActivity() {
             //_data.setPlan(Data.Plan.keep)
             //_data.update()
             _data.setPlan(applicationContext, 0)
+            _data.setFirstFlag(applicationContext)
+            setResult(Activity.RESULT_OK,intent)
             finish()
         }
         val button2:Button=findViewById(R.id.button_slim)
@@ -49,6 +51,8 @@ class CountActivity : AppCompatActivity() {
             //_data.setPlan(Data.Plan.slim)
             //_data.update()
             _data.setPlan(applicationContext, 1)
+            _data.setFirstFlag(applicationContext)
+            setResult(Activity.RESULT_OK,intent)
             finish()
         }
 
@@ -57,6 +61,8 @@ class CountActivity : AppCompatActivity() {
             //_data.setPlan(Data.Plan.strong)
             //_data.update()
             _data.setPlan(applicationContext, 2)
+            _data.setFirstFlag(applicationContext)
+            setResult(Activity.RESULT_OK,intent)
             finish()
 
         }

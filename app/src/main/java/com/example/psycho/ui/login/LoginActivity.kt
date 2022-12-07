@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
     private val permissions = arrayOf(
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.WRITE_CONTACTS,
-        android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        android.Manifest.permission.MANAGE_EXTERNAL_STORAGE,android.Manifest.permission.ACTIVITY_RECOGNITION
     )
 
     override fun onKeyDown(keyCode: Int, event:KeyEvent): Boolean {
