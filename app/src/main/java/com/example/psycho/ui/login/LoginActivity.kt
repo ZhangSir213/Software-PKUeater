@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
         val result=globalFile.query(this,"weight")
         Log.d("SQL",result)
 
-        val map = mapOf("name" to globalFile.getUserName(), "password" to globalFile.getPassword())
+        val map = mapOf("name" to globalFile.getUserName(applicationContext), "password" to globalFile.getPassword(applicationContext))
         val url = "http://47.94.139.212:3000/user/login"
         simplePostUseTo(url, map)
         if (globalFile.getState()=="success")
@@ -110,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
         }
         */
         binding = ActivityLogin2Binding.inflate(layoutInflater)
-        if((globalFile.getLoginFlag())==false)
+        if((globalFile.getLoginFlag(applicationContext))==false)
         {
             setContentView(binding.root)
         }

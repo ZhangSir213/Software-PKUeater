@@ -15,7 +15,9 @@ class MyDatabaseHelper (var context: Context, name: String, version: Int):SQLite
             "state int,"+
             "gender int,"+
             "avoidance int,"+
+            "loginFirst int,"+
             "login int,"+
+            "budget real,"+
             "password text,"+
             "menu text)"
 

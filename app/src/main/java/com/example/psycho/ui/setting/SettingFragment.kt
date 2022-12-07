@@ -130,7 +130,7 @@ class SettingFragment : Fragment() {
                             if (_data.getWeightVisible())
                             {
                                 textWeight.text =
-                                    _data.getTrueWeight().toFloat().toString().format("%.1f")
+                                    _data.getTrueWeight(context!!).toFloat().toString().format("%.1f")
                                 textVisToolW.text="visible"
                                 buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
                             }
@@ -144,7 +144,7 @@ class SettingFragment : Fragment() {
                             {
                                 textVisToolH.text="visible"
                                 buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                                textHeight.text=_data.getTrueHeight().toString()
+                                textHeight.text=_data.getTrueHeight(context!!).toString()
                             }
                             else
                             {
@@ -153,7 +153,7 @@ class SettingFragment : Fragment() {
                                 textHeight.text="***"
                             }
                             Log.d("Flush","Flush")
-                            if (_data.getGender()==1) {
+                            if (_data.getGender(context!!)==1) {
                                 imageViewGener.setImageResource(R.drawable.boy)
                             }
                             else{
@@ -182,7 +182,7 @@ class SettingFragment : Fragment() {
         buttonLogout.setOnClickListener {
             _data.setHeightInvisible()
             _data.setWeightInvisible()
-            _data.deleteUser()
+            _data.deleteUser(context!!)
             val act : FragmentActivity? =getActivity()
             val intentL:Intent = Intent(act,LoginActivity::class.java)
             startActivity(intentL)
