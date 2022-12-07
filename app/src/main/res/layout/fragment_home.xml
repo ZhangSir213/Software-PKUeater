@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:text="这里会有一句话介绍或者评价菜品"
         android:textColor="@color/deepgrey"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine2_tag" />
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="菜品名称"
         android:textColor="@color/black"
-        android:textSize="28sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/text_cuisine2"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine3" />
 
@@ -65,19 +65,18 @@
         android:id="@+id/recycler_canteen"
         android:layout_width="111dp"
         android:layout_height="78dp"
-        android:layout_marginStart="88dp"
         android:layout_marginBottom="44dp"
         android:background="@color/lightgrey"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintStart_toEndOf="@+id/button_get_menu"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintStart_toEndOf="@+id/text_cuisine3_tag"></androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="111dp"
         android:layout_height="35dp"
         android:layout_marginTop="4dp"
-        android:background="@color/grey"
+        android:background="@color/deepgrey"
         android:text="TextView"
         android:textColor="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
@@ -127,8 +126,9 @@
 
     <Button
         android:id="@+id/button_get_menu"
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="50dp"
+        android:layout_marginStart="18dp"
         android:background="@drawable/btngradient"
         android:text="今天吃啥"
         android:textColor="@color/black"
@@ -136,21 +136,19 @@
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintStart_toStartOf="@+id/image_cuisine3"
         app:layout_constraintTop_toTopOf="@+id/text_reminder_canteen"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintVertical_bias="0.276" />
 
     <Button
         android:id="@+id/btn_budget"
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="50dp"
-        android:background="@drawable/btnnoraml"
-        android:backgroundTint="@color/deepgrey"
+        android:background="@drawable/btnextra"
         android:text="更改预算"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button_get_menu"
         app:layout_constraintTop_toBottomOf="@+id/button_get_menu"
         app:layout_constraintVertical_bias="0.164" />
 
@@ -161,7 +159,7 @@
         android:text="   食堂名称   "
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_reminder_cuisine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.163"
@@ -214,7 +212,7 @@
         android:layout_marginStart="4dp"
         android:text="菜品名称"
         android:textColor="@color/black"
-        android:textSize="28sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_cuisine"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine1" />
 
@@ -224,7 +222,7 @@
         android:layout_height="wrap_content"
         android:text="菜品名称"
         android:textColor="@color/black"
-        android:textSize="28sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/text_cuisine1"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine2" />
 
@@ -234,7 +232,7 @@
         android:layout_height="27dp"
         android:text="特点，如：辣..."
         android:textColor="@color/grey"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/text_cuisine1_info"
         app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine1"
@@ -247,7 +245,7 @@
         android:layout_marginTop="16dp"
         android:text="这里会有一句话介绍或者评价菜品"
         android:textColor="@color/deepgrey"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine1_tag" />
 
@@ -258,7 +256,7 @@
         android:layout_marginTop="12dp"
         android:text="这里会有一句话介绍或者评价菜品"
         android:textColor="@color/deepgrey"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/text_today_canteen"
         app:layout_constraintTop_toBottomOf="@+id/text_cuisine3_tag" />
 
@@ -281,7 +279,7 @@
 
     <Button
         android:id="@+id/button_addlog1"
-        android:layout_width="47dp"
+        android:layout_width="42dp"
         android:layout_height="27dp"
         android:layout_marginEnd="28dp"
         android:background="@drawable/btnnoraml"
@@ -295,7 +293,7 @@
 
     <Button
         android:id="@+id/button_addlog2"
-        android:layout_width="47dp"
+        android:layout_width="42dp"
         android:layout_height="27dp"
         android:layout_marginEnd="28dp"
         android:background="@drawable/btnnoraml"
@@ -304,12 +302,13 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/button_addlog3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button_addlog1"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine2" />
 
     <Button
         android:id="@+id/button_addlog3"
-        android:layout_width="47dp"
+        android:layout_width="42dp"
         android:layout_height="27dp"
         android:layout_marginStart="103dp"
         android:background="@drawable/btnnoraml"

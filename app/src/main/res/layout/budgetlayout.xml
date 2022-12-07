@@ -23,7 +23,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="500dp"
         android:background="@drawable/btnnoraml"
-        android:backgroundTint="@color/deepgrey"
+        android:backgroundTint="@color/teal_700"
         android:text="Confirm"
         android:textColor="@color/white"
         app:layout_constraintHorizontal_bias="0.496"

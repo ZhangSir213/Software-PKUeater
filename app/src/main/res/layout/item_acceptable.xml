@@ -11,7 +11,7 @@
         android:id="@+id/content_acceptable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#F48BA583"
+        android:backgroundTint="#459BB0"
         android:shadowRadius="10"
         android:text="SHIT"
         android:textSize="18sp"
