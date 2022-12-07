@@ -23,7 +23,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="436dp"
         android:background="@drawable/btnnoraml"
-        android:backgroundTint="@color/colorOrange"
+        android:backgroundTint="@color/deepgrey"
         android:text="Next"
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"

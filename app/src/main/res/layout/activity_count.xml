@@ -162,7 +162,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="450dp"
         android:background="@drawable/btnnoraml"
-        android:backgroundTint="@color/colorOrange"
+        android:backgroundTint="@color/deepgrey"
         android:text="Confirm"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

@@ -9,7 +9,7 @@ import android.util.Log
 import com.example.psycho.R
 import com.example.psycho.kernel.Kernel
 import com.example.psycho.simpleGetUseFrom
-import com.example.psycho.simplePostUseFrom
+import com.example.psycho.simplePostUseTo
 import com.google.gson.Gson
 import okio.IOException
 import java.io.*
@@ -192,7 +192,7 @@ object Data {
         val map = mapOf("id" to idCode,"gender" to user.gender,"birthday" to user.birthday,
             "avoidance" to avoidance,"weight" to user.weight.toInt(),"height" to user.height.toInt(),"state" to state)
 
-        simplePostUseFrom(url, map)
+        simplePostUseTo(url, map)
         Log.d("Finish","update")
         if (getState()=="fail")
         {
@@ -1048,14 +1048,14 @@ object Data {
         }
         return res
     }
-    fun deleteLogToServer(id:Int)
+    private fun updateDeletedLogToServer(id:Int)
     {
         val url = "http://47.94.139.212:3000/journal/delete"
         Log.d("delete",id.toString())
         Log.d("delete", idCode.toString())
         val map = mapOf("uid" to idCode.toString(),"id" to id.toString())
         try {
-            simplePostUseFrom(url, map)
+            simplePostUseTo(url, map)
             Log.d("delete","Success")
         }
         catch (e:IOException)
@@ -1070,10 +1070,10 @@ object Data {
         val responseData = simpleGetUseFrom(url, map)
         val getResponse = Gson().fromJson(responseData, DietLogGet::class.java)
         val dietLogList = getResponse.data
-        if (dietLogList.size<1)
+        if (dietLogList.isEmpty())
             return
         val dietLog=dietLogList[dietLogList.size-1]
-        deleteLogToServer(dietLog.id)
+        updateDeletedLogToServer(dietLog.id)
     }
     fun postLogToServer(fid: Int, meal: Int, uid: Int = idCode, calorie: Int = 0, price: Int = 0) {
         val url = "http://47.94.139.212:3000/journal/create"
@@ -1081,11 +1081,11 @@ object Data {
         Log.d("userId", idCode.toString())
         if (fid != 0) {
             val map = mapOf("uid" to uid, "fid" to fid, "meal" to meal)
-            simplePostUseFrom(url, map)
+            simplePostUseTo(url, map)
         } else {
             val map = mapOf("uid" to uid, "fid" to 0, "meal" to meal,
                 "calorie" to calorie, "price" to price)
-            simplePostUseFrom(url, map)
+            simplePostUseTo(url, map)
         }
     }
 
