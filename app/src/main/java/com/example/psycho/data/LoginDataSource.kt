@@ -21,8 +21,8 @@ class LoginDataSource {
                 globalFile.setUserName(context,username)
                 globalFile.setPassword(context,password)
 
-                globalFile.setUserName(username)
-                globalFile.setPassword(password)
+                //globalFile.setUserName(context, username)
+                //globalFile.setPassword(context, password)
                 val map = mapOf("name" to username, "password" to password)
                 val url = "http://47.94.139.212:3000/user/login"
                 simplePostUseTo(url, map,true,context)
@@ -31,8 +31,8 @@ class LoginDataSource {
                 {
                     throw IOException("Error Login")
                 }
-                globalFile.setLogin()
-                globalFile.setFirstFlag()
+                globalFile.setLogin(context)
+                globalFile.setFirstFlag(context)
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), username)
                 return Result.Success(fakeUser)
             }
@@ -41,8 +41,8 @@ class LoginDataSource {
                 Log.d("register","True")
                 Log.d("username", username)
                 Log.d("password", password)
-                globalFile.setUserName(username)
-                globalFile.setPassword(password)
+                globalFile.setUserName(context, username)
+                globalFile.setPassword(context, password)
                 val map = mapOf("name" to username, "password" to password)
                 val url = "http://47.94.139.212:3000/user/register"
                 simplePostUseTo(url, map,true,context)
@@ -51,7 +51,7 @@ class LoginDataSource {
                 {
                     throw IOException("Error Register")
                 }
-                globalFile.setLogin()
+                globalFile.setLogin(context)
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), username)
                 return Result.Success(fakeUser)
             }

@@ -1,5 +1,6 @@
 package com.example.psycho.ui.setting.usage
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,8 +24,8 @@ class CountActivity : AppCompatActivity() {
     private var mTvWeight: TextView? = null
     private var mTvHeight: TextView? = null
     private var _data = Data
-    private var weight: Double = _data.getTrueWeight()
-    private var height: Int = _data.getTrueHeight()
+    private var weight: Double = _data.getTrueWeight(applicationContext)
+    private var height: Int = _data.getTrueHeight(applicationContext)
 
     private var gender:Int=1
     private var monthOfYear:Int=0
@@ -38,21 +39,24 @@ class CountActivity : AppCompatActivity() {
         setContentView(R.layout.plan_selector)
         val button1:Button=findViewById(R.id.button_keep)
         button1.setOnClickListener {
-            _data.setPlan(Data.Plan.keep)
-            _data.update()
+            //_data.setPlan(Data.Plan.keep)
+            //_data.update()
+            _data.setPlan(applicationContext, 0)
             finish()
         }
         val button2:Button=findViewById(R.id.button_slim)
         button2.setOnClickListener {
-            _data.setPlan(Data.Plan.slim)
-            _data.update()
+            //_data.setPlan(Data.Plan.slim)
+            //_data.update()
+            _data.setPlan(applicationContext, 1)
             finish()
         }
 
         val button3:Button=findViewById(R.id.button_strong)
         button3.setOnClickListener {
-            _data.setPlan(Data.Plan.strong)
-            _data.update()
+            //_data.setPlan(Data.Plan.strong)
+            //_data.update()
+            _data.setPlan(applicationContext, 2)
             finish()
 
         }
@@ -92,9 +96,10 @@ class CountActivity : AppCompatActivity() {
         }
         val btn_confirm:Button=findViewById(R.id.btn_confirm)
         btn_confirm.setOnClickListener{
-            _data.setBirthday(birthday)
+            //_data.setBirthday(birthday)
+            _data.setBirthday(applicationContext, birthday)
             Log.d("Finish","Count")
-            _data.setFirstFlag()
+            _data.setFirstFlag(applicationContext)
             planLayout()
         }
 
@@ -120,7 +125,7 @@ class CountActivity : AppCompatActivity() {
             else
                 gender=1
             Log.d("Gender",gender.toString())
-            _data.setGender(gender)
+            _data.setGender(applicationContext, gender)
 
         }
     }
@@ -142,8 +147,8 @@ class CountActivity : AppCompatActivity() {
             finish()
         }
         buttonConfirm.setOnClickListener {
-            _data.setTrueWeight(weight)
-            _data.setTrueHeight(height)
+            _data.setTrueWeight(applicationContext, weight)
+            _data.setTrueHeight(applicationContext, height)
             selectorLayout()
         }
         //体重的view
