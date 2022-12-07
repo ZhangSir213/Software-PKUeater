@@ -52,6 +52,7 @@ class LoginDataSource {
                     throw IOException("Error Register")
                 }
                 globalFile.setLogin(context)
+                globalFile.setTwice(context)
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), username)
                 return Result.Success(fakeUser)
             }
