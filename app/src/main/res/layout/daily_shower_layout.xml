@@ -19,7 +19,7 @@
 
     <ImageView
         android:id="@+id/image_bg_dessert_border"
-        android:layout_width="360dp"
+        android:layout_width="340dp"
         android:layout_height="120dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/image_bg_dinner_border"
@@ -63,7 +63,7 @@
 
     <ImageView
         android:id="@+id/image_bg_breakfast_border"
-        android:layout_width="360dp"
+        android:layout_width="340dp"
         android:layout_height="120dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +105,7 @@
         android:text="早餐"
         android:textAlignment="center"
         android:textColor="#000010"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_breakfast"
         app:layout_constraintStart_toEndOf="@+id/image_bg_breakfast"
         app:layout_constraintTop_toTopOf="@+id/image_bg_breakfast"
@@ -143,7 +143,7 @@
 
     <ImageView
         android:id="@+id/image_bg_lunch_border"
-        android:layout_width="360dp"
+        android:layout_width="340dp"
         android:layout_height="120dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/image_bg_breakfast_border"
@@ -195,7 +195,7 @@
         android:text="午餐"
         android:textAlignment="center"
         android:textColor="#000010"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_lunch"
         app:layout_constraintStart_toEndOf="@+id/image_bg_lunch"
         app:layout_constraintTop_toTopOf="@+id/image_bg_lunch"
@@ -214,7 +214,7 @@
 
     <ImageView
         android:id="@+id/image_bg_dinner_border"
-        android:layout_width="360dp"
+        android:layout_width="340dp"
         android:layout_height="120dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/image_bg_lunch_border"
@@ -243,7 +243,7 @@
         android:text="晚餐"
         android:textAlignment="center"
         android:textColor="#000010"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner"
         app:layout_constraintStart_toEndOf="@+id/image_bg_dinner"
         app:layout_constraintTop_toTopOf="@+id/image_bg_dinner"
@@ -325,7 +325,7 @@
         android:text="加餐"
         android:textAlignment="center"
         android:textColor="#000010"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert"
         app:layout_constraintStart_toEndOf="@+id/image_bg_dessert"
         app:layout_constraintTop_toTopOf="@+id/image_bg_dessert"
@@ -363,6 +363,7 @@
         android:layout_marginBottom="68dp"
         android:background="@drawable/btnnoraml"
         android:text="-"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_dinner_border"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_dinner" />
@@ -375,6 +376,7 @@
         android:layout_marginBottom="68dp"
         android:background="@drawable/btnnoraml"
         android:text="-"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_bg_dessert_border"
         app:layout_constraintStart_toEndOf="@+id/text_reminder_dessert" />
