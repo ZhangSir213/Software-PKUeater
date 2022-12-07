@@ -1,6 +1,5 @@
 package com.example.psycho.kernel
 
-import android.hardware.Sensor.TYPE_STEP_COUNTER
 import android.app.Activity
 import android.content.Context
 import com.example.psycho.R
@@ -126,7 +125,7 @@ object Kernel {
         return todayTotal
     }
     fun todayStep(): Int{
-        return TYPE_STEP_COUNTER+ Mydata.sC
+        return Mydata.sC
     }
 
     fun Hash(): Int{

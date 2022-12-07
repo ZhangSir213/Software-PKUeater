@@ -19,6 +19,7 @@ class MyDatabaseHelper (var context: Context, name: String, version: Int):SQLite
             "login int,"+
             "budget real,"+
             "password text,"+
+            "step int,"+
             "menu text)"
 
     override fun onCreate(db: SQLiteDatabase?) {

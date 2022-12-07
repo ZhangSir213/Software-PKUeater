@@ -105,7 +105,7 @@ class CountActivity : AppCompatActivity() {
             //_data.setBirthday(birthday)
             _data.setBirthday(applicationContext, birthday)
             Log.d("Finish","Count")
-            _data.setFirstFlag(applicationContext)
+            //_data.setFirstFlag(applicationContext)
             planLayout()
         }
 

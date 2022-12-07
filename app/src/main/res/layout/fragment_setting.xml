@@ -16,7 +16,7 @@
         android:layout_width="120dp"
         android:layout_height="15dp"
         android:text="上次更新：0天前"
-        android:textColor="@color/grey"
+        android:textColor="@color/deepgrey"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/text_height"
         app:layout_constraintTop_toBottomOf="@+id/text_height" />
@@ -74,18 +74,21 @@
 
     <ImageView
         android:id="@+id/image_user_photo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:alpha="14"
         android:background="#BFFFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/icon_camera"
         app:circularflow_radiusInDP="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_top_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_top_bg" />
+        app:layout_constraintTop_toTopOf="@+id/image_top_bg"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_weight"
@@ -160,7 +163,7 @@
         android:layout_width="120dp"
         android:layout_height="15dp"
         android:text="上次更新：0天前"
-        android:textColor="@color/grey"
+        android:textColor="@color/deepgrey"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/text_weight" />
@@ -191,11 +194,12 @@
         app:layout_constraintTop_toTopOf="@+id/borderTextViewWeight"
         app:layout_constraintVertical_bias="0.5" />
 
+
     <com.example.psycho.ui.custom.BorderTextView
         android:id="@+id/borderTextViewWeight"
         android:layout_width="128dp"
         android:layout_height="104dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="12dp"
         android:text="border"
         android:textColor="#00FFFFFF"
         app:BorderCornerRadius="8dp"
@@ -204,8 +208,7 @@
         app:layout_constraintBottom_toTopOf="@+id/text_setting"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_top_bg"
-        app:layout_constraintVertical_bias="0.438" />
-
+        app:layout_constraintVertical_bias="0.451" />
 
     <ImageButton
         android:id="@+id/button_setting"
@@ -216,7 +219,7 @@
         android:src="@drawable/icon_refresh"
         app:layout_constraintBottom_toBottomOf="@+id/borderTextViewWeight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toEndOf="@+id/borderTextViewHeight"
         app:layout_constraintTop_toTopOf="@+id/borderTextViewWeight"
         app:layout_constraintVertical_bias="0.0" />
@@ -234,7 +237,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447" />
+        app:layout_constraintVertical_bias="0.438" />
 
     <View
         android:id="@+id/divider"
@@ -250,20 +253,20 @@
     <Button
         android:id="@+id/logout"
         android:layout_width="64dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="240dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="232dp"
         android:background="@drawable/gradient_white"
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toEndOf="@+id/borderTextViewHeight"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button_setting"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_log"
         android:layout_width="411dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/gradient_white"
         android:text="添加忌口清单"
         app:layout_constraintStart_toStartOf="parent"
