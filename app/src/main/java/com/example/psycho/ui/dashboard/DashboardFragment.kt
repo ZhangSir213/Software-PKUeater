@@ -121,7 +121,6 @@ class DashboardFragment : Fragment() {
         var dinner:List<String> = userData.getLogFromServer(3)
         var snack:List<String> = userData.getLogFromServer(4)
 
-
         if(breakfast.size > 0){
             textTodayBreakfast.setText(breakfast.toString())
         }
@@ -129,6 +128,7 @@ class DashboardFragment : Fragment() {
         {
             textTodayBreakfast.setText("记录完整三餐，查看全天饮食评价")
         }
+
         if(lunch.size > 0){
             textTodayLunch.setText(lunch.toString())
         }
@@ -154,60 +154,6 @@ class DashboardFragment : Fragment() {
         }
         val Todaycal:Int = userData.getCalorieFromServer()
         todayCalorie.setText(Todaycal.toString()+"Kal")
-    }
-    override fun onResume() {
-        super.onResume()
-        val textTodayBreakfast: TextView = binding.includeDailyShower.textBreakfastToday
-        val textTodayLunch: TextView = binding.includeDailyShower.textLunchToday
-        val textTodayDinner: TextView = binding.includeDailyShower.textDinnerToday
-        val textTodayDessert: TextView = binding.includeDailyShower.textDessertToday
-        val todayCalorie: TextView = binding.textTodayKal
-
-            /*
-            var breakfast:List<String> = userData.getDietLog(1)
-            var lunch:List<String> = userData.getDietLog(2)
-            var dinner:List<String> = userData.getDietLog(3)
-            var snack:List<String> = userData.getDietLog(4)
-            */
-            var breakfast:List<String> = userData.getLogFromServer(1)
-            var lunch:List<String> = userData.getLogFromServer(2)
-            var dinner:List<String> = userData.getLogFromServer(3)
-            var snack:List<String> = userData.getLogFromServer(4)
-
-
-            if(breakfast.size > 0){
-                textTodayBreakfast.setText(breakfast.toString())
-            }
-            else
-            {
-                textTodayBreakfast.setText("记录完整三餐，查看全天饮食评价")
-            }
-            if(lunch.size > 0){
-                textTodayLunch.setText(lunch.toString())
-            }
-            else
-            {
-                textTodayBreakfast.setText("记录完整三餐，查看全天饮食评价")
-            }
-            if(dinner.size > 0){
-                textTodayDinner.setText(dinner.toString())
-            }
-            else
-            {
-                textTodayBreakfast.setText("记录完整三餐，查看全天饮食评价")
-            }
-            if(snack.size > 0){
-                textTodayDessert.setText(snack.toString())
-            }
-            else
-            {
-                textTodayBreakfast.setText("记录完整三餐，查看全天饮食评价")
-            }
-            val Todaycal:Int = userData.getCalorieFromServer()
-            todayCalorie.setText(Todaycal.toString()+"Kal")
-
-
-
     }
 
     override fun onDestroyView() {

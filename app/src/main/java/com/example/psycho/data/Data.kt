@@ -709,8 +709,10 @@ object Data {
         var res = listOf<String>()
         for (dietLog in dietLogList) {
             if (dietLog.meal == meal) {
+                Log.d("dietLog",meal.toString())
                 for (food in foodList) {
                     if (food.id == dietLog.fid) {
+                        Log.d("dietLog",food.id.toString())
                         res = res.plusElement(food.name)
                     }
                 }
