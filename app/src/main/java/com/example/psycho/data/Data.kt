@@ -415,7 +415,7 @@ object Data {
 
     fun setTrueHeight(context: Context,int: Int)
     {
-        update(context,"weight",int.toString())
+        update(context,"height",int.toString())
     }
 
     fun getUserName(context: Context):String{
