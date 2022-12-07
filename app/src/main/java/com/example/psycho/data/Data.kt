@@ -83,7 +83,7 @@ object Data {
                 put("login",0)
                 put("loginFirst",0)
                 put("password","caonima")
-                put("budget",30)
+                put("budget",50)
             }
             db.insert("USER",null,userRoot)
         }
@@ -628,7 +628,6 @@ object Data {
             return false
         }
         return true
-
     }
 
 

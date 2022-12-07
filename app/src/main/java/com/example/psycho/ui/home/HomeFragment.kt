@@ -1,5 +1,6 @@
 package com.example.psycho.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,12 +16,14 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.psycho.MainActivity
 import com.example.psycho.R
 import com.example.psycho.data.Data
 import com.example.psycho.databinding.FragmentHomeBinding
 import com.example.psycho.kernel.Kernel
 import com.example.psycho.resource.CanteenAdapter
 import com.example.psycho.resource.CanteenAdapter.OnRecyclerViewItemClick
+import com.example.psycho.ui.home.usage.BudgetActivity
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -95,6 +98,13 @@ class HomeFragment : Fragment() {
             cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
+        }
+        val buttonBudget:Button=binding.btnBudget
+        buttonBudget.setOnClickListener{
+            val intentL= Intent(context!!, BudgetActivity::class.java)
+            Log.d("Budget","Start")
+            startActivity(intentL)
+            Toast.makeText(context!!,"预算已设置", Toast.LENGTH_SHORT)
         }
         val buttonSetRand: Button = binding.contentCanteenRandom
         buttonSetRand.setOnClickListener {

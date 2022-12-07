@@ -265,7 +265,7 @@ object Kernel {
 
 
         Avoidance = Mydata.AvoidanceToAlgo(context)
-        Budget = Mydata.getBudget(context)
+        Budget = 100*Mydata.getBudget(context)
         CalorieLimit = stdCalorie/2
 
 
