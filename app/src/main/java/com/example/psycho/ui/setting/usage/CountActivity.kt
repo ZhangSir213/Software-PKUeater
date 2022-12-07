@@ -42,7 +42,7 @@ class CountActivity : AppCompatActivity() {
             //_data.setPlan(Data.Plan.keep)
             //_data.update()
             _data.setPlan(applicationContext, 0)
-            _data.setFirstFlag(applicationContext)
+            _data.setTwice(applicationContext)
             setResult(Activity.RESULT_OK,intent)
             finish()
         }
@@ -51,7 +51,7 @@ class CountActivity : AppCompatActivity() {
             //_data.setPlan(Data.Plan.slim)
             //_data.update()
             _data.setPlan(applicationContext, 1)
-            _data.setFirstFlag(applicationContext)
+            _data.setTwice(applicationContext)
             setResult(Activity.RESULT_OK,intent)
             finish()
         }
@@ -61,7 +61,7 @@ class CountActivity : AppCompatActivity() {
             //_data.setPlan(Data.Plan.strong)
             //_data.update()
             _data.setPlan(applicationContext, 2)
-            _data.setFirstFlag(applicationContext)
+            _data.setTwice(applicationContext)
             setResult(Activity.RESULT_OK,intent)
             finish()
 

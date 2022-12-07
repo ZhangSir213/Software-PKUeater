@@ -92,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
         if (globalFile.getState()=="success")
         {
             globalFile.update(this)
+            globalFile.setTwice(this)
             val intentL:Intent = Intent(this, MainActivity::class.java)
             startActivity(intentL)
         }

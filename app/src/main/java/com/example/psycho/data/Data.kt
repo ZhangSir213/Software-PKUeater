@@ -312,7 +312,7 @@ object Data {
         update(context,"name","root")
         update(context,"password","123456")
         update(context,"login","0")
-        update(context,"loginFirst","0")
+        update(context,"loginFirst","1")
         update(context,"step","0")
         timer=true
     }
@@ -326,14 +326,15 @@ object Data {
 
     fun setFirstFlag(context: Context)
     {
-        if (getFirstFlag(context)==1)
-            update(context,"loginFirst","0")
-        else
-            update(context,"loginFirst","1")
+        update(context,"loginFirst","1")
 
     }
 
+    fun setTwice(context: Context)
+    {
+        update(context,"loginFirst","0")
 
+    }
     fun getLoginFlag(context:Context):Boolean
     {
         val value=query(context,"login")
