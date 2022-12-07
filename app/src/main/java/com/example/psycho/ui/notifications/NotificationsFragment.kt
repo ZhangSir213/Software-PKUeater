@@ -61,6 +61,10 @@ class NotificationsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        mSensorManager!!.registerListener(mListener, mSensorManager!!.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR),
+            SensorManager.SENSOR_DELAY_NORMAL)
+        mSensorManager!!.registerListener(mListener, mSensorManager!!.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
+            SensorManager.SENSOR_DELAY_NORMAL)
         with(binding.circleProgressBarA) {  // 卡路里
             rindColorArray = intArrayOf(    // 渐变颜色
                 Color.parseColor("#0888FF"),
@@ -71,7 +75,6 @@ class NotificationsFragment : Fragment() {
             descText = "卡路里$myCalorie/$max"
             startAnim(myCalorie)
         }
-
         with(binding.circleProgressBarB) {  // 步数
             rindColorArray = intArrayOf(
                 Color.parseColor("#0888FF"),

@@ -232,6 +232,11 @@ class HomeFragment : Fragment() {
 
         return root
     }
+
+    override fun onResume() {
+        super.onResume()
+        flash()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
