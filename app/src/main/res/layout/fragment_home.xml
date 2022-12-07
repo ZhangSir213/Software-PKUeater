@@ -65,12 +65,12 @@
         android:id="@+id/recycler_canteen"
         android:layout_width="111dp"
         android:layout_height="78dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="44dp"
         android:background="@color/lightgrey"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toEndOf="@+id/button_get_menu"></androidx.recyclerview.widget.RecyclerView>
 
     <TextView
@@ -97,7 +97,7 @@
         android:textColor="@color/black"
         android:textSize="19sp"
         app:layout_constraintBottom_toTopOf="@+id/recycler_canteen"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_canteen"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/recycler_canteen" />
 
@@ -128,7 +128,7 @@
 
     <Button
         android:id="@+id/button_get_menu"
-        android:layout_width="170dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="18dp"
         android:background="@drawable/btngradient"
@@ -142,9 +142,10 @@
 
     <Button
         android:id="@+id/btn_budget"
-        android:layout_width="170dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
         android:background="@drawable/btnextra"
+        android:backgroundTint="#064A45"
         android:text="更改预算"
         android:textColor="@color/white"
         android:textSize="25sp"
@@ -290,14 +291,12 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/button_addlog3"
         app:layout_constraintTop_toTopOf="@+id/image_cuisine1" />
 
     <Button
         android:id="@+id/button_addlog2"
         android:layout_width="42dp"
         android:layout_height="27dp"
-        android:layout_marginTop="148dp"
         android:layout_marginEnd="28dp"
         android:background="@drawable/btnnoraml"
         android:text="＋"
@@ -307,22 +306,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/button_addlog1"
-        app:layout_constraintTop_toBottomOf="@+id/button_addlog1" />
+        app:layout_constraintTop_toTopOf="@+id/image_cuisine2" />
 
     <Button
         android:id="@+id/button_addlog3"
         android:layout_width="42dp"
         android:layout_height="27dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginEnd="28dp"
         android:background="@drawable/btnnoraml"
         android:text="＋"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.781"
-        app:layout_constraintStart_toEndOf="@+id/text_cuisine3"
-        app:layout_constraintTop_toBottomOf="@+id/button_addlog2" />
+        app:layout_constraintStart_toStartOf="@+id/button_addlog2"
+        app:layout_constraintTop_toTopOf="@+id/image_cuisine3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
