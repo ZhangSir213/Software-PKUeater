@@ -1,5 +1,6 @@
 package com.example.psycho.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,16 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private var canteenList: Array<String>? = null
     private var cuisineMenu: List<String>? = null
+    var button1:Button?=null
+    var button2:Button?=null
+    var button3:Button?=null
+    var textTodayCanteen: TextView? = null
+    var textCuisine1: TextView? = null
+    var textCuisine2: TextView? = null
+    var textCuisine3: TextView? = null
+    var imageCuisine1:ImageView?=null
+    var imageCuisine2:ImageView?=null
+    var imageCuisine3:ImageView?=null
     /*
         listOf(
         "农园一层", "农园二层", "燕南一层", "家园一层",
@@ -46,6 +57,56 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 122 && resultCode == Activity.RESULT_OK) {
+            Toast.makeText(context!!,"设置预算成功！",Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun flash()
+    {
+        if(_data.getTimerFlag()) {
+            if (_data.getMenuChange()) {
+
+                var todayMenu = _data.getTodayMenu()
+
+                textTodayCanteen!!.text = todayMenu[0]
+                Log.d("homessss",todayMenu.size.toString())
+                textCuisine1!!.text = "菜品名称"
+                textCuisine2!!.text = "菜品名称"
+                textCuisine3!!.text = "菜品名称"
+
+
+                textCuisine1!!.text = "菜品名称"
+                textCuisine2!!.text = "菜品名称"
+                textCuisine3!!.text = "菜品名称"
+
+                imageCuisine1!!.setImageResource(R.drawable.pkueater)
+                imageCuisine2!!.setImageResource(R.drawable.pkueater)
+                imageCuisine3!!.setImageResource(R.drawable.pkueater)
+                if(todayMenu.size >= 2){
+                    textCuisine1!!.text = todayMenu[1]
+                    val foodFind=Kernel.getFood(todayMenu[1])
+                    Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine1)
+                    //imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
+                }
+                if(todayMenu.size >= 3){//有两个菜品的情况
+                    textCuisine2!!.text = todayMenu[2]
+                    val foodFind=Kernel.getFood(todayMenu[2])
+                    Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine2)
+                    //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
+                }else if(todayMenu.size >= 4){
+                    textCuisine3!!.text = todayMenu[3]
+                    val foodFind=Kernel.getFood(todayMenu[3])
+                    Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine3)
+                    //imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
+                }
+
+
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,7 +119,6 @@ class HomeFragment : Fragment() {
         //_data.setMenuChange(true)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val act: FragmentActivity? = activity
         // canteen 的点击事件绑定
         canteenList = Kernel.getAllCanteen()
         recyclerViewCanteen=binding.recyclerCanteen
@@ -86,6 +146,7 @@ class HomeFragment : Fragment() {
 
                         cuisineMenu=null
                         _data.setMenuChange(true)
+                        flash()
                     }
                 }
                 println("yes")
@@ -98,13 +159,14 @@ class HomeFragment : Fragment() {
             cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
+            flash()
         }
         val buttonBudget:Button=binding.btnBudget
         buttonBudget.setOnClickListener{
             val intentL= Intent(context!!, BudgetActivity::class.java)
             Log.d("Budget","Start")
-            startActivity(intentL)
-            Toast.makeText(context!!,"预算已设置", Toast.LENGTH_SHORT)
+            startActivityForResult(intentL,122)
+            //Toast.makeText(context!!,"预算已设置", Toast.LENGTH_SHORT)
         }
         val buttonSetRand: Button = binding.contentCanteenRandom
         buttonSetRand.setOnClickListener {
@@ -113,6 +175,7 @@ class HomeFragment : Fragment() {
             cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
+            flash()
             Log.d("Random","choose")
         }
         // timer刷新重写
@@ -124,67 +187,20 @@ class HomeFragment : Fragment() {
             textView.text = it
         }
          */
-        val button1:Button=binding.buttonAddlog1
-        val button2:Button=binding.buttonAddlog2
-        val button3:Button=binding.buttonAddlog3
-        val textTodayCanteen: TextView = binding.textTodayCanteen
-        val textCuisine1: TextView = binding.textCuisine1
-        val textCuisine2: TextView = binding.textCuisine2
-        val textCuisine3: TextView = binding.textCuisine3
-        val imageCuisine1:ImageView=binding.imageCuisine1
-        val imageCuisine2:ImageView=binding.imageCuisine2
-        val imageCuisine3:ImageView=binding.imageCuisine3
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                //在这里更新数据
-                activity?.runOnUiThread {
-                    if(_data.getTimerFlag()) {
-                        if (_data.getMenuChange()) {
-
-                            var todayMenu = _data.getTodayMenu()
-
-                            textTodayCanteen.text = todayMenu[0]
-                            Log.d("homessss",todayMenu.size.toString())
-                            textCuisine1.text = "菜品名称"
-                            textCuisine2.text = "菜品名称"
-                            textCuisine3.text = "菜品名称"
+        button1=binding.buttonAddlog1
+        button2=binding.buttonAddlog2
+        button3=binding.buttonAddlog3
+        textTodayCanteen = binding.textTodayCanteen
+        textCuisine1= binding.textCuisine1
+        textCuisine2 = binding.textCuisine2
+        textCuisine3 = binding.textCuisine3
+        imageCuisine1=binding.imageCuisine1
+        imageCuisine2=binding.imageCuisine2
+        imageCuisine3=binding.imageCuisine3
 
 
-                            textCuisine1.text = "菜品名称"
-                            textCuisine2.text = "菜品名称"
-                            textCuisine3.text = "菜品名称"
-
-                            imageCuisine1.setImageResource(R.drawable.pkueater)
-                            imageCuisine2.setImageResource(R.drawable.pkueater)
-                            imageCuisine3.setImageResource(R.drawable.pkueater)
-                            if(todayMenu.size >= 2){
-                                textCuisine1.text = todayMenu[1]
-                                val foodFind=Kernel.getFood(todayMenu[1])
-                                Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine1)
-                                //imageCuisine1.setImageResource(Kernel.getPictureId(todayMenu[1])!!)
-                            }
-                            if(todayMenu.size >= 3){//有两个菜品的情况
-                                textCuisine2.text = todayMenu[2]
-                                val foodFind=Kernel.getFood(todayMenu[2])
-                                Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine2)
-                                //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
-                            }else if(todayMenu.size >= 4){
-                                textCuisine3.text = todayMenu[3]
-                                val foodFind=Kernel.getFood(todayMenu[3])
-                                Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine3)
-                                //imageCuisine3.setImageResource(Kernel.getPictureId(todayMenu[3])!!)
-                            }
-
-
-                        }
-                    }
-                }
-            }
-        }, 0, 500) //延迟10毫秒后，执行一次task
-
-        button1.setOnClickListener{
-            val text=textCuisine1.text
+        button1!!.setOnClickListener{
+            val text=textCuisine1!!.text
             if (text!="菜品名称")
             {
                 val foodFind=Kernel.getFood(text.toString())
@@ -193,8 +209,8 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
             }
         }
-        button2.setOnClickListener{
-            val text=textCuisine2.text
+        button2!!.setOnClickListener{
+            val text=textCuisine2!!.text
             if (text!="菜品名称")
             {
                 val foodFind=Kernel.getFood(text.toString())
@@ -203,8 +219,8 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context,"已添加到日志！请享用美食吧~", Toast.LENGTH_SHORT).show()
             }
         }
-        button3.setOnClickListener{
-            val text=textCuisine3.text
+        button3!!.setOnClickListener{
+            val text=textCuisine3!!.text
             if (text!="菜品名称")
             {
                 val foodFind=Kernel.getFood(text.toString())

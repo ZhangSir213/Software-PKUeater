@@ -60,11 +60,15 @@ object Data {
     private  var mysqlhelper: SQLiteOpenHelper? = null
     var DB_NAME = "Pku-Eater.db" //数据库名称
     var TABLE_NAME = "USER" //表名称
-    var CURRENT_VERSION = 3 //当前的最新版本，如有表结构变更，该版本号要加一
+    var CURRENT_VERSION = 4 //当前的最新版本，如有表结构变更，该版本号要加一
     var sC=0
 
     fun todaySC(): Int{
         return ((TYPE_STEP_COUNTER+ sC)/1000).toInt()*50
+    }
+    fun sensorSC(context: Context){
+        sC+=1
+        update(context,"step",sC.toString())
     }
     fun addSC(){
         sC+=1000
@@ -91,6 +95,7 @@ object Data {
                 put("loginFirst",1)
                 put("password","caonima")
                 put("budget",50)
+                put("step",0)
             }
             db.insert("USER",null,userRoot)
         }
@@ -98,7 +103,9 @@ object Data {
         {
             cursor.moveToFirst()
             idCode=cursor.getInt(cursor.getColumnIndex("uid"))
-            update(context)
+            sC=cursor.getInt(cursor.getColumnIndex("step"))
+            if (cursor.getString(cursor.getColumnIndex("name"))!="Root")
+                update(context)
         }
     }
     private fun update(context:Context,column:String,value:String)
@@ -306,6 +313,7 @@ object Data {
         update(context,"password","123456")
         update(context,"login","0")
         update(context,"loginFirst","0")
+        update(context,"step","0")
         timer=true
     }
 

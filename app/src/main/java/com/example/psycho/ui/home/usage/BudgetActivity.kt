@@ -1,5 +1,6 @@
 package com.example.psycho.ui.home.usage
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -64,6 +65,7 @@ class BudgetActivity : AppCompatActivity() {
         val button1:Button=binding.btnConfirm
         button1.setOnClickListener {
             _data.setBudget(this@BudgetActivity,budget.toDouble())
+            setResult(Activity.RESULT_OK,intent)
             finish()
         }
         val button2:Button=binding.btnBack
