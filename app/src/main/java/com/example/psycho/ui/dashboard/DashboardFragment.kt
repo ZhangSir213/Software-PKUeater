@@ -43,6 +43,7 @@ class DashboardFragment : Fragment() {
             val intent: Intent = Intent(act, SelectFoodActivity::class.java)
             intent.putExtra("meal",1)
             act?.startActivity(intent)
+            onResume()
         }
         chooseLunch.setOnClickListener{
             val act: FragmentActivity? = getActivity()
@@ -50,6 +51,7 @@ class DashboardFragment : Fragment() {
             val intent: Intent = Intent(act, SelectFoodActivity::class.java)
             intent.putExtra("meal",2)
             act?.startActivity(intent)
+            onResume()
         }
         chooseDinner.setOnClickListener{
             val act: FragmentActivity? = getActivity()
@@ -57,6 +59,7 @@ class DashboardFragment : Fragment() {
             val intent: Intent = Intent(act, SelectFoodActivity::class.java)
             intent.putExtra("meal",3)
             act?.startActivity(intent)
+            onResume()
         }
         chooseDessert.setOnClickListener{
             val act: FragmentActivity? = getActivity()
@@ -64,6 +67,7 @@ class DashboardFragment : Fragment() {
             val intent: Intent = Intent(act, SelectFoodActivity::class.java)
             intent.putExtra("meal",4)
             act?.startActivity(intent)
+            onResume()
         }
 
         val button1=binding.includeDailyShower.button6

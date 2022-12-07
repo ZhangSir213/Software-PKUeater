@@ -13,7 +13,7 @@ interface OnItemClickListener {
     fun onItemClick(pos: Int)
 }
  */
-class CanteenAdapter(var dataList:List<String>?):Adapter<CanteenAdapter.CanteenViewHolder>(){
+class CanteenAdapter(var dataList:Array<String>?):Adapter<CanteenAdapter.CanteenViewHolder>(){
 
     var mOnRecyclerViewItemClick: OnRecyclerViewItemClick<String>? = null
 

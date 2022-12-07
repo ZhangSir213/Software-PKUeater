@@ -1,10 +1,7 @@
 package com.example.psycho.ui.login
 
-import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,7 +9,9 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +24,6 @@ import com.example.psycho.data.Data
 import com.example.psycho.data.MyDatabaseHelper
 import com.example.psycho.databinding.ActivityLogin2Binding
 import com.example.psycho.simplePostUseTo
-import java.io.IOException
 
 
 class LoginActivity : AppCompatActivity() {
@@ -55,8 +53,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCompat.requestPermissions(this, permissions, 321)
-
-        val dbHelper=MyDatabaseHelper(this,"Pku-Eater.db",1)
+        val nameList:MutableList<String> = mutableListOf("幼稚园","小学","初中","高中","大学")
+        /*
+        val dbHelper=MyDatabaseHelper(this,"Pku-Eater.db",2)
         dbHelper.writableDatabase
         val db=dbHelper.writableDatabase
         val userRoot=ContentValues().apply {
@@ -81,17 +80,18 @@ class LoginActivity : AppCompatActivity() {
         cursor.close()
         db.close()
 
-
+        */
         var globalFile=Data
+        Data.initSQL(this)
         //globalFile.update(this,"weight","100")
-        val result=globalFile.query(this,"weight")
-        Log.d("SQL",result)
 
-        val map = mapOf("name" to globalFile.getUserName(), "password" to globalFile.getPassword())
+        val map = mapOf("name" to globalFile.getUserName(this), "password" to globalFile.getPassword(this))
         val url = "http://47.94.139.212:3000/user/login"
+        Log.d("Login",map.toString())
         simplePostUseTo(url, map)
         if (globalFile.getState()=="success")
         {
+            globalFile.update(this)
             val intentL:Intent = Intent(this, MainActivity::class.java)
             startActivity(intentL)
         }
@@ -109,8 +109,14 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intentL)
         }
         */
+        var CanteenList: Array<String> = arrayOf("合 利 屋","农园一层", "农园二层", "燕南一层", "家园一层",
+            "家园二层", "家园三层", "家园四层", "松林包子",
+            "学一食堂", "学五食堂", "勺园一层", "勺园二层",
+            "佟园餐厅", "勺西餐厅", "勺中餐厅", "艺园食堂")
+        val adapter = ArrayAdapter<Any>(this, android.R.layout.simple_spinner_item,CanteenList)
+
         binding = ActivityLogin2Binding.inflate(layoutInflater)
-        if((globalFile.getLoginFlag())==false)
+        if((globalFile.getLoginFlag(this))==false)
         {
             setContentView(binding.root)
         }

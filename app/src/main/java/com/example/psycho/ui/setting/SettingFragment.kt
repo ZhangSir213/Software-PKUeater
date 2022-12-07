@@ -48,12 +48,12 @@ class SettingFragment : Fragment() {
 
     // fix try
     // 尝试1：把整个集成，每次点击都是完全刷新
-    fun bindAvoidanceAdapter() {
-        avoidanceList = _data.getAvoidanceType()
+    fun bindAvoidanceAdapter(context: Context) {
+        avoidanceList = _data.getAvoidanceType(context)
         avoidanceAdapter = AvoidanceAdapter(dataList = avoidanceList)
         recyclerViewAvoidance?.adapter = avoidanceAdapter
 
-        acceptableList = _data.getAcceptable()
+        acceptableList = _data.getAcceptable(context)
         acceptableAdapter = AcceptableAdapter(dataList = acceptableList)
         recyclerViewAcceptable?.adapter = acceptableAdapter
 
@@ -63,9 +63,9 @@ class SettingFragment : Fragment() {
                 when (view?.id) {
                     R.id.content_avoidance -> {
                         t?.let {
-                            _data.deleteAvoidance(t)
+                            _data.deleteAvoidance(context,t)
                         }
-                        bindAvoidanceAdapter()
+                        bindAvoidanceAdapter(context)
                     }
                 }
             }
@@ -76,9 +76,9 @@ class SettingFragment : Fragment() {
                 when (view?.id) {
                     R.id.content_acceptable -> {
                         t?.let {
-                            _data.addAvoidance(t)
+                            _data.addAvoidance(context,t)
                         }
-                        bindAvoidanceAdapter()
+                        bindAvoidanceAdapter(context)
                     }
                 }
             }
@@ -130,7 +130,7 @@ class SettingFragment : Fragment() {
                             if (_data.getWeightVisible())
                             {
                                 textWeight.text =
-                                    _data.getTrueWeight().toFloat().toString().format("%.1f")
+                                    _data.getTrueWeight(context!!).toFloat().toString().format("%.1f")
                                 textVisToolW.text="visible"
                                 buttonVisibleW.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
                             }
@@ -144,7 +144,7 @@ class SettingFragment : Fragment() {
                             {
                                 textVisToolH.text="visible"
                                 buttonVisibleH.setImageDrawable(resources.getDrawable(R.drawable.icon_visible_on))
-                                textHeight.text=_data.getTrueHeight().toString()
+                                textHeight.text=_data.getTrueHeight(context!!).toString()
                             }
                             else
                             {
@@ -153,7 +153,7 @@ class SettingFragment : Fragment() {
                                 textHeight.text="***"
                             }
                             Log.d("Flush","Flush")
-                            if (_data.getGender()==1) {
+                            if (_data.getGender(context!!)==1) {
                                 imageViewGener.setImageResource(R.drawable.boy)
                             }
                             else{
@@ -177,20 +177,16 @@ class SettingFragment : Fragment() {
         recyclerViewAcceptable?.layoutManager =
             StaggeredGridLayoutManager(3,
                 StaggeredGridLayoutManager.HORIZONTAL)
-        bindAvoidanceAdapter()
+        bindAvoidanceAdapter(context!!)
 
         buttonLogout.setOnClickListener {
             _data.setHeightInvisible()
             _data.setWeightInvisible()
-            _data.deleteUser()
+            _data.deleteUser(context!!)
             val act : FragmentActivity? =getActivity()
             val intentL:Intent = Intent(act,LoginActivity::class.java)
             startActivity(intentL)
             activity?.finish()
-            //val manager=activity?.getSystemService(Context.ACTIVITY_SERVICE)
-            //manager as ActivityManager
-            //manager.restartPackage("com.example.psycho")
-
         }
 
         buttonCount.setOnClickListener(View.OnClickListener() {

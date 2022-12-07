@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ListAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -25,9 +26,9 @@ import java.util.*
 
 class HomeFragment : Fragment() {
     private var _data = Data
-
+    
     private var _binding: FragmentHomeBinding? = null
-    private var canteenList: List<String>? = null
+    private var canteenList: Array<String>? = null
     private var cuisineMenu: List<String>? = null
     /*
         listOf(
@@ -77,7 +78,7 @@ class HomeFragment : Fragment() {
                      */
                     R.id.content_canteen -> {
                         t?.let { Kernel.setPrefer(it) }
-                        cuisineMenu = Kernel.getResult()
+                        cuisineMenu = Kernel.getResult(context!!)
                         _data.setTodayMenu(cuisineMenu!!)
 
                         cuisineMenu=null
@@ -91,7 +92,7 @@ class HomeFragment : Fragment() {
         val buttonGetMenu: Button = binding.buttonGetMenu
         buttonGetMenu.setOnClickListener {
             val act: FragmentActivity? = activity
-            cuisineMenu = Kernel.getResult()
+            cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
         }
@@ -99,7 +100,7 @@ class HomeFragment : Fragment() {
         buttonSetRand.setOnClickListener {
             val act: FragmentActivity? = activity
             Kernel.setPrefer("随机食堂")
-            cuisineMenu = Kernel.getResult()
+            cuisineMenu = Kernel.getResult(context!!)
             _data.setTodayMenu(cuisineMenu!!)
             _data.setMenuChange(true)
             Log.d("Random","choose")
