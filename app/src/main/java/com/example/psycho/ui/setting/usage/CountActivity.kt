@@ -24,8 +24,8 @@ class CountActivity : AppCompatActivity() {
     private var mTvWeight: TextView? = null
     private var mTvHeight: TextView? = null
     private var _data = Data
-    private var weight: Double = _data.getTrueWeight(applicationContext)
-    private var height: Int = _data.getTrueHeight(applicationContext)
+    private var weight: Double = 0.0
+    private var height: Int = 0
 
     private var gender:Int=1
     private var monthOfYear:Int=0
@@ -133,6 +133,8 @@ class CountActivity : AppCompatActivity() {
     private fun mainLayout()
     {
         setContentView(R.layout.activity_count)
+        weight = _data.getTrueWeight(applicationContext)
+        height = _data.getTrueHeight(applicationContext)
         mWeightRuler = findViewById(R.id.ruler_weight)
         mHeightRuler = findViewById(R.id.ruler_height)
         mTvWeight= findViewById(R.id.tv_weight)
