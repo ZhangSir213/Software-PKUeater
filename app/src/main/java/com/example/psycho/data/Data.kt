@@ -326,10 +326,7 @@ object Data {
 
     fun setFirstFlag(context: Context)
     {
-        if (getFirstFlag(context)==1)
-            update(context,"loginFirst","0")
-        else
-            update(context,"loginFirst","1")
+        update(context,"loginFirst","1")
 
     }
 
