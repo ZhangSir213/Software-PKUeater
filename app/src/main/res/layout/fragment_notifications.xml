@@ -18,10 +18,11 @@
         android:id="@+id/circle_progress_bar_b"
         android:layout_width="180dp"
         android:layout_height="180dp"
+        android:layout_marginStart="213dp"
         app:layout_constraintBottom_toBottomOf="@+id/circle_progress_bar_a"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/circle_progress_bar_a"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="213dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_notifications"
