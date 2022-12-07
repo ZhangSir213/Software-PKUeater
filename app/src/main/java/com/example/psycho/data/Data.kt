@@ -327,7 +327,6 @@ object Data {
     fun setFirstFlag(context: Context)
     {
         update(context,"loginFirst","1")
-
     }
 
     fun setTwice(context: Context)

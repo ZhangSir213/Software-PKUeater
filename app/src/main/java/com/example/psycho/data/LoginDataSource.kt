@@ -32,7 +32,7 @@ class LoginDataSource {
                     throw IOException("Error Login")
                 }
                 globalFile.setLogin(context)
-                globalFile.setFirstFlag(context)
+                globalFile.setTwice(context)
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), username)
                 return Result.Success(fakeUser)
             }
@@ -52,7 +52,7 @@ class LoginDataSource {
                     throw IOException("Error Register")
                 }
                 globalFile.setLogin(context)
-                globalFile.setTwice(context)
+                globalFile.setFirstFlag(context)
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), username)
                 return Result.Success(fakeUser)
             }
