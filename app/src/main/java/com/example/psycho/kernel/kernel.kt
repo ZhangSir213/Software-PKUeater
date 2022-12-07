@@ -17,11 +17,11 @@ import kotlin.random.Random
 
 object Kernel {
     //    var food = arrayOfNulls<Array<kernel.Food?> >(4)
-    private var CanteenList: List<String> = listOf(
-        "合 利 屋","农园一层", "农园二层", "燕南一层", "家园一层",
+    private var CanteenList: Array<String> = arrayOf("合 利 屋","农园一层", "农园二层", "燕南一层", "家园一层",
         "家园二层", "家园三层", "家园四层", "松林包子",
         "学一食堂", "学五食堂", "勺园一层", "勺园二层",
         "佟园餐厅", "勺西餐厅", "勺中餐厅", "艺园食堂")
+
     private var PreferCanteen: String = "随机食堂"//想去的食堂
     private var Avoidance: Int = 0//忌口
     private var Budget: Int = 10000//预算，愿意为一顿饭花多少钱
@@ -88,7 +88,7 @@ object Kernel {
     fun getPrefer(): String{
         return PreferCanteen
     }
-    fun getAllCanteen(): List<String>{
+    fun getAllCanteen(): Array<String>{
         return CanteenList
     }
     fun getFoodList(): List<Food>{

@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private var _data = Data
 
     private var _binding: FragmentHomeBinding? = null
-    private var canteenList: List<String>? = null
+    private var canteenList: Array<String>? = null
     private var cuisineMenu: List<String>? = null
     /*
         listOf(
