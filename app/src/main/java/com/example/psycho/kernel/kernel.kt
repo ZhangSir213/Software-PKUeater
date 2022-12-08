@@ -194,7 +194,7 @@ object Kernel {
         //if(Type.and(nwfood[x].type) == 0){
         if (ccnt < 3) {
             candidate[++ccnt] = nwfood[x]
-            dfs(CalorieTot+nwfood[x].calorie, Cost+ nwfood[x].price, x+1,Type+nwfood[x].type)
+            dfs(CalorieTot+nwfood[x].calorie, Cost+ nwfood[x].price, x+1,Type.or(nwfood[x].type))
             ccnt--  //回溯
         }
         dfs(CalorieTot, Cost, x+1, Type)  //不选择这个食物
