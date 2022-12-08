@@ -132,7 +132,7 @@ class NotificationsFragment : Fragment() {
                 Color.parseColor("#0888FF"),
                 Color.parseColor("#6CD0FF")
             )
-            max =10000
+            max = 10000
             val myStep = Kernel.todayStep()
             descText = "步数$myStep/$max"
             startAnim(myStep)
