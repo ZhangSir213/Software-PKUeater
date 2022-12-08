@@ -96,7 +96,8 @@ class HomeFragment : Fragment() {
                     val foodFind=Kernel.getFood(todayMenu[2])
                     Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine2)
                     //imageCuisine2.setImageResource(Kernel.getPictureId(todayMenu[2])!!)
-                }else if(todayMenu.size >= 4){
+                }
+                if(todayMenu.size >= 4){
                     textCuisine3!!.text = todayMenu[3]
                     val foodFind=Kernel.getFood(todayMenu[3])
                     Picasso.with(context).load("http://47.94.139.212:3000"+foodFind.imgAddr).into(imageCuisine3)
