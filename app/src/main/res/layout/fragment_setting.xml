@@ -108,7 +108,7 @@
         android:text="体重"
         android:textAlignment="center"
         android:textColor="@color/teal_700"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/borderTextViewWeight"
         app:layout_constraintTop_toTopOf="@+id/borderTextViewWeight" />
 
@@ -121,7 +121,7 @@
         android:text="身高"
         android:textAlignment="center"
         android:textColor="@color/teal_700"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/borderTextViewHeight"
         app:layout_constraintTop_toTopOf="@+id/borderTextViewHeight" />
 
@@ -270,6 +270,7 @@
         android:background="@drawable/gradient_white"
         android:text="添加忌口清单"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_setting" />
 
     <androidx.recyclerview.widget.RecyclerView

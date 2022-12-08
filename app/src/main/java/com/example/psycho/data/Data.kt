@@ -789,7 +789,8 @@ object Data {
         for (dietLog in dietLogList) {
                 res += dietLog.calorie
         }
-        res=res- todaySC()
+        res -= todaySC()
+        if (res < 0) res = 0
         return res
     }
 }
