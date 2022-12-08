@@ -19,14 +19,14 @@ class CircleProgressBar @JvmOverloads constructor(
         private val DEFAULT_START_ANGLE = -90f
         private val DEFAULT_REVERSE = false
         private val DEFAULT_ROUND_CAP = true
-        private val DEFAULT_RING_WIDTH = SizeUtil.dp2px(this.context,5f)
+        private val DEFAULT_RING_WIDTH = SizeUtil.dp2px(this.context,10f)
         private val DEFAULT_RING_COLOR = Color.parseColor("#0888FF")
         private val DEFAULT_RING_BACKGROUND_COLOR = Color.parseColor("#EFEFEF")
         private val DEFAULT_INNER_BACKGROUND_COLOR = Color.TRANSPARENT
         private val DEFAULT_DESC_TEXT = ""
-        private val DEFAULT_DESC_TEXT_SIZE = SizeUtil.sp2px(this.context,12f)
+        private val DEFAULT_DESC_TEXT_SIZE = SizeUtil.sp2px(this.context,18f)
         private val DEFAULT_DESC_TEXT_COLOR = Color.parseColor("#0888FF")
-        private val DEFAULT_PERCENT_TEXT_SIZE = SizeUtil.sp2px(this.context,20f)
+        private val DEFAULT_PERCENT_TEXT_SIZE = SizeUtil.sp2px(this.context,28f)
         private val DEFAULT_PERCENT_TEXT_COLOR = Color.parseColor("#0888FF")
     //}
     
